@@ -12,18 +12,20 @@ push-login:
 
 push: push-login
   @set -ex ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled ;\
-  version=$$(docker run --rm -it supersandro2000/kibitzr:amd64-latest kibitzr version | tr -d '\r');\
+  [ -e manifest ] && rm manifest ;\
+  [ -e manifest_latest ] && rm manifest_latest ;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  version=$$(docker run --rm -it supersandro2000/kibitzr:amd64-latest kibitzr version | rev | cut -c 2- | rev) ;\
   for arch in amd64 arm32v7 arm64v8 i386; do \
     docker tag supersandro2000/kibitzr:$${arch}-latest supersandro2000/kibitzr:$${arch}-$${version} ;\
     docker push supersandro2000/kibitzr:$${arch}-$${version} ;\
     docker push supersandro2000/kibitzr:$${arch}-latest ;\
-    manifest="$${manifest} supersandro2000/kibitzr:$${arch}-$${version}" ;\
-    manifest_latest="$${manifest_latest} supersandro2000/kibitzr:$${arch}-latest" ;\
+    printf "supersandro2000/kibitzr:$${arch}-$${version} " >> manifest;\
+    printf "supersandro2000/kibitzr:$$arch-latest " >> manifest_latest;\
     sleep 5 ;\
   done ;\
-  docker manifest create supersandro2000/kibitzr:latest $${manifest-latest} ;\
-  docker manifest create supersandro2000/kibitzr:$${version} $${manifest} ;\
+  docker manifest create supersandro2000/kibitzr:$${version} $$(head -n 1 manifest) ;\
+  docker manifest create supersandro2000/kibitzr:latest $$(head -n 1 manifest_latest) ;\
   docker manifest annotate supersandro2000/kibitzr:$${version} supersandro2000/kibitzr:amd64-$${version} --os linux --arch amd64 ;\
   docker manifest annotate supersandro2000/kibitzr:$${version} supersandro2000/kibitzr:arm32v7-$${version} --os linux --arch arm --variant v7 ;\
   docker manifest annotate supersandro2000/kibitzr:$${version} supersandro2000/kibitzr:arm64v8-$${version} --os linux --arch arm64 --variant v8 ;\
@@ -33,4 +35,4 @@ push: push-login
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:arm64v8-latest --os linux --arch arm64 --variant v8 ;\
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:i386-latest --os linux --arch 386 ;\
   docker manifest push supersandro2000/kibitzr:$${version} ;\
-  docker manifest push supersandro2000/kibitzr:latest
+  docker manifest push supersandro2000/kibitzr:latest'
