@@ -4,7 +4,9 @@ SHELL := /bin/bash
 build:
   @set -ex ;\
   for arch in amd64 arm32v7 arm64v8 i386; do \
-    docker build -f Dockerfile.$${arch} -t supersandro2000/kibitzr:$${arch}-latest . ;\
+    docker build --build-arg VCS_REF=`git rev-parse --short HEAD` \
+                 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+                 -f Dockerfile.$${arch} -t supersandro2000/kibitzr:$${arch}-latest . ;\
   done
 
 push-login:
