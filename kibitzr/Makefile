@@ -7,7 +7,7 @@ build:
   done
 
 push-login:
-  docker login -u="$${DOCKER_USERNAME}" -p="$${DOCKER_PASSWORD}"
+  echo $${DOCKER_PASSWORD} | docker login -u $${DOCKER_USERNAME} --password-stdin
 
 push: push-login
   export DOCKER_CLI_EXPERIMENTAL=enabled
