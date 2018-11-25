@@ -1,22 +1,23 @@
+.RECIPEPREFIX +=
 SHELL := /bin/bash
 
 build:
   for arch in amd64 arm32v7 arm64v8 i386; do \
-    docker build -f Dockerfile.$${arch} -t supersandro2000/kibitzr:$${arch}-latest . \
+    docker build -f Dockerfile.$${arch} -t supersandro2000/kibitzr:$${arch}-latest . ;\
   done
 
 push-login:
-	docker login -u="$${DOCKER_USERNAME}" -p="$${DOCKER_PASSWORD}"
+  docker login -u="$${DOCKER_USERNAME}" -p="$${DOCKER_PASSWORD}"
 
 push: push-login
   export DOCKER_CLI_EXPERIMENTAL=enabled
   version=$$(docker run --rm supersandro2000/kibitzr kibitzr version)
   for arch in amd64 arm32v7 arm64v8 i386; do \
-    docker tag supersandro2000/kibitzr:$${arch}-latest supersandro2000/kibitzr:$${arch}-$${version} \
-    docker push supersandro2000/kibitzr:$${arch}-$${version} \
-    docker push supersandro2000/kibitzr:$${arch}-latest \
-    manifest=$${manifest} supersandro2000/kibitzr:$${arch}-latest \
-    manifest-latest=$${manifest} supersandro2000/kibitzr:$${arch}-latest \
+    docker tag supersandro2000/kibitzr:$${arch}-latest supersandro2000/kibitzr:$${arch}-$${version} ;\
+    docker push supersandro2000/kibitzr:$${arch}-$${version} ;\
+    docker push supersandro2000/kibitzr:$${arch}-latest ;\
+    manifest=$${manifest} supersandro2000/kibitzr:$${arch}-latest ;\
+    manifest-latest=$${manifest} supersandro2000/kibitzr:$${arch}-latest ;\
   done
   docker manifest create supersandro2000/kibitzr:latest $${manifest-latest}
   docker manifest create supersandro2000/kibitzr:$${version} $${manifest}
