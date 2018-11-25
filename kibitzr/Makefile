@@ -15,15 +15,16 @@ push-login:
 
 push: push-login
   @set -ex ;\
+  retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_latest ;\
   DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
   version=$$(docker run --rm -it supersandro2000/kibitzr:amd64-latest kibitzr version | rev | cut -c 2- | rev) ;\
   for arch in amd64 arm32v7 arm64v8 i386; do \
     docker tag supersandro2000/kibitzr:$${arch}-latest supersandro2000/kibitzr:$${arch}-$${version} ;\
-    docker push supersandro2000/kibitzr:$${arch}-$${version} ;\
+    retry "docker push supersandro2000/kibitzr:$${arch}-$${version}" ;\
     sleep 3 ;\
-    docker push supersandro2000/kibitzr:$${arch}-latest ;\
+    retry "docker push supersandro2000/kibitzr:$${arch}-latest" ;\
     sleep 3 ;\
     printf "supersandro2000/kibitzr:$${arch}-$${version} " >> manifest;\
     printf "supersandro2000/kibitzr:$$arch-latest " >> manifest_latest;\
@@ -38,6 +39,7 @@ push: push-login
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:arm32v7-latest --os linux --arch arm --variant v7 ;\
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:arm64v8-latest --os linux --arch arm64 --variant v8 ;\
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:i386-latest --os linux --arch 386 ;\
-  docker manifest push supersandro2000/kibitzr:$${version} ;\
+  retry "docker manifest push supersandro2000/kibitzr:$${version}" ;\
   sleep 3 ;\
-  docker manifest push supersandro2000/kibitzr:latest'
+  retry "docker manifest push supersandro2000/kibitzr:latest" ;\
+  curl -X POST https://hooks.microbadger.com/images/supersandro2000/kibitzr/rp5PBR5DxYGVZebsNNO91I-8894='
