@@ -21,10 +21,11 @@ push: push-login
   for arch in amd64 arm32v7 arm64v8 i386; do \
     docker tag supersandro2000/kibitzr:$${arch}-latest supersandro2000/kibitzr:$${arch}-$${version} ;\
     docker push supersandro2000/kibitzr:$${arch}-$${version} ;\
+    sleep 3 ;\
     docker push supersandro2000/kibitzr:$${arch}-latest ;\
+    sleep 3 ;\
     printf "supersandro2000/kibitzr:$${arch}-$${version} " >> manifest;\
     printf "supersandro2000/kibitzr:$$arch-latest " >> manifest_latest;\
-    sleep 5 ;\
   done ;\
   docker manifest create supersandro2000/kibitzr:$${version} $$(head -n 1 manifest) ;\
   docker manifest create supersandro2000/kibitzr:latest $$(head -n 1 manifest_latest) ;\
@@ -37,4 +38,5 @@ push: push-login
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:arm64v8-latest --os linux --arch arm64 --variant v8 ;\
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:i386-latest --os linux --arch 386 ;\
   docker manifest push supersandro2000/kibitzr:$${version} ;\
+  sleep 3 ;\
   docker manifest push supersandro2000/kibitzr:latest'
