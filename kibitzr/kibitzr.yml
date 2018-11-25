@@ -1,0 +1,11 @@
+# Format: http://kibitzr.readthedocs.io/en/latest/configuration.html
+checks:
+  - name: Kibitzr release
+    url: https://pypi.python.org/pypi/kibitzr/json
+    transform:
+      - jinja: |
+          {{ json["info"]["version"] }}
+      - changes: verbose
+    notify:
+      - python: print(content)
+    period: 5

@@ -1,0 +1,17 @@
+FROM resin/armv7hf-alpine:3.8
+
+MAINTAINER Sandro Jäckel <sandro.jaeckel@gmail.com>
+
+RUN [ "cross-build-start" ]
+
+WORKDIR /usr/src/app
+
+RUN apk add --no-cache ca-certificates git jq python2 py-cffi py-cryptography py-lxml py-pip py-yaml \
+&& pip install --no-cache-dir kibitzr \
+&& rm -rf /var/cache/apk/*
+
+COPY ["kibitzr-creds.yml", "kibitzr.yml", "./"]
+
+RUN [ "cross-build-end" ]
+
+CMD [ "kibitzr", "run" ]

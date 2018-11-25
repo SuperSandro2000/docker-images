@@ -1,0 +1,17 @@
+sudo: required
+language: bash
+services: 
+  - docker
+    
+env:
+  - IMAGE=kibitzr
+
+script:
+  - cd ${IMAGE}
+  - make build
+  - docker images
+
+after_success:
+  - if [ "${TRAVIS_BRANCH}" == "master" ]; then
+      make push ;
+    fi
