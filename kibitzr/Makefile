@@ -15,10 +15,10 @@ push-login:
 
 push: push-login
   @set -ex ;\
-  retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_latest ;\
   DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   version=$$(docker run --rm -it supersandro2000/kibitzr:amd64-latest kibitzr version | rev | cut -c 2- | rev) ;\
   for arch in amd64 arm32v7 arm64v8 i386; do \
     docker tag supersandro2000/kibitzr:$${arch}-latest supersandro2000/kibitzr:$${arch}-$${version} ;\
