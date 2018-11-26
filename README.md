@@ -8,6 +8,7 @@ All my docker images in one mono-repository with multi-arch support.
 * [Kibitzr](kibitzr/README.md)
 
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/kibitzr.svg)](https://microbadger.com/images/supersandro2000/kibitzr)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 
 # Credits
