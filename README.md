@@ -4,6 +4,10 @@
 
 All my docker images in one mono-repository with multi-arch support.
 
+# Changelog
+If you wish to view the difference between two releases of a docker image you can use [container-diff](https://github.com/GoogleContainerTools/container-diff).
+Just download it according to their [Readme](https://github.com/GoogleContainerTools/container-diff#installation) and run `container-diff diff supersandro2000/kibitzr:5.4.0 supersandro2000/kibitzr:latest --type=apt --type=pip --type=size 2> /dev/null` replacing the `supersandro2000/kibitzr:5.4.0` with the images and versions you want to compare.
+
 # Images
 * [Kibitzr](kibitzr/README.md)
 
