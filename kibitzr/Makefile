@@ -5,8 +5,9 @@ build:
   @set -ex ;\
   for arch in amd64 arm32v7 arm64v8 i386; do \
     docker build --cache-from supersandro2000/kibitzr:$${arch}-latest \
-                 --build-arg VCS_REF=`git rev-parse --short HEAD` \
                  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+                 --build-arg VCS_REF=`git rev-parse --short HEAD` \
+                 --build-arg VERSION=`curl -s https://pypi.org/pypi/kibitzr/json | jq -r '.info.version'`
                  -f Dockerfile.$${arch} -t supersandro2000/kibitzr:$${arch}-latest . ;\
   done
 
