@@ -1,12 +1,11 @@
 FROM i386/alpine:3.8
 
-MAINTAINER Sandro Jäckel <sandro.jaeckel@gmail.com>
-
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-LABEL org.label-schema.build-date=$BUILD_DATE \
+LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+      org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="Kibitzr" \
       org.label-schema.description="Get notified when important things happen" \
       org.label-schema.url="https://kibitzr.github.io/" \
