@@ -1,4 +1,4 @@
-FROM i386/alpine:3.8
+FROM resin/i386-alpine:3.6
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -15,6 +15,8 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
+RUN [ "cross-build-start" ]
+
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache -q ca-certificates git jq python2 py-cffi py-cryptography py-lxml py-pip py-yaml \
@@ -22,5 +24,7 @@ RUN apk add --no-cache -q ca-certificates git jq python2 py-cffi py-cryptography
 && rm -rf /var/cache/apk/*
 
 COPY ["kibitzr-creds.yml", "kibitzr.yml", "./"]
+
+RUN [ "cross-build-end" ]
 
 CMD [ "kibitzr", "run" ]
