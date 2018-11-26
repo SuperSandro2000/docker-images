@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/travis/supersandro2000/docker-images.svg?maxAge=3600)](https://github.com/SuperSandro2000/docker-images)
+[![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=3600)](https://travis-ci.org/SuperSandro2000/docker-images)
 [![Github Stars](https://img.shields.io/github/stars/supersandro2000/docker-images.svg?maxAge=3600&label=Stars)](https://github.com/SuperSandro2000/docker-images)
 
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/kibitzr.svg)](https://microbadger.com/images/supersandro2000/kibitzr)
