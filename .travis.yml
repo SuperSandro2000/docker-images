@@ -3,7 +3,11 @@ sudo: required
 language: bash
 services: 
   - docker
-    
+addons:
+  apt:
+    packages:
+    - jq
+
 env:
   - IMAGE=kibitzr
 
