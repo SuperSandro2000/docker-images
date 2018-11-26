@@ -8,7 +8,7 @@ build:
                  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
                  --build-arg VCS_REF=`git rev-parse --short HEAD` \
                  --build-arg VERSION=`curl -s https://pypi.org/pypi/kibitzr/json | jq -r '.info.version'` \
-                 -f Dockerfile.$${arch} -t supersandro2000/kibitzr:$${arch}-latest . ;\
+                 -f $${arch}.Dockerfile -t supersandro2000/kibitzr:$${arch}-latest . ;\
   done
 
 push-login:
