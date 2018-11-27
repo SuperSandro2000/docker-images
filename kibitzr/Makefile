@@ -1,7 +1,10 @@
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
-build:
+clean:
+  rm ~/.docker/manifests/docker.io_supersandro2000_kibitzr-* -rf
+
+build: clean
   @set -ex ;\
   for arch in amd64 arm32v7 arm64v8; do \
     docker build --cache-from supersandro2000/kibitzr:$${arch}-latest \
@@ -14,7 +17,7 @@ build:
 push-login:
   echo $${DOCKER_PASSWORD} | docker login -u $${DOCKER_USERNAME} --password-stdin
 
-push: push-login
+push: push-login clean
   @set -ex ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_latest ;\
@@ -35,11 +38,9 @@ push: push-login
   docker manifest annotate supersandro2000/kibitzr:$${version} supersandro2000/kibitzr:amd64-$${version} --os linux --arch amd64 ;\
   docker manifest annotate supersandro2000/kibitzr:$${version} supersandro2000/kibitzr:arm32v7-$${version} --os linux --arch arm --variant v7 ;\
   docker manifest annotate supersandro2000/kibitzr:$${version} supersandro2000/kibitzr:arm64v8-$${version} --os linux --arch arm64 --variant v8 ;\
-  docker manifest annotate supersandro2000/kibitzr:$${version} supersandro2000/kibitzr:i386-$${version} --os linux --arch 386 ;\
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:amd64-latest --os linux --arch amd64 ;\
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:arm32v7-latest --os linux --arch arm --variant v7 ;\
   docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:arm64v8-latest --os linux --arch arm64 --variant v8 ;\
-  docker manifest annotate supersandro2000/kibitzr:latest supersandro2000/kibitzr:i386-latest --os linux --arch 386 ;\
   retry "docker manifest push supersandro2000/kibitzr:$${version}" ;\
   sleep 3 ;\
   retry "docker manifest push supersandro2000/kibitzr:latest" ;\

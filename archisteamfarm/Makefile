@@ -1,12 +1,15 @@
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
-build:
+clean:
+  rm ~/.docker/manifests/docker.io_supersandro2000_archisteamfarm-* -rf
+
+build: clean
 
 push-login:
   echo $${DOCKER_PASSWORD} | docker login -u $${DOCKER_USERNAME} --password-stdin
 
-push: push-login
+push: push-login clean
   @set -ex ;\
   DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
