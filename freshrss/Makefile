@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 
 clean:
-  rm ~/.docker/manifests/docker.io_supersandro2000_freshrss-latest/ -rf
+  rm ~/.docker/manifests/docker.io_supersandro2000_freshrss-* -rf
 
 build: clean
 
