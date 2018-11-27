@@ -10,14 +10,16 @@ If you wish to view the difference between two releases of a docker image you ca
 Just download it according to their [Readme](https://github.com/GoogleContainerTools/container-diff#installation) and run `container-diff diff supersandro2000/kibitzr:5.4.0 supersandro2000/kibitzr:latest --type=apt --type=pip --type=size 2> /dev/null` replacing the `supersandro2000/kibitzr:5.4.0` with the images and versions you want to compare.
 
 # Images
-* [ArchiSteamFarm](https://hub.docker.com/r/supersandro2000/archisteamfarm/) [GitHub](archisteamfarm/README.md)
-
+### [ArchiSteamFarm](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](archisteamfarm/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/archisteamfarm.svg)](https://microbadger.com/images/supersandro2000/archisteamfarm)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
 
-* [Kibitzr](https://hub.docker.com/r/supersandro2000/kibitzr/) [GitHub](kibitzr/README.md)
-
+### [Kibitzr](https://hub.docker.com/r/supersandro2000/kibitzr/)
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/kibitzr/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](kibitzr/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/kibitzr.svg)](https://microbadger.com/images/supersandro2000/kibitzr)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
