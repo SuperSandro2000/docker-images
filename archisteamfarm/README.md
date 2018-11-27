@@ -8,3 +8,5 @@
 # ArchiSteamFarm
 
 [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) Docker Image with multi-arch support.
+
+This image is just a manifest to easily transfer `docker-compose.yml` files between architectures.
