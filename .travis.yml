@@ -12,8 +12,9 @@ env:
   global:
   - HADOLINT=${HOME}/hadolint
   matrix:
-  - IMAGE=kibitzr
   - IMAGE=archisteamfarm
+  - IMAGE=freshrss
+  - IMAGE=kibitzr
 
 install:
   - curl -sLo ${HOME}/hadolint $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token=${GITHUB_TOKEN} | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
