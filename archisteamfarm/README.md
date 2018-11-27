@@ -8,8 +8,6 @@
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
 
-# ArchiSteamFarm
-
 [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) Docker Image with multi-arch support.
 
 This image is just a manifest to easily transfer `docker-compose.yml` files between architectures.
