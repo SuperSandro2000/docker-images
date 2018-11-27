@@ -17,12 +17,26 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
 
+### FreshRSS
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/freshrss/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](freshrss/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/freshrss.svg)](https://microbadger.com/images/supersandro2000/freshrss)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/freshrss.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/freshrss/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/freshrss.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/freshrss/)
+
 ### Kibitzr
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](kibitzr/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/kibitzr.svg)](https://microbadger.com/images/supersandro2000/kibitzr)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
+
+### Watchtower
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/watchtower/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](watchtower/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/watchtower.svg)](https://microbadger.com/images/supersandro2000/watchtower)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/watchtower.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/watchtower/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/watchtower.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/watchtower/)
 
 # Credits
 Thanks to napnap75 for inspiring me to do this with his [rpi-docker-images](https://github.com/napnap75/rpi-docker-images/) repo.
