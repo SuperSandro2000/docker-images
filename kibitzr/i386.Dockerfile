@@ -19,8 +19,8 @@ RUN [ "cross-build-start" ]
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache -q ca-certificates git jq python2 py-cffi py-cryptography py-lxml py-pip py-yaml \
-&& pip install --no-cache-dir -q kibitzr
+RUN apk add --no-cache ca-certificates git jq python2 py-cffi py-cryptography py-lxml py-pip py-yaml \
+&& pip install --no-cache-dir kibitzr
 
 COPY ["kibitzr-creds.yml", "kibitzr.yml", "./"]
 
