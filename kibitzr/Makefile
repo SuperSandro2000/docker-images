@@ -3,7 +3,7 @@ SHELL := /bin/bash
 
 build:
   @set -ex ;\
-  for arch in amd64 arm32v7 arm64v8 i386; do \
+  for arch in amd64 arm32v7 arm64v8; do \
     docker build --cache-from supersandro2000/kibitzr:$${arch}-latest \
                  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
                  --build-arg VCS_REF=`git rev-parse --short HEAD` \
@@ -21,7 +21,7 @@ push: push-login
   DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   version=$$(docker run --rm -it supersandro2000/kibitzr:amd64-latest kibitzr version | rev | cut -c 2- | rev) ;\
-  for arch in amd64 arm32v7 arm64v8 i386; do \
+  for arch in amd64 arm32v7 arm64v8; do \
     docker tag supersandro2000/kibitzr:$${arch}-latest supersandro2000/kibitzr:$${arch}-$${version} ;\
     retry "docker push supersandro2000/kibitzr:$${arch}-$${version}" ;\
     sleep 3 ;\
