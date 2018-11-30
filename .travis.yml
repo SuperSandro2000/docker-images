@@ -9,7 +9,6 @@ addons:
     - jq
 
 env:
-  matrix:
   - HADOLINT=${HOME}/hadolint
 
 install:
@@ -23,7 +22,6 @@ jobs:
   include:
     - stage: deploy
       env:
-        matrix:
         - IMAGE=archisteamfarm
         - IMAGE=freshrss
         - IMAGE=kibitzr
