@@ -22,7 +22,7 @@ build: clean
   done
 
 push-login:
-  #echo $${DOCKER_PASSWORD} | docker login -u $${DOCKER_USERNAME} --password-stdin
+  echo $${DOCKER_PASSWORD} | $(DOCKER) login -u $${DOCKER_USERNAME} --password-stdin
 
 push: push-login clean
   @set -ex ;\
