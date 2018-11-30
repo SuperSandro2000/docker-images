@@ -15,9 +15,11 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
-WORKDIR /app
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY ["./config.json", "/root/.config/Red-DiscordBot/"]
+
+WORKDIR /app
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \

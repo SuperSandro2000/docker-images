@@ -15,6 +15,8 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache -q ca-certificates git jq python2 py-cffi py-cryptography py-lxml py-pip py-yaml \
