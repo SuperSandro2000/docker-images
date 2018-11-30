@@ -8,30 +8,30 @@ addons:
     packages:
     - jq
 
-env:
-  - HADOLINT=${HOME}/hadolint
-
-install:
-  - curl -sLo ${HOME}/hadolint $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token=${GITHUB_TOKEN} | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
-    && chmod 700 ${HADOLINT}
-
-script:
-  - git ls-files --exclude='*Dockerfile' --ignored | xargs --max-lines=1 ${HADOLINT}
-
 jobs:
   include:
-    - stage: deploy
-      env:
-        - IMAGE=archisteamfarm
-        - IMAGE=freshrss
-        - IMAGE=kibitzr
-        - IMAGE=reddiscord
-        - IMAGE=watchtower
+    - stage: test
+      env: HADOLINT=${HOME}/hadolint
+      install: curl -sLo ${HOME}/hadolint $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token=${GITHUB_TOKEN} | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
+               && chmod 700 ${HADOLINT}
+      script:
+        - git ls-files --exclude='*Dockerfile' --ignored | xargs --max-lines=1 ${HADOLINT}
+    - &deploy
+      stage: deploy
+      env: IMAGE=archisteamfarm
       script:
         - cd ${IMAGE}
         - make build
         - docker images
       after_success:
-        - if [ "${TRAVIS_BRANCH}" == "master" ] ; then
+        - if [ "${TRAVIS_BRANCH}" == "master" ]; then
             make push ;
           fi
+    - <<: *deploy
+      env: IMAGE=freshrss
+    - <<: *deploy
+      env: IMAGE=kibitzr
+    - <<: *deploy
+      env: IMAGE=reddiscord
+    - <<: *deploy
+      env: IMAGE=watchtower
