@@ -15,6 +15,7 @@ env:
   - IMAGE=archisteamfarm
   - IMAGE=freshrss
   - IMAGE=kibitzr
+  - IMAGE=reddiscord
   - IMAGE=watchtower
 
 install:
