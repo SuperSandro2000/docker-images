@@ -21,13 +21,13 @@ COPY ["config.json", "/root/.config/Red-DiscordBot/"]
 
 WORKDIR /app
 
-RUN apt-get update \
-  && apt-get install --no-install-recommends -y build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
+RUN apt-get -q update \
+  && apt-get -q install --no-install-recommends -y build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
   python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip wget zip \
-  && pip3 install -U --process-dependency-links --no-cache-dir Red-DiscordBot[voice] \
+  && pip3 install -Uq --process-dependency-links --no-cache-dir Red-DiscordBot[voice] \
   && rm ~/.cache/pip -rf \
-  && apt-get remove -y build-essential \
-  && apt-get autoremove -y \
+  && apt-get -q remove -y build-essential \
+  && apt-get -q autoremove -y \
   && rm -rf /var/lib/apt/lists/*
 
 CMD [ "redbot", "docker" ]

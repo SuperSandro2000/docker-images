@@ -26,9 +26,9 @@ COPY ["libconnector.so", "/files/"]
 COPY ["run.sh", "/files/"]
 
 RUN apt-get update \
-  && apt-get install --no-install-recommends -y build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
+  && apt-get -q install --no-install-recommends -y build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
   python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip wget zip \
-  && pip3 install -U --process-dependency-links --no-cache-dir https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot[voice] \
+  && pip3 install -Uq --process-dependency-links --no-cache-dir https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot[voice] \
   && curl -Lso Lavalink.jar "$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases | jq -r '.[0].assets | .[0].browser_download_url')" \
   && mkdir -p natives/linux-arm/ \
   && mv /files/libconnector.so natives/linux-arm/ \
@@ -36,8 +36,8 @@ RUN apt-get update \
   && mv Lavalink.jar /files/ \
   && rm -r natives/ \
   && rm ~/.cache/pip -rf \
-  && apt-get remove -y build-essential unzip wget zip \
-  && apt-get autoremove -y \
+  && apt-get -q remove -y build-essential unzip wget zip \
+  && apt-get -q autoremove -y \
   && rm -rf /var/lib/apt/lists/* \
   && chmod +x /files/run.sh
 
