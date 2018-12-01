@@ -15,7 +15,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
 COPY ["config.json", "/root/.config/Red-DiscordBot/"]
 
