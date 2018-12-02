@@ -16,8 +16,8 @@ jobs:
                && chmod 700 ${HADOLINT}
       script:
         - git ls-files --exclude='*Dockerfile' --ignored | xargs --max-lines=1 ${HADOLINT}
-    - &deploy
-      stage: deploy
+    - &build
+      stage: build
       env: IMAGE=archisteamfarm
       script:
         - cd ${IMAGE}
@@ -27,11 +27,21 @@ jobs:
         - if [ "${TRAVIS_BRANCH}" == "master" ]; then
             make push ;
           fi
-    - <<: *deploy
+    - <<: *build
       env: IMAGE=freshrss
-    - <<: *deploy
+    - <<: *build
       env: IMAGE=kibitzr
-    - <<: *deploy
+    - <<: *build
       env: IMAGE=reddiscord
-    - <<: *deploy
+    - <<: *build
+      env: IMAGE=reddiscord
+      script:
+        - cd ${IMAGE}
+        - make build-source
+        - docker images
+      after_success:
+        - if [ "${TRAVIS_BRANCH}" == "master" ]; then
+            make push-source ;
+          fi 
+    - <<: *build
       env: IMAGE=watchtower
