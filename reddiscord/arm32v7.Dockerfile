@@ -27,7 +27,7 @@ RUN apt-get -qq update \
   && apt-get -qq install --no-install-recommends -y build-essential default-jre-headless git jq libffi-dev libssl-dev python3-aiohttp \
   python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip zip \
   && pip3 install -Uq --process-dependency-links --no-cache-dir Red-DiscordBot[voice] \
-  && curl -Lso Lavalink.jar "$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases | jq -r '.[0].assets | .[0].browser_download_url')" \
+  && curl -Lso Lavalink.jar "$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token=$${GITHUB_TOKEN} | jq -r '.[0].assets | .[0].browser_download_url')" \
   && mkdir -p natives/linux-arm/ \
   && mv /files/libconnector.so natives/linux-arm/ \
   && zip Lavalink.jar natives/linux-arm/libconnector.so \
