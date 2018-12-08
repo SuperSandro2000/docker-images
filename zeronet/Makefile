@@ -1,3 +1,4 @@
+.PHONY: build clean push push-login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
