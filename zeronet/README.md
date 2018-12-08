@@ -5,8 +5,8 @@
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/zeronet/)
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](zeronet/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/zeronet.svg)](https://microbadger.com/images/supersandro2000/zeronet)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/zeronet.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/zeronet.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
 
 ZeroNet Docker Image with multi-arch support.
 
