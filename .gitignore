@@ -1,5 +1,5 @@
-.vscode
+.vscode/
 hadolint
 manifest
 manifest_latest
-
+zeronet-git/
