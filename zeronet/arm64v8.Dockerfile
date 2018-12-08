@@ -24,7 +24,7 @@ WORKDIR /root
 VOLUME /root/data
 
 RUN mv plugins/disabled-UiPassword plugins/UiPassword \
- && apk --no-cache --no-progress add gcc python py2-gevent py2-msgpack py2-pip tor \
+ && apk --no-cache --no-progress add python py2-gevent py2-msgpack tor \
  && echo "ControlPort 9051" >> /etc/tor/torrc \
  && echo "CookieAuthentication 1" >> /etc/tor/torrc
 
