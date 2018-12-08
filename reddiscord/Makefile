@@ -57,7 +57,7 @@ push: push-login clean
   retry "$(DOCKER) manifest push supersandro2000/reddiscord:$${version}" ;\
   sleep 3 ;\
   retry "$(DOCKER) manifest push supersandro2000/reddiscord:latest" ;\
-  curl -X POST https://hooks.microbadger.com/images/supersandro2000/reddiscord/rp5PBR5DxYGVZebsNNO91I-8894='
+  curl -X POST https://hooks.microbadger.com/images/supersandro2000/reddiscord/CtjLg5fT78hv5M6mbobg3_1aqeE='
 
 push-source: push-login clean
   @set -ex ;\
@@ -76,4 +76,4 @@ push-source: push-login clean
   $(DOCKER) manifest annotate supersandro2000/reddiscord:source supersandro2000/reddiscord:arm32v7-source --os linux --arch arm --variant v7 ;\
   $(DOCKER) manifest annotate supersandro2000/reddiscord:source supersandro2000/reddiscord:arm64v8-source --os linux --arch arm64 --variant v8 ;\
   retry "$(DOCKER) manifest push supersandro2000/reddiscord:source" ;\
-  curl -X POST https://hooks.microbadger.com/images/supersandro2000/reddiscord/rp5PBR5DxYGVZebsNNO91I-8894='
+  curl -X POST https://hooks.microbadger.com/images/supersandro2000/reddiscord/CtjLg5fT78hv5M6mbobg3_1aqeE='
