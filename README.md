@@ -45,5 +45,12 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/watchtower.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/watchtower/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/watchtower.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/watchtower/)
 
+### ZeroNet
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/zeronet/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](zeronet/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/zeronet.svg)](https://microbadger.com/images/supersandro2000/zeronet)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/zeronet.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/zeronet.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
+
 # Credits
 Thanks to napnap75 for inspiring me to do this with his [rpi-docker-images](https://github.com/napnap75/rpi-docker-images/) repo.
