@@ -45,3 +45,5 @@ jobs:
           fi 
     - <<: *build
       env: IMAGE=watchtower
+    - <<: *build
+      env: IMAGE=zeronet
