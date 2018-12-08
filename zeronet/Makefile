@@ -10,6 +10,7 @@ clean:
 
 build: clean
   @set -ex ;\
+  [ -e zeronet-git ] && git -C zeronet-git pull -f || \
   git clone https://github.com/HelloZeroNet/ZeroNet.git zeronet-git ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) build --cache-from supersandro2000/zeronet:$${arch}-latest \
@@ -28,7 +29,7 @@ push: push-login clean
   [ -e manifest_latest ] && rm manifest_latest ;\
   DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
-  version=$$($(DOCKER) run --rm -it supersandro2000/zeronet:amd64-latest python2 -c 'from src.Config import Config;c=Config(help);print("{}-{}".format(c.version, c.rev))') ;\
+  version=$$($(DOCKER) run --rm -it supersandro2000/zeronet:amd64-latest python2 -c "from src.Config import Config;c=Config(help);print(str(c.version) + \"-r\" + str(c.rev))" | rev | cut -c 2- | rev) ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) tag supersandro2000/zeronet:$${arch}-latest supersandro2000/zeronet:$${arch}-$${version} ;\
     retry "$(DOCKER) push supersandro2000/zeronet:$${arch}-$${version}" ;\
@@ -49,5 +50,5 @@ push: push-login clean
   retry "$(DOCKER) manifest push supersandro2000/zeronet:$${version}" ;\
   sleep 3 ;\
   retry "$(DOCKER) manifest push supersandro2000/zeronet:latest" ;\
-  curl -X POST https://hooks.microbadger.com/images/supersandro2000/zeronet/rp5PBR5DxYGVZebsNNO91I-8894=' ;\
+  curl -X POST https://hooks.microbadger.com/images/supersandro2000/zeronet/B9vzdMxCP5RYwUuPtaP61aOsM8E=' ;\
   rm zeronet-git -rf
