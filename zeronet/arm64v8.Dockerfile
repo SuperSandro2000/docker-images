@@ -17,7 +17,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 RUN [ "cross-build-start" ]
 
-COPY zeronet-git/ /root
+COPY ["zeronet-git/", "run.sh", "/root/"]
 
 WORKDIR /root
 
@@ -34,4 +34,4 @@ ENV HOME=/root ENABLE_TOR=false
 
 EXPOSE 43110 26552
 
-CMD ["(!", "${ENABLE_TOR}", "||","tor&)", "&&", "python", "zeronet.py", "--ui_ip", "0.0.0.0", "--fileserver_port", "26552", "--ui_password", "${UI_PASSWORD}"]
+CMD [ "/root/run.sh" ]
