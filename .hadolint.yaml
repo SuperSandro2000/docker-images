@@ -10,3 +10,5 @@ ignored:
   # ignore false positive regex
   - SC1083 
   - SC2086 
+  # ignore as need for debug
+  - SC2005
