@@ -27,7 +27,6 @@ RUN apt-get update \
   && apt-get -qq install --no-install-recommends -y build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
   python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip zip \
   && pip3 install -Uq --process-dependency-links --no-cache-dir https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot[voice] \
-  && rm -r natives/ \
   && rm ~/.cache/pip -rf \
   && apt-get -qq remove -y --purge build-essential unzip zip \
   && apt-get -qq autoremove -y --purge \
