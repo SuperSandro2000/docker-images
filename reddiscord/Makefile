@@ -11,7 +11,7 @@ lavalink:
   @set -ex ;\
   curl -Lso Lavalink.jar "$$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token=$${GITHUB_TOKEN} | jq -r '.[0].assets | .[0].browser_download_url')" ;\
   mkdir -p natives/linux-arm/ ;\
-  mv /libconnector.so natives/linux-arm/ ;\
+  mv libconnector.so natives/linux-arm/ ;\
   zip Lavalink.jar natives/linux-arm/libconnector.so ;\
   rm -r natives/
 
