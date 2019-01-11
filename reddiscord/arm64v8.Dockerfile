@@ -20,7 +20,7 @@ RUN [ "cross-build-start" ]
 WORKDIR /app
 
 COPY ["config.json", "/root/.config/Red-DiscordBot/"]
-COPY ["libconnector.so", "/files/"]
+COPY ["Lavalink.jar", "/files/"]
 COPY ["run.sh", "/files/"]
 
 RUN apt-get update \
