@@ -7,7 +7,15 @@ DOCKER := "docker"
 clean:
   rm ~/.docker/manifests/docker.io_supersandro2000_reddiscord-* -rf
 
-build: clean
+lavalink:
+  @set -ex ;\
+  curl -Lso Lavalink.jar "$$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token=$${GITHUB_TOKEN} | jq -r '.[0].assets | .[0].browser_download_url')" ;\
+  mkdir -p natives/linux-arm/ ;\
+  mv libconnector.so natives/linux-arm/ ;\
+  zip Lavalink.jar natives/linux-arm/libconnector.so ;\
+  rm -r natives/
+
+build: clean lavalink
   @set -ex ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) build --cache-from supersandro2000/reddiscord:$${arch}-latest \
@@ -17,7 +25,7 @@ build: clean
                  -f $${arch}.Dockerfile -t supersandro2000/reddiscord:$${arch}-latest . ;\
   done
 
-build-source: clean
+build-source: clean lavalink
   @set -ex ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) build --cache-from supersandro2000/reddiscord:$${arch}-source \
