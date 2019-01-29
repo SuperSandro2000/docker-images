@@ -1,4 +1,4 @@
-FROM resin/aarch64-debian:buster
+FROM balenalib/aarch64-debian:buster
 
 ARG BUILD_DATE
 ARG VCS_REF

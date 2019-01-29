@@ -1,4 +1,4 @@
-FROM resin/aarch64-alpine:3.8
+FROM balenalib/aarch64-alpine:3.8
 
 ARG BUILD_DATE
 ARG VCS_REF
