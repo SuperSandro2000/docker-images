@@ -1,4 +1,4 @@
-FROM resin/armv7hf-debian:buster
+FROM balenalib/armv7hf-debian:buster
 
 ARG BUILD_DATE
 ARG VCS_REF
