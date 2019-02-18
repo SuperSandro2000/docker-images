@@ -1,4 +1,4 @@
-FROM balenalib/armv7hf-alpine:3.8
+FROM balenalib/armv7hf-alpine:20190215
 
 ARG BUILD_DATE
 ARG VCS_REF
