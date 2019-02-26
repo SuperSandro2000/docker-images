@@ -27,8 +27,8 @@ jobs:
         - if [ "${TRAVIS_BRANCH}" == "master" ]; then
             make push ;
           fi
-    - <<: *build
-      env: IMAGE=freshrss
+    # - <<: *build
+    #   env: IMAGE=freshrss
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
