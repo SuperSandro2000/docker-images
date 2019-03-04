@@ -43,7 +43,7 @@ jobs:
         - if [ "${TRAVIS_BRANCH}" == "master" ]; then
             make push-source ;
           fi 
-    - <<: *build
-      env: IMAGE=watchtower
+   # - <<: *build
+   #   env: IMAGE=watchtower
     - <<: *build
       env: IMAGE=zeronet
