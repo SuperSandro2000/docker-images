@@ -6,6 +6,7 @@ COPY code-server-git/ .
 
 RUN [ "cross-build-start" ]
 
+# hadolint ignore=SC2034,SC2039
 RUN apk --no-cache --no-progress add g++ git libsecret-dev libxkbfile-dev make \
   && npm install -g yarn@1.13 \
   && for i in {1..3}; do yarn; done \
