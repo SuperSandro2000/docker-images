@@ -7,7 +7,7 @@ ARG VERSION
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.name="ZeroNet" \
-  org.label-schema.description="Get notified when important things happen" \
+  org.label-schema.description="Open, free and uncensorable websites, using Bitcoin cryptography and BitTorrent network." \
   org.label-schema.url="https://zeronet.io" \
   org.label-schema.vcs-ref=$VCS_REF \
   org.label-schema.vcs-url="https://github.com/SuperSandro2000/docker-images" \
