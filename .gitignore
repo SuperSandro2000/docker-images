@@ -1,4 +1,5 @@
 .vscode/
+code-server-git/
 hadolint
 manifest
 manifest_latest

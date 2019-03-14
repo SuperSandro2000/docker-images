@@ -16,6 +16,7 @@ jobs:
                && chmod 700 ${HADOLINT}
       script:
         - git ls-files --exclude='*Dockerfile' --ignored | xargs --max-lines=1 ${HADOLINT}
+        - bash -c 'shopt -s globstar; shellcheck **/*.{sh,ksh,bash}'
     - &build
       stage: build
       env: IMAGE=archisteamfarm
@@ -27,6 +28,8 @@ jobs:
         - if [ "${TRAVIS_BRANCH}" == "master" ]; then
             make push ;
           fi
+    - <<: *build
+      env: IMAGE=coder-server
     # - <<: *build
     #   env: IMAGE=freshrss
     - <<: *build
