@@ -1,4 +1,4 @@
-FROM balenalib/generic-aarch64-alpine-node:8.15.0
+FROM balenalib/generic-aarch64-alpine-node:8.15.0 as build
 
 WORKDIR /src
 
@@ -35,7 +35,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /root/project
 
-COPY --from=0 /src/packages/server/cli-linux-x64 /usr/local/bin/code-server
+COPY --from=build /src/packages/server/cli-linux-x64 /usr/local/bin/code-server
 
 RUN [ "cross-build-start" ]
 
