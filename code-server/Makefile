@@ -16,7 +16,7 @@ build: clean
   @set -ex ;\
   [ -e code-server-git ] && git -C code-server-git pull -f || \
   git clone https://github.com/codercom/code-server.git code-server-git ;\
-  $(DOCKER) build --cache-from supersandro2000/code-server:$(ARCH)-latest \
+  $(DOCKER) build --build-arg GITHUB_TOKEN=$${GITHUB_TOKEN} --cache-from supersandro2000/code-server:$(ARCH)-latest \
                 --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
                 --build-arg VCS_REF=`git rev-parse --short HEAD` \
                 --build-arg VERSION=`https://api.github.com/repos/codercom/code-server/releases?access_token=$${GITHUB_TOKEN}` \
