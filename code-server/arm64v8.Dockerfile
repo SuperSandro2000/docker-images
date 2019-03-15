@@ -1,4 +1,4 @@
-FROM balenalib/generic-aarch64-alpine-node:8.15.0 as build
+FROM balenalib/generic-aarch64-alpine-node:20190308 as build
 
 WORKDIR /src
 
