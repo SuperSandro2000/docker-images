@@ -1,5 +1,7 @@
 FROM balenalib/generic-aarch64-alpine-node:8.15.0 as build
 
+ARG GITHUB_TOKEN
+
 WORKDIR /src
 
 COPY code-server-git/ .
@@ -7,7 +9,7 @@ COPY code-server-git/ .
 RUN [ "cross-build-start" ]
 
 # hadolint ignore=SC2034,SC2039
-RUN apk --no-cache --no-progress add g++ git libsecret-dev libxkbfile-dev make \
+RUN apk --no-cache --no-progress add g++ git libsecret-dev libxkbfile-dev make python2 \
   && npm install -g yarn@1.13 \
   && for i in {1..3}; do yarn; done \
   && yarn task build:server:binary
