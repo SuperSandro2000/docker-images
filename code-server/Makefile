@@ -51,5 +51,5 @@ push: push-login clean
   retry "$(DOCKER) manifest push supersandro2000/code-server:$${version}" ;\
   sleep 3 ;\
   retry "$(DOCKER) manifest push supersandro2000/code-server:latest" ;\
+  curl -X POST https://hooks.microbadger.com/images/supersandro2000/code-server/B9vzdMxCP5RYwUuPtaP61aOsM8E=' ;\
   rm code-server-git -rf
-  # curl -X POST https://hooks.microbadger.com/images/supersandro2000/code-server/B9vzdMxCP5RYwUuPtaP61aOsM8E=' ;\
