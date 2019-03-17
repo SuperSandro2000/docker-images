@@ -36,8 +36,8 @@ push: push-login clean
     sleep 3 ;\
     retry "$(DOCKER) push supersandro2000/zeronet:$${arch}-latest" ;\
     sleep 3 ;\
-    printf "supersandro2000/zeronet:$${arch}-$${version} " >> manifest;\
-    printf "supersandro2000/zeronet:$$arch-latest " >> manifest_latest;\
+    printf "supersandro2000/zeronet:$${arch}-$${version} " >> manifest ;\
+    printf "supersandro2000/zeronet:$$arch-latest " >> manifest_latest ;\
   done ;\
   $(DOCKER) manifest create supersandro2000/zeronet:$${version} $$(head -n 1 manifest) ;\
   $(DOCKER) manifest create supersandro2000/zeronet:latest $$(head -n 1 manifest_latest) ;\
