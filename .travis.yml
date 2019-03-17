@@ -28,16 +28,16 @@ jobs:
         - if [ "${TRAVIS_BRANCH}" == "master" ]; then
             make push ;
           fi
-    - <<: *build
-      env: IMAGE=code-server
-      script:
-        - cd ${IMAGE}
-        - make build ARCH=amd64
-        - docker images
-      after_success:
-        - if [ "${TRAVIS_BRANCH}" == "master" ]; then
-            make push amd64 ;
-          fi
+    # - <<: *build
+    #   env: IMAGE=code-server
+    #   script:
+    #     - cd ${IMAGE}
+    #     - make build ARCH=amd64
+    #     - docker images
+    #   after_success:
+    #     - if [ "${TRAVIS_BRANCH}" == "master" ]; then
+    #         make push amd64 ;
+    #       fi
     # - <<: *build
     #   env: IMAGE=code-server
     #   script:

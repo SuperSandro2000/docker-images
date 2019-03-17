@@ -12,7 +12,7 @@ RUN [ "cross-build-start" ]
 RUN apk --no-cache --no-progress add g++ git libsecret-dev libxkbfile-dev make python2 \
   && npm install -g yarn@1.13 \
   && for i in {1..3}; do yarn; done \
-  && yarn task build:server:binary
+  && yarn task build:server:binary arm64
 
 RUN [ "cross-build-end" ]
 
@@ -51,4 +51,4 @@ ENV LANG=en_US.UTF-8
 
 EXPOSE 8443
 
-ENTRYPOINT ["code-server"]
+CMD ["code-server"]

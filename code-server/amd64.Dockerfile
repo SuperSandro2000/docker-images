@@ -44,4 +44,4 @@ ENV LC_ALL=en_US.UTF-8
 
 EXPOSE 8443
 
-ENTRYPOINT ["code-server"]
+CMD ["code-server"]
