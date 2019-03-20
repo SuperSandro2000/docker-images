@@ -15,22 +15,23 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.version=$VERSION \
   org.label-schema.schema-version="1.0"
 
-RUN [ "cross-build-start" ]
-
-COPY ["zeronet-git/", "run.sh", "/root/"]
+ENV HOME=/root ENABLE_TOR=false
 
 WORKDIR /root
 
-VOLUME /root/data
+RUN [ "cross-build-start" ]
 
-RUN mv plugins/disabled-UiPassword plugins/UiPassword \
- && apk --no-cache --no-progress add python2 py2-gevent py2-msgpack tor \
- && echo "ControlPort 9051" >> /etc/tor/torrc \
- && echo "CookieAuthentication 1" >> /etc/tor/torrc
+RUN apk --no-cache --no-progress add python2 py2-gevent py2-msgpack tor \
+  && echo "ControlPort 9051" >> /etc/tor/torrc \
+  && echo "CookieAuthentication 1" >> /etc/tor/torrc
+
+COPY ["zeronet-git/", "run.sh", "/root/"]
+
+RUN mv /root/plugins/disabled-UiPassword /root/plugins/UiPassword
 
 RUN [ "cross-build-end" ]
 
-ENV HOME=/root ENABLE_TOR=false
+VOLUME /root/data
 
 EXPOSE 43110 26552
 
