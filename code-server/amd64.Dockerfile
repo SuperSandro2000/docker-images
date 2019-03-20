@@ -31,16 +31,16 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.version=$VERSION \
   org.label-schema.schema-version="1.0"
 
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
 WORKDIR /root/project
 
 COPY --from=build /src/packages/server/cli-linux-x64 /usr/local/bin/code-server
 
 RUN apk --no-cache --no-progress add git net-tools openssl \
   && rm -rf /var/lib/apt/lists/*
-
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US.UTF-8
-ENV LC_ALL=en_US.UTF-8
 
 EXPOSE 8443
 
