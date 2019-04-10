@@ -4,7 +4,7 @@
 # Red-Discord Bot
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](reddiscord//README.md)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/reddiscord/.svg)](https://microbadger.com/images/supersandro2000/reddiscord/)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/reddiscord.svg)](https://microbadger.com/images/supersandro2000/reddiscord/)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 
