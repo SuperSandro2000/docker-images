@@ -15,8 +15,8 @@ Red-Discord Bot Docker Image with multi-arch support.
 ---
 version: "3"
 services:
-  red-discordbot:
-    image: cog-creators/red-discordbot:latest
+  reddiscord:
+    image: supersandro2000/reddiscord
     volumes:
       - red-discordbot:/data
     restart: unless-stopped
