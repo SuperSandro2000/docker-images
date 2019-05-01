@@ -1,4 +1,4 @@
-FROM balenalib/aarch64-debian:buster
+FROM balenalib/aarch64-ubuntu:cosmic
 
 ARG BUILD_DATE
 ARG VCS_REF

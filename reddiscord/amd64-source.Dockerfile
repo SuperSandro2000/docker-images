@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM ubuntu:rolling
 
 ARG BUILD_DATE
 ARG VCS_REF

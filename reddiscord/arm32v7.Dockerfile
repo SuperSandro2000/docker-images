@@ -1,4 +1,4 @@
-FROM balenalib/armv7hf-debian:buster
+FROM balenalib/armv7hf-ubuntu:cosmic
 
 ARG BUILD_DATE
 ARG VCS_REF
