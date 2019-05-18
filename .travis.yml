@@ -37,6 +37,16 @@ jobs:
         - bash -c 'shopt -s globstar; shellcheck **/*.sh'
     - <<: *build
       env: IMAGE=archisteamfarm
+    - <<: *build
+      env: IMAGE=archisteamfarm
+      script:
+        - cd "$IMAGE"
+        - make build-alpine
+        - docker images
+      after_success:
+        - if [ "$TRAVIS_BRANCH" == "master" ]; then
+            make push-alpine ;
+          fi
     # - <<: *build
     #   env: IMAGE=code-server
     #   script:
