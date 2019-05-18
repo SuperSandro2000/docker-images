@@ -9,7 +9,7 @@ clean:
   rm ~/.docker/manifests/docker.io_supersandro2000_zeronet-* -rf
 
 build: clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   [ -e zeronet-git ] && git -C zeronet-git pull -f || \
   git clone --depth 1 https://github.com/HelloZeroNet/ZeroNet.git zeronet-git ;\
   for arch in amd64 arm32v7 arm64v8; do \
@@ -24,10 +24,10 @@ push-login:
   echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin
 
 push: push-login clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_latest ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -eoux pipefail ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   version=$$($(DOCKER) run --rm -it supersandro2000/zeronet:amd64-latest python2 -c "from src.Config import Config;c=Config(help);print(str(c.version) + \"-r\" + str(c.rev))" | rev | cut -c 2- | rev) ;\
   for arch in amd64 arm32v7 arm64v8; do \

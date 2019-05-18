@@ -8,7 +8,7 @@ clean:
   rm ~/.docker/manifests/docker.io_supersandro2000_kibitzr-* -rf
 
 build: clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) build --cache-from supersandro2000/kibitzr:$$arch-latest \
                  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
@@ -21,10 +21,10 @@ push-login:
   echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin
 
 push: push-login clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_latest ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -eoux pipefail ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   version=$$($(DOCKER) run --rm -it supersandro2000/kibitzr:amd64-latest kibitzr version | rev | cut -c 2- | rev) ;\
   for arch in amd64 arm32v7 arm64v8; do \

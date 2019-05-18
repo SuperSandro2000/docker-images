@@ -8,7 +8,7 @@ clean:
   rm ~/.docker/manifests/docker.io_supersandro2000_reddiscord-* -rf
 
 lavalink:
-  @set -ex ;\
+  @set -eoux pipefail ;\
   curl -Lso Lavalink.jar "$$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token=$$GITHUB_TOKEN | jq '[.[] | select(.assets[].name=="Lavalink.jar")][1] | .assets | .[0].browser_download_url' | tr -d \'\")" ;\
   mkdir -p natives/linux-arm/ ;\
   mv libconnector.so natives/linux-arm/ ;\
@@ -16,7 +16,7 @@ lavalink:
   rm -r natives/
 
 build: clean lavalink
-  @set -ex ;\
+  @set -eoux pipefail ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) build --cache-from supersandro2000/reddiscord:$$arch-latest \
                  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
@@ -26,7 +26,7 @@ build: clean lavalink
   done
 
 build-source: clean lavalink
-  @set -ex ;\
+  @set -eoux pipefail ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) build --cache-from supersandro2000/reddiscord:$$arch-source \
                  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
@@ -39,10 +39,10 @@ push-login:
   echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin
 
 push: push-login clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_source ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -eoux pipefail ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   version=$$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token=$${GITHUB_TOKEN} | jq -r ".[0] | .tag_name") ;\
   for arch in amd64 arm32v7 arm64v8; do \
@@ -68,10 +68,10 @@ push: push-login clean
   curl -X POST https://hooks.microbadger.com/images/supersandro2000/reddiscord/CtjLg5fT78hv5M6mbobg3_1aqeE='
 
 push-source: push-login clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_source ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -eoux pipefail ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   version=$$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token=$$GITHUB_TOKEN | jq -r ".[0] | .tag_name") ;\
   for arch in amd64 arm32v7 arm64v8; do \

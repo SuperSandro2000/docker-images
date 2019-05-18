@@ -13,7 +13,7 @@ clean:
   rm ~/.docker/manifests/docker.io_supersandro2000_code-server-* -rf
 
 build: clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   [ -e code-server-git ] && git -C code-server-git pull -f || \
   git clone --depth 1 https://github.com/codercom/code-server.git code-server-git ;\
   $(DOCKER) build --build-arg GITHUB_TOKEN=$$GITHUB_TOKEN --cache-from supersandro2000/code-server:$(ARCH)-latest \
@@ -26,10 +26,10 @@ push-login:
   echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin
 
 push: push-login clean
-  @set -ex ;\
+  @set -eoux pipefail ;\
   [ -e manifest ] && rm manifest ;\
   [ -e manifest_latest ] && rm manifest_latest ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -eoux pipefail ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   version=$$($(DOCKER) run --rm -it supersandro2000/code-server:$(ARCH)-latest coder-server -v | awk -F'/| ' '{ print $2 }') ;\
   $(DOCKER) tag supersandro2000/code-server:$(ARCH)-latest supersandro2000/code-server:$(ARCH)-$$version ;\

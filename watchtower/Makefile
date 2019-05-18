@@ -13,8 +13,8 @@ push-login:
   echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin
 
 push: push-login clean
-  @set -ex ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  @set -eoux pipefail ;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -eoux pipefail ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   release=$$(curl -s https://api.github.com/repos/v2tec/watchtower/releases?access_token=$$GITHUB_TOKEN | jq -r ".[0] | .tag_name" | cut -c 2-) ;\
   for variant in latest $$release $$( echo $$release | cut -d . -f 1,2) $$(echo $$release | cut -d . -f 1,4); do \

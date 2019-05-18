@@ -13,8 +13,8 @@ push-login:
   echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin
 
 push: push-login clean
-  @set -ex ;\
-  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -ex ;\
+  @set -eoux pipefail;\
+  DOCKER_CLI_EXPERIMENTAL=enabled bash -c 'set -eoux pipefail ;\
   retry() { for i in {1..5} ; do eval $$1 && break || sleep 10 ; done ; } ;\
   for version in latest  ; do \
     $(DOCKER) manifest create supersandro2000/freshrss:$$version linuxserver/freshrss:$$version lsioarmhf/freshrss:$$version ;\
