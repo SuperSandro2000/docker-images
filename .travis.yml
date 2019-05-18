@@ -13,6 +13,19 @@ env:
     - DOCKER_CLI_EXPERIMENTAL=enabled
     - DOCKER_BUILDKIT=1
 
+template:
+- &build
+  stage: build
+  env: IMAGE=archisteamfarm
+  script:
+    - cd "$IMAGE"
+    - make build
+    - docker images
+  after_success:
+    - if [ "$TRAVIS_BRANCH" == "master" ]; then
+        make push ;
+      fi
+
 jobs:
   include:
     - stage: test
@@ -22,17 +35,8 @@ jobs:
       script:
         - git ls-files --exclude='*Dockerfile' --ignored | xargs --max-lines=1 "$HADOLINT"
         - bash -c 'shopt -s globstar; shellcheck **/*.sh'
-    - &build
-      stage: build
+    - <<: *build
       env: IMAGE=archisteamfarm
-      script:
-        - cd "$IMAGE"
-        - make build
-        - docker images
-      after_success:
-        - if [ "$TRAVIS_BRANCH" == "master" ]; then
-            make push ;
-          fi
     # - <<: *build
     #   env: IMAGE=code-server
     #   script:
