@@ -8,6 +8,10 @@ addons:
   apt:
     packages:
     - jq
+env:
+  global:
+    - DOCKER_CLI_EXPERIMENTAL=enabled
+    - DOCKER_BUILDKIT=1
 
 jobs:
   include:
