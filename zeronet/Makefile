@@ -11,7 +11,7 @@ clean:
 build: clean
   @set -ex ;\
   [ -e zeronet-git ] && git -C zeronet-git pull -f || \
-  git clone https://github.com/HelloZeroNet/ZeroNet.git zeronet-git ;\
+  git clone --depth 1 https://github.com/HelloZeroNet/ZeroNet.git zeronet-git ;\
   for arch in amd64 arm32v7 arm64v8; do \
     $(DOCKER) build --cache-from supersandro2000/zeronet:$$arch-latest \
                  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
