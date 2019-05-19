@@ -17,7 +17,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /usr/src/app
 
-COPY ["kibitzr-creds.yml", "kibitzr.yml", "./"]
+COPY ["files/kibitzr-creds.yml", "files/kibitzr.yml", "./"]
 
 RUN [ "cross-build-start" ]
 
