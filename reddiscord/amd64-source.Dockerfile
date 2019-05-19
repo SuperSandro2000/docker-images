@@ -17,7 +17,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /app
 
-COPY ["config.json", "/root/.config/Red-DiscordBot/"]
+COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 
 RUN apt update -qq \
   && apt install --no-install-recommends -qqy build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \

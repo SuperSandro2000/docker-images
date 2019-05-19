@@ -17,9 +17,8 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /app
 
-COPY ["config.json", "/root/.config/Red-DiscordBot/"]
-COPY ["run.sh", "/files/"]
-COPY ["Lavalink.jar", "/files/"]
+COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
+COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
 
 RUN [ "cross-build-start" ]
 

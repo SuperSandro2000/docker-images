@@ -15,7 +15,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.version=$VERSION \
   org.label-schema.schema-version="1.0"
 
-COPY ["kibitzr-creds.yml", "kibitzr.yml", "./"]
+COPY ["files/kibitzr-creds.yml", "files/kibitzr.yml", "./"]
 
 WORKDIR /usr/src/app
 

@@ -1,9 +1,9 @@
 .vscode/
+archisteamfarm-git
 code-server-git/
 hadolint
 manifest
 manifest_latest
 manifest_source
 zeronet-git/
-reddiscord/Lavalink.jar
-reddiscord/libconnector.so
+reddiscord/files/Lavalink.jar
