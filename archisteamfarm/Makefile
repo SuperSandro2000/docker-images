@@ -12,7 +12,7 @@ build-alpine: clean
   ./build-alpine.sh ${DOCKER}
 
 push-login:
-  echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin
+  if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
 
 push: push-login clean
   ./push.sh ${DOCKER}
