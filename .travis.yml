@@ -18,6 +18,11 @@ env:
     - DOCKER_CLI_EXPERIMENTAL=enabled
     # - DOCKER_BUILDKIT=1
 
+stages:
+  - lint
+  - build
+  - scan
+
 template:
 - &build
   stage: build
@@ -29,10 +34,24 @@ template:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
         make push ;
       fi
+- &scan
+  stage: scan
+  cache:
+    directories:
+      - $HOME/.cache/trivy
+  install:
+    - wget https://github.com/knqyf263/trivy/releases/download/v"$trivy"/trivy_"$trivy"_Linux-64bit.tar.gz
+    - tar zxvf trivy_"$trivy"_Linux-64bit.tar.gz
+  script:
+    - ./trivy --refresh --quiet
+    - for arch in amd64 arm32v7 arm64v8; do
+        ./trivy --exit-code 0 --severity HIGH -quiet $IMAGE:$arch-latest ;
+        ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-latest ;
+      done
 
 jobs:
   include:
-    - stage: test
+    - stage: lint
       env: HADOLINT="$HOME/hadolint"
       install: curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
                && chmod 700 ${HADOLINT}
@@ -86,6 +105,32 @@ jobs:
       after_success:
         - if [ "$TRAVIS_BRANCH" == "master" ]; then
             make push-source ;
-          fi 
+          fi
     - <<: *build
       env: IMAGE=zeronet
+
+
+    - <<: *scan
+      env: trivy=0.0.14 IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
+      script:
+      - ./trivy --refresh --quiet
+      - for variant in master tag; do
+          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$variant-alpine ;
+          ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$variant-alpine ;
+        done
+    # - <<: *scan
+    #   env: trivy=0.0.14 IMAGE=supersandro2000/code-server
+    - <<: *scan
+      env: trivy=0.0.14 IMAGE=supersandro2000/kibitzr
+    - <<: *scan
+      env: trivy=0.0.14 IMAGE=supersandro2000/reddiscord
+    - <<: *scan
+      env: trivy=0.0.14 IMAGE=supersandro2000/reddiscord
+      script:
+      - ./trivy --refresh --quiet
+      - for arch in amd64 arm32v7 arm64v8; do
+          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
+          ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
+        done
+    - <<: *scan
+      env: trivy=0.0.14 IMAGE=supersandro2000/zeronet
