@@ -6,17 +6,21 @@ services:
   - docker
 addons:
   apt:
+    # update: true
+    # sources:
+    # - sourceline: 'deb [arch=amd64] "https://download.docker.com/linux/ubuntu" xenial stable edge test'
     packages:
     - jq
+    # - docker-ce
+
 env:
   global:
     - DOCKER_CLI_EXPERIMENTAL=enabled
-    - DOCKER_BUILDKIT=1
+    # - DOCKER_BUILDKIT=1
 
 template:
 - &build
   stage: build
-  env: IMAGE=archisteamfarm
   script:
     - cd "$IMAGE"
     - make build
