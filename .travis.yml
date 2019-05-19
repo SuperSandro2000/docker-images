@@ -61,7 +61,7 @@ jobs:
     - <<: *build
       env: IMAGE=archisteamfarm
     - <<: *build
-      env: IMAGE=archisteamfarm
+      env: IMAGE=archisteamfarm VARIANT=alpine
       script:
         - cd "$IMAGE"
         - make build-alpine
@@ -97,7 +97,7 @@ jobs:
     - <<: *build
       env: IMAGE=reddiscord
     - <<: *build
-      env: IMAGE=reddiscord
+      env: IMAGE=reddiscord VARIANT=source
       script:
         - cd "$IMAGE"
         - make build-source
@@ -125,7 +125,7 @@ jobs:
     - <<: *scan
       env: trivy=0.0.14 IMAGE=supersandro2000/reddiscord
     - <<: *scan
-      env: trivy=0.0.14 IMAGE=supersandro2000/reddiscord
+      env: trivy=0.0.14 IMAGE=supersandro2000/reddiscord VARIANT=source
       script:
       - ./trivy --refresh --quiet
       - for arch in amd64 arm32v7 arm64v8; do
