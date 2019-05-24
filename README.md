@@ -45,13 +45,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 
-### Watchtower
-[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/watchtower/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](watchtower/README.md)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/watchtower.svg)](https://microbadger.com/images/supersandro2000/watchtower)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/watchtower.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/watchtower/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/watchtower.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/watchtower/)
-
 ### ZeroNet
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/zeronet/)
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](zeronet/README.md)
