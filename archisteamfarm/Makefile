@@ -18,7 +18,7 @@ push: push-login clean
   ./push.sh ${DOCKER}
 
 push-alpine: push-login clean
-  ./push.sh ${DOCKER}
+  ./push-alpine.sh ${DOCKER}
 
 all: push clean2
 
