@@ -1,6 +1,7 @@
 # Docker Images
 [![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=1200)](https://travis-ci.org/SuperSandro2000/docker-images)
 [![Github Stars](https://img.shields.io/github/stars/supersandro2000/docker-images.svg?maxAge=1200&label=Stars&style=social)](https://github.com/SuperSandro2000/docker-images)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images?ref=badge_shield)
 
 All my docker images in one mono-repository with multi-arch support.
 
@@ -54,3 +55,7 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 
 # Credits
 Thanks to napnap75 for inspiring me to do this with his [rpi-docker-images](https://github.com/napnap75/rpi-docker-images/) repo.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images?ref=badge_large)
