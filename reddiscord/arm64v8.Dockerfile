@@ -28,7 +28,7 @@ COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
 
 RUN apt update -qq \
   && apt install --no-install-recommends -qqy build-essential \
-  && pip3 install -U --process-dependency-links --no-cache-dir --progress-bar off Red-DiscordBot[voice] \
+  && pip3 install --process-dependency-links --no-cache-dir --progress-bar off Red-DiscordBot[voice] \
   && apt remove -qqy --purge build-essential unzip zip \
   && apt autoremove -qqy --purge \
   && apt clean \
