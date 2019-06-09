@@ -97,6 +97,8 @@ jobs:
     - <<: *build
       env: IMAGE=freshrss
     - <<: *build
+      env: IMAGE=halcyon
+    - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
       env: IMAGE=reddiscord
