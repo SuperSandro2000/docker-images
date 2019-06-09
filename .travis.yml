@@ -117,7 +117,7 @@ jobs:
 
 
     - <<: *scan
-      env: trivy=0.0.14 IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
+      env: trivy=0.1.2 IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
       script:
       - ./trivy --refresh --quiet
       - for variant in master tag; do
@@ -125,13 +125,13 @@ jobs:
           ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$variant-alpine ;
         done
     # - <<: *scan
-    #   env: trivy=0.0.14 IMAGE=supersandro2000/code-server
+    #   env: trivy=0.1.2 IMAGE=supersandro2000/code-server
     - <<: *scan
-      env: trivy=0.0.14 IMAGE=supersandro2000/kibitzr
+      env: trivy=0.1.2 IMAGE=supersandro2000/kibitzr
     - <<: *scan
-      env: trivy=0.0.14 IMAGE=supersandro2000/reddiscord
+      env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord
     - <<: *scan
-      env: trivy=0.0.14 IMAGE=supersandro2000/reddiscord VARIANT=source
+      env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord VARIANT=source
       script:
       - ./trivy --refresh --quiet
       - for arch in amd64 arm32v7 arm64v8; do
@@ -139,7 +139,7 @@ jobs:
           ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
         done
     - <<: *scan
-      env: trivy=0.0.14 IMAGE=supersandro2000/zeronet
+      env: trivy=0.1.2 IMAGE=supersandro2000/zeronet
 
 notifications:
   webhooks: https://app.fossa.io/hooks/travisci
