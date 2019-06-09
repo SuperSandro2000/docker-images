@@ -12,7 +12,12 @@ Kibitzr Docker Image with multi-arch support.
 
 ## Docker compose
 ````
+---
+version: "3"
+services:
   halcyon:
     image: supersandro2000/halcyon
+    volumes:
+      - $PWD/halcyon/config.ini:/var/www/html/config/config.ini
     restart: unless-stopped
 ````

@@ -12,10 +12,13 @@ ZeroNet Docker Image with multi-arch support.
 
 ## Docker compose
 ````
+---
+version: "3"
+services:
   zeronet:
     image: supersandro2000/zeronet
     volumes:
-      - /home/user/zeronet:/root/data
+      - $PWD/zeronet:/root/data
     ports:
       - 26552:26552
       - 127.0.0.1:43110:43110

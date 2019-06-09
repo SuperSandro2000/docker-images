@@ -12,9 +12,12 @@ Kibitzr Docker Image with multi-arch support.
 
 ## Docker compose
 ````
+---
+version: "3"
+services:
   kibitzr:
     image: supersandro2000/kibitzr
     volumes:
-      - /home/user/kibitzr:/usr/src/app
+      - $PWD/kibitzr:/usr/src/app
     restart: unless-stopped
 ````

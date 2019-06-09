@@ -12,10 +12,13 @@ Code-Server Docker Image with multi-arch support.
 
 ## Docker compose
 ````
+---
+version: "3"
+services:
   code-server:
     image: supersandro2000/code-server
     volumes:
-      - /home/user/code-server:/root/project
+      - $PWD/code-server:/root/project
     ports:
       - 8443:8443
     environment:
