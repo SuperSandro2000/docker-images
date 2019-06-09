@@ -13,7 +13,7 @@ retry() {
   done
 }
 
-version=$($DOCKER run --rm -it supersandro2000/halcyon:latest cat version.txt)
+version=$($DOCKER run --rm -it supersandro2000/halcyon:latest cat version.txt | tr -d '\r')
 
 $DOCKER tag supersandro2000/halcyon:latest supersandro2000/halcyon:"$version"
 retry "$DOCKER push supersandro2000/halcyon:$version"
