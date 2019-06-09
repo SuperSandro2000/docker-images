@@ -17,14 +17,17 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /app
 
-COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
-COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
-
 RUN [ "cross-build-start" ]
 
 RUN apt update -qq \
-  && apt install --no-install-recommends -qqy build-essential default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
-  python3 python3-levenshtein python3-pip python3-setuptools python3-yaml unzip zip \
+  && apt install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
+  python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip wget zip
+
+COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
+COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
+
+RUN apt update -qq \
+  && apt install --no-install-recommends -qqy build-essential \
   && pip3 install -U --process-dependency-links --no-cache-dir --progress-bar off Red-DiscordBot[voice] \
   && apt remove -qqy --purge build-essential unzip zip \
   && apt autoremove -qqy --purge \
