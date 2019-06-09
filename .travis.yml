@@ -95,8 +95,6 @@ jobs:
     #         make push arm64v8 ;
     #       fi
     - <<: *build
-      env: IMAGE=freshrss
-    - <<: *build
       env: IMAGE=halcyon
     - <<: *build
       env: IMAGE=kibitzr
