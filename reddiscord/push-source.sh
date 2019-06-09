@@ -19,7 +19,7 @@ version=$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/relea
 for arch in amd64 arm32v7 arm64v8; do
   retry "$DOCKER push supersandro2000/reddiscord:$arch-source"
   sleep 3
-  printf "supersandro2000/reddiscord:%s-source " "$arch" >>manifest
+  printf "supersandro2000/reddiscord:%s-source " "$arch" >>manifest_source
 done
 
 # shellcheck disable=SC2046
