@@ -20,4 +20,4 @@ retry "$DOCKER push supersandro2000/halcyon:$version"
 sleep 3
 retry "$DOCKER push supersandro2000/halcyon:latest"
 
-curl -X POST https://hooks.microbadger.com/images/supersandro2000/halcyon/rp5PBR5DxYGVZebsNNO91I-8894=
+curl -X POST https://hooks.microbadger.com/images/supersandro2000/halcyon/SZHNRfRT-225bEYcHQCve7POsRs=
