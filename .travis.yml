@@ -43,7 +43,7 @@ template:
     - wget https://github.com/knqyf263/trivy/releases/download/v"$trivy"/trivy_"$trivy"_Linux-64bit.tar.gz
     - tar zxvf trivy_"$trivy"_Linux-64bit.tar.gz
   script:
-    - ./trivy --refresh --quiet
+    - ./trivy --refresh --quiet || ./trivy --reset
     - for arch in amd64 arm32v7 arm64v8; do
         ./trivy --exit-code 0 --severity HIGH -quiet $IMAGE:$arch-latest ;
         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-latest ;
