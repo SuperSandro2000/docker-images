@@ -14,7 +14,7 @@ RUN apk --no-cache --no-progress add g++ git libsecret-dev libxkbfile-dev make p
 
 #-------------------#
 
-FROM alpine:3.9
+FROM alpine:3.10.0
 
 ARG BUILD_DATE
 ARG VCS_REF
