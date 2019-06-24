@@ -17,17 +17,17 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /app
 
-RUN apt update -qq \
-  && apt install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
+RUN apt-get update -qq \
+  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
   python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip wget zip
 
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 
-RUN apt update -qq \
-  && apt install --no-install-recommends -qqy build-essential \
+RUN apt-get update -qq \
+  && apt-get install --no-install-recommends -qqy build-essential \
   && pip3 install --process-dependency-links --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot[voice] \
-  && apt remove -qqy build-essential \
-  && apt autoremove -qqy \
+  && apt-get remove -qqy build-essential \
+  && apt-get autoremove -qqy \
   && rm -rf /var/lib/apt/lists/*
 
 CMD [ "redbot", "docker" ]

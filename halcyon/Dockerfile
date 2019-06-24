@@ -1,6 +1,7 @@
 FROM php:apache-stretch
 
-RUN apt update && apt install -qy gettext libicu-dev
+RUN apt-get update \
+  && apt-get install -qy gettext libicu-dev
 RUN docker-php-ext-install gettext intl
 RUN a2enmod rewrite
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"

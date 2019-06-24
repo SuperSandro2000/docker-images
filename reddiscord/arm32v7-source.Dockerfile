@@ -19,19 +19,19 @@ WORKDIR /app
 
 RUN [ "cross-build-start" ]
 
-RUN apt update -qq \
-  && apt install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
+RUN apt-get update -qq \
+  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
   python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip wget zip
 
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
 
-RUN apt update -qq \
-  && apt install --no-install-recommends -qqy build-essential \
+RUN apt-get update -qq \
+  && apt-get install --no-install-recommends -qqy build-essential \
   && pip3 install --process-dependency-links --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot[voice] \
-  && apt remove -qqy --purge build-essential unzip zip \
-  && apt autoremove -qqy --purge \
-  && apt clean \
+  && apt-get remove -qqy --purge build-essential unzip zip \
+  && apt-get autoremove -qqy --purge \
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && chmod +x /files/run.sh
 
