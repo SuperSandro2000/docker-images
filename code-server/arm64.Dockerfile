@@ -46,8 +46,7 @@ COPY --from=build /src/packages/server/cli-linux-x64 /usr/local/bin/code-server
 RUN [ "cross-build-start" ]
 
 RUN apk --no-cache --no-progress add git net-tools openssl \
-  && locale-gen en_US.UTF-8 \
-  && rm -rf /var/lib/apt/lists/*
+  && locale-gen en_US.UTF-8
 
 RUN [ "cross-build-end" ]
 

@@ -39,8 +39,7 @@ WORKDIR /root/project
 
 COPY --from=build /src/packages/server/cli-linux-x64 /usr/local/bin/code-server
 
-RUN apk --no-cache --no-progress add git net-tools openssl \
-  && rm -rf /var/lib/apt/lists/*
+RUN apk --no-cache --no-progress add git net-tools openssl
 
 EXPOSE 8443
 
