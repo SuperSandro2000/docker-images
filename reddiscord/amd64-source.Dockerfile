@@ -26,7 +26,7 @@ COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy build-essential \
-  && pip3 install --process-dependency-links --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot[voice] \
+  && pip3 install --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot \
   && apt-get remove -qqy build-essential \
   && apt-get autoremove -qqy \
   && rm -rf /var/lib/apt/lists/*
