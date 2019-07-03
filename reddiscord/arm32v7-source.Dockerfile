@@ -1,4 +1,4 @@
-FROM balenalib/armv7hf-debian:buster
+FROM balenalib/armv7hf-debian:sid
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -24,9 +24,9 @@ RUN apt-get update -qq \
   python3-dev python3-levenshtein python3-pip python3-setuptools unzip wget zip \
   && rm -rf /var/lib/apt/lists/*
 
+
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
-
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy build-essential \
   && pip3 install --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot \

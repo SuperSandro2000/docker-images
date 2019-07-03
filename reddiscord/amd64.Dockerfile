@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:sid
 
 ARG BUILD_DATE
 ARG VCS_REF
