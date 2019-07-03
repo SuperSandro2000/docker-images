@@ -18,8 +18,8 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 WORKDIR /app
 
 RUN apt-get update -qq \
-  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
-  python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip wget zip \
+  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev \
+  python3-dev python3-levenshtein python3-pip python3-setuptools unzip wget zip \
   && rm -rf /var/lib/apt/lists/*
 
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
