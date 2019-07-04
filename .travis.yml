@@ -99,17 +99,21 @@ jobs:
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
-      env: IMAGE=reddiscord
+      env: IMAGE=reddiscord VARIANT=amd64
     - <<: *build
-      env: IMAGE=reddiscord VARIANT=source
-      script:
-        - cd "$IMAGE"
-        - make build-source
-        - docker images
-      after_success:
-        - if [ "$TRAVIS_BRANCH" == "master" ]; then
-            make push-source ;
-          fi
+      env: IMAGE=reddiscord VARIANT=arm32v7
+    - <<: *build
+      env: IMAGE=reddiscord VARIANT=arm64v8
+   # - <<: *build
+   #    env: IMAGE=reddiscord VARIANT=source
+   #    script:
+   #      - cd "$IMAGE"
+   #      - make build-source
+   #      - docker images
+   #    after_success:
+   #      - if [ "$TRAVIS_BRANCH" == "master" ]; then
+   #          make push-source ;
+   #        fi
     - <<: *build
       env: IMAGE=zeronet
 
@@ -122,20 +126,20 @@ jobs:
           ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$variant-alpine ;
           ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$variant-alpine ;
         done
-    # - <<: *scan
-    #   env: trivy=0.1.2 IMAGE=supersandro2000/code-server
+   # - <<: *scan
+   #   env: trivy=0.1.2 IMAGE=supersandro2000/code-server
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/kibitzr
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord
-    - <<: *scan
-      env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord VARIANT=source
-      script:
-      - ./trivy --refresh --quiet
-      - for arch in amd64 arm32v7 arm64v8; do
-          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
-          ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
-        done
+   # - <<: *scan
+   #   env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord VARIANT=source
+   #   script:
+   #   - ./trivy --refresh --quiet
+   #   - for arch in amd64 arm32v7 arm64v8; do
+   #       ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
+   #       ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
+   #     done
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/zeronet
 

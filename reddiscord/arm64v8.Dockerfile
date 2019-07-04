@@ -1,4 +1,4 @@
-FROM balenalib/aarch64-debian:buster
+FROM balenalib/aarch64-debian:sid
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -20,15 +20,17 @@ WORKDIR /app
 RUN [ "cross-build-start" ]
 
 RUN apt-get update -qq \
-  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev python3-aiohttp \
-  python3-dev python3-levenshtein python3-pip python3-setuptools python3-yaml unzip wget zip
+  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev \
+  python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl unzip wget zip \
+  && rm -rf /var/lib/apt/lists/*
 
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
+COPY ["files/pip.conf", "/etc/"]
 
 RUN apt update -qq \
   && apt-get install --no-install-recommends -qqy build-essential \
-  && pip3 install --process-dependency-links --no-cache-dir --progress-bar off Red-DiscordBot[voice] \
+  && pip3 install --no-cache-dir --progress-bar off Red-DiscordBot \
   && apt-get remove -qqy --purge build-essential unzip zip \
   && apt-get autoremove -qqy --purge \
   && apt-get clean \
