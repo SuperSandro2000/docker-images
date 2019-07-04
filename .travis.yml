@@ -132,6 +132,12 @@ jobs:
       env: trivy=0.1.2 IMAGE=supersandro2000/kibitzr
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord
+      script:
+        - ./trivy --refresh --quiet
+        - for arch in amd64 arm32v7 arm64v8; do
+            ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
+            ./trivy --exit-code 0 --severity CRITICAL --quiet $IMAGE:$arch-source ;
+          done
    # - <<: *scan
    #   env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord VARIANT=source
    #   script:
