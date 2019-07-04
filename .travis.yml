@@ -99,7 +99,11 @@ jobs:
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
-      env: IMAGE=reddiscord
+      env: IMAGE=reddiscord VARIANT=amd64
+    - <<: *build
+      env: IMAGE=reddiscord VARIANT=arm32v7
+    - <<: *build
+      env: IMAGE=reddiscord VARIANT=arm64v8
    # - <<: *build
    #    env: IMAGE=reddiscord VARIANT=source
    #    script:
