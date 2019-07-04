@@ -27,6 +27,8 @@ RUN apt-get update -qq \
 
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
+COPY ["files/pip.conf", "/etc/"]
+
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy build-essential \
   && pip3 install --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot \

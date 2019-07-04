@@ -26,6 +26,7 @@ RUN apt-get update -qq \
 
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
+COPY ["files/pip.conf", "/etc/"]
 
 RUN apt update -qq \
   && apt-get install --no-install-recommends -qqy build-essential \
