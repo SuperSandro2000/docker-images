@@ -19,24 +19,23 @@ WORKDIR /app
 
 RUN [ "cross-build-start" ]
 
-RUN apt-get update -qq \
-  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev \
-  python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl unzip wget zip \
-  && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev \
+    python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl unzip wget zip && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
 COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
 COPY ["files/pip.conf", "/etc/"]
 
-RUN apt-get update -qq \
-  && apt-get install --no-install-recommends -qqy build-essential \
-  && pip3 install --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot \
-  && apt-get remove -qqy --purge build-essential unzip zip \
-  && apt-get autoremove -qqy --purge \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
-  && chmod +x /files/run.sh
+RUN apt-get update -qq && \
+  apt-get install --no-install-recommends -qqy build-essential && \
+  pip3 install --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot && \
+  apt-get remove -qqy --purge build-essential unzip zip && \
+  apt-get autoremove -qqy --purge && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* && \
+  chmod +x /files/run.sh
 
 RUN [ "cross-build-end" ]
 

@@ -9,10 +9,10 @@ COPY code-server-git/ .
 RUN [ "cross-build-start" ]
 
 # hadolint ignore=SC2034,SC2039
-RUN apk --no-cache --no-progress add g++ git libsecret-dev libxkbfile-dev make python2 \
-  && npm install -g yarn@1.13 \
-  && for i in {1..3}; do yarn; done \
-  && yarn task build:server:binary arm64
+RUN apk --no-cache --no-progress add g++ git libsecret-dev libxkbfile-dev make python2 && \
+  npm install -g yarn@1.13 && \
+  for i in {1..3}; do yarn; done && \
+  yarn task build:server:binary arm64
 
 RUN [ "cross-build-end" ]
 
@@ -45,8 +45,8 @@ COPY --from=build /src/packages/server/cli-linux-x64 /usr/local/bin/code-server
 
 RUN [ "cross-build-start" ]
 
-RUN apk --no-cache --no-progress add git net-tools openssl \
-  && locale-gen en_US.UTF-8
+RUN apk --no-cache --no-progress add git net-tools openssl && \
+  locale-gen en_US.UTF-8
 
 RUN [ "cross-build-end" ]
 

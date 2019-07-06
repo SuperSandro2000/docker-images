@@ -19,9 +19,9 @@ ENV HOME=/root ENABLE_TOR=false
 
 WORKDIR /root
 
-RUN apk --no-cache --no-progress add python2 py2-gevent py2-msgpack tor \
-  && echo "ControlPort 9051" >> /etc/tor/torrc \
-  && echo "CookieAuthentication 1" >> /etc/tor/torrc
+RUN apk --no-cache --no-progress add python2 py2-gevent py2-msgpack tor && \
+  echo "ControlPort 9051" >>/etc/tor/torrc && \
+  echo "CookieAuthentication 1" >>/etc/tor/torrc
 
 COPY ["zeronet-git/", "files/run.sh", "/root/"]
 
