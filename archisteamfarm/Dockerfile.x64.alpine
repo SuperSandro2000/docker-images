@@ -20,7 +20,7 @@ RUN dotnet --info \
   && cp "ArchiSteamFarm/overlay/generic/ArchiSteamFarm.sh" "ArchiSteamFarm/out/publish/ArchiSteamFarm.sh"
 
 FROM mcr.microsoft.com/dotnet/core/runtime:2.2-alpine AS runtime
-ENV ASPNETCORE_URLS=
+ENV ASPNETCORE_URLS=""
 LABEL maintainer="JustArchi <JustArchi@JustArchi.net>"
 EXPOSE 1242
 WORKDIR /app
