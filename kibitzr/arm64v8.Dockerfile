@@ -21,8 +21,8 @@ WORKDIR /usr/src/app
 
 RUN [ "cross-build-start" ]
 
-RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml && \
-  pip3 install --no-cache-dir --progress-bar off kibitzr
+RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml \
+  && pip3 install --no-cache-dir --progress-bar off kibitzr
 
 RUN [ "cross-build-end" ]
 
