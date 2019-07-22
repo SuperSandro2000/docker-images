@@ -21,8 +21,8 @@ build-amd64: clean lavalink
 build-arm32v7: clean lavalink
   ./build.sh ${DOCKER} arm32v7
 
-build-amd64v8: clean lavalink
-  ./build.sh ${DOCKER} amd64v8
+build-arm64v8: clean lavalink
+  ./build.sh ${DOCKER} arm64v8
 
 build-source: clean lavalink
   ./build-source.sh ${DOCKER}
@@ -42,6 +42,6 @@ all-amd64: build-amd64 push clean2
 
 all-arm32v7: build-arm32v7 push clean2
 
-all-amd64v8: build-amd64v8 push clean2
+all-arm64v8: build-arm64v8 push clean2
 
 all-source: build-source push-source clean2
