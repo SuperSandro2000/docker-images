@@ -4,13 +4,6 @@ language: bash
 group: travis_latest
 services: 
   - docker
-addons:
-  apt:
-    # update: true
-    # sources:
-    # - sourceline: 'deb [arch=amd64] "https://download.docker.com/linux/ubuntu" xenial stable edge test'
-    packages:
-      # - docker-ce
 
 env:
   global:
