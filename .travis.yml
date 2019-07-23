@@ -10,7 +10,6 @@ addons:
     # sources:
     # - sourceline: 'deb [arch=amd64] "https://download.docker.com/linux/ubuntu" xenial stable edge test'
     packages:
-      - jq
       # - docker-ce
 
 env:
