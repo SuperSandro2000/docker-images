@@ -14,7 +14,7 @@ retry() {
   done
 }
 
-for variant in master tag; do
+for variant in master latest released; do
   retry "$DOCKER push supersandro2000/archisteamfarm:$variant-alpine"
 done
 

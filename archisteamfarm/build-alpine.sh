@@ -11,18 +11,28 @@ fi
 git clone --recurse-submodules -j2 https://github.com/JustArchiNET/ArchiSteamFarm.git archisteamfarm-git
 cd archisteamfarm-git
 
-for variant in master tag; do
+for variant in master latest released; do
   if [[ -z ${DOCKER_BUILDKIT:-} ]]; then
     ARGS="$ARG --cache-from supersandro2000/archisteamfarm:$variant-alpine"
   else
     ARGS=
   fi
 
-  if [[ $variant == master ]]; then
+  case $variant in
+  "master")
     SHA="$(git rev-parse --short HEAD)"
-  else
+    ;;
+  "released")
+    SHA=$(curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases?access_token="$GITHUB_TOKEN" | jq -r '.[0].target_commitish')
+    ;;
+  "latest")
     SHA=$(curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.target_commitish')
-  fi
+    ;;
+  *)
+    echo "Wrong variant!"
+    exit 1
+    ;;
+  esac
 
   git checkout "$SHA"
   cp ../Dockerfile.x64.alpine .
