@@ -29,6 +29,7 @@ RUN apk add --no-cache --no-progress --virtual .build-deps g++ libffi-dev make p
   && pip3 install --no-cache-dir --progress-bar off base58 bencode.py coincurve merkletools python-bitcoinlib \
   && apk del .build-deps
 
+COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/run.sh", "/usr/local/bin/" ]
 COPY [ "zeronet-git/", "/app/" ]
