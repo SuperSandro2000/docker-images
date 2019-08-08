@@ -19,14 +19,17 @@ WORKDIR /app
 
 RUN [ "cross-build-start" ]
 
+RUN groupadd reddiscord && useradd -g reddiscord reddiscord
+
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev \
     python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl unzip wget zip \
   && rm -rf /var/lib/apt/lists/*
 
-COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
-COPY ["files/run.sh", "files/Lavalink.jar", "/files/"]
-COPY ["files/pip.conf", "/etc/"]
+COPY [ "files/pip.conf", "/etc/" ]
+COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
+COPY [ "files/config.json", "/root/.config/Red-DiscordBot/" ]
+COPY [ "files/run.sh", "files/Lavalink.jar", "/files/" ]
 
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy build-essential \
@@ -39,4 +42,5 @@ RUN apt-get update -qq \
 
 RUN [ "cross-build-end" ]
 
+ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "/files/run.sh" ]

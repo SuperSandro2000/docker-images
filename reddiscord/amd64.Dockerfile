@@ -17,12 +17,15 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /app
 
+RUN groupadd reddiscord && useradd -g reddiscord reddiscord
+
 RUN apt-get update -qq \
-  && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev \
+  && apt-get install --no-install-recommends -qqy default-jre-headless git gosu libffi-dev libssl-dev \
     python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl unzip wget zip \
   && rm -rf /var/lib/apt/lists/*
 
-COPY ["files/config.json", "/root/.config/Red-DiscordBot/"]
+COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
+COPY [ "files/config.json", "/reddiscord/.config/Red-DiscordBot/" ]
 
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy build-essential \
@@ -31,4 +34,5 @@ RUN apt-get update -qq \
   && apt-get autoremove -qqy \
   && rm -rf /var/lib/apt/lists/*
 
+ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "redbot", "docker" ]
