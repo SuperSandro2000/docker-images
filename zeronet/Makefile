@@ -1,4 +1,4 @@
-.PHONY: all build clean clean2 push push-login
+.PHONY: all build build-amd64 build-arm32v7 build-arm64v8 clean clean2 push push-login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
@@ -12,6 +12,15 @@ clean clean2:
 
 build: clean
   ./build.sh ${DOCKER}
+
+build-amd64: clean
+  ./build.sh ${DOCKER} amd64
+
+build-arm32v7: clean
+  ./build.sh ${DOCKER} arm32v7
+
+build-arm64v8: clean
+  ./build.sh ${DOCKER} arm64v8
 
 push-login:
   if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi

@@ -2,6 +2,10 @@
 set -eoux pipefail
 DOCKER=$1
 
+if [[ -z ${VARIANT:-} ]]; then
+  VARIANT=${2-}
+fi
+
 if [ -d zeronet-git ]; then
   git -C zeronet-git pull -f
 else
@@ -14,16 +18,25 @@ else
   ARG=
 fi
 
-for arch in amd64 arm32v7 arm64v8; do
+function build {
+  arch=$1
   if [[ -z ${DOCKER_BUILDKIT:-} ]]; then
     ARGS="$ARG --cache-from supersandro2000/zeronet:$arch-latest"
   else
     ARGS=
   fi
-  
+
   $DOCKER build $ARGS \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
     --build-arg VERSION="$(git rev-parse --short HEAD)" \
     -f $arch.Dockerfile -t supersandro2000/zeronet:$arch-latest .
-done
+}
+
+if [[ -n ${VARIANT:-} ]]; then
+  build "$VARIANT"
+else
+  for arch in amd64 arm32v7 arm64v8; do
+    build "$arch"
+  done
+fi
