@@ -21,7 +21,7 @@ RUN [ "cross-build-start" ]
 
 RUN addgroup -S zeronet && adduser -S -G zeronet zeronet
 
-RUN apk --no-cache --no-progress add python2 py2-gevent py2-msgpack tor \
+RUN apk --no-cache --no-progress add python3 py3-gevent py3-msgpack tor \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc
 
