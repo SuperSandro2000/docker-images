@@ -2,7 +2,7 @@ dist: xenial
 sudo: required
 language: bash
 group: travis_latest
-services: 
+services:
   - docker
 
 env:
@@ -17,41 +17,41 @@ stages:
   - scan
 
 template:
-- &build
-  stage: build
-  script:
-    - cd "$IMAGE"
-    - make build
-    - docker images
+  - &build
+    stage: build
+    script:
+      - cd "$IMAGE"
+      - make build
+      - docker images
 
-- &push
-  after_script:
-    - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - &push
+    after_script:
+      - if [ "$TRAVIS_BRANCH" == "master" ]; then
         make push ;
-      fi
+        fi
 
-- &scan
-  stage: scan
-  cache:
-    directories:
-      - $HOME/.cache/trivy
-  install:
-    - wget https://github.com/knqyf263/trivy/releases/download/v"$trivy"/trivy_"$trivy"_Linux-64bit.tar.gz
-    - tar zxvf trivy_"$trivy"_Linux-64bit.tar.gz
-  script:
-    - ./trivy --refresh --quiet || ./trivy --reset
-    - for arch in amd64 arm32v7 arm64v8; do
+  - &scan
+    stage: scan
+    cache:
+      directories:
+        - $HOME/.cache/trivy
+    install:
+      - wget https://github.com/knqyf263/trivy/releases/download/v"$trivy"/trivy_"$trivy"_Linux-64bit.tar.gz
+      - tar zxvf trivy_"$trivy"_Linux-64bit.tar.gz
+    script:
+      - ./trivy --refresh --quiet || ./trivy --reset
+      - for arch in amd64 arm32v7 arm64v8; do
         ./trivy --exit-code 0 --severity HIGH -quiet $IMAGE:$arch-latest ;
         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-latest ;
-      done
+        done
 
 jobs:
   include:
     - stage: lint
       env: HADOLINT="$HOME/hadolint"
       install:
-       - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
-       - curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
+        - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+        - curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
       script:
         - fossa init
         - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"
@@ -66,7 +66,7 @@ jobs:
         - docker images
       after_script:
         - if [ "$TRAVIS_BRANCH" == "master" ]; then
-            make push-alpine ;
+          make push-alpine ;
           fi
     # - stage: build
     #   env: IMAGE=code-server
@@ -100,39 +100,37 @@ jobs:
       env: IMAGE=reddiscord VARIANT=arm32v7
     - <<: *build
       env: IMAGE=reddiscord VARIANT=arm64v8
-   #  - <<: *build
-   #    <<: *push
-   #    env: IMAGE=reddiscord VARIANT=arm64v8
-   # - stage: build
-   #    env: IMAGE=reddiscord VARIANT=source
-   #    script:
-   #      - cd "$IMAGE"
-   #      - make build-source
-   #      - docker images
-   #    after_script:
-   #      - if [ "$TRAVIS_BRANCH" == "master" ]; then
-   #          make push-source ;
-   #        fi
+    #  - <<: *build
+    #    <<: *push
+    #    env: IMAGE=reddiscord VARIANT=arm64v8
+    # - stage: build
+    #    env: IMAGE=reddiscord VARIANT=source
+    #    script:
+    #      - cd "$IMAGE"
+    #      - make build-source
+    #      - docker images
+    #    after_script:
+    #      - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    #          make push-source ;
+    #        fi
     - <<: *build
       <<: *push
       env: IMAGE=zeronet
 
-
     - <<: *push
       stage: manifest
       env: IMAGE=archisteamfarm
-
 
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
       script:
         - ./trivy --refresh --quiet
         - for variant in master tag; do
-            ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$variant-alpine ;
-            ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$variant-alpine ;
+          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$variant-alpine ;
+          ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$variant-alpine ;
           done
-   # - <<: *scan
-   #   env: trivy=0.1.2 IMAGE=supersandro2000/code-server
+    # - <<: *scan
+    #   env: trivy=0.1.2 IMAGE=supersandro2000/code-server
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/kibitzr
     - <<: *scan
@@ -140,17 +138,17 @@ jobs:
       script:
         - ./trivy --refresh --quiet
         - for arch in amd64 arm32v7; do
-            ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
-            ./trivy --exit-code 0 --severity CRITICAL --quiet $IMAGE:$arch-source ;
+          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
+          ./trivy --exit-code 0 --severity CRITICAL --quiet $IMAGE:$arch-source ;
           done
-   # - <<: *scan
-   #   env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord VARIANT=source
-   #   script:
-   #     - ./trivy --refresh --quiet
-   #     - for arch in amd64 arm32v7 arm64v8; do
-   #         ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
-   #         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
-   #       done
+    # - <<: *scan
+    #   env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord VARIANT=source
+    #   script:
+    #     - ./trivy --refresh --quiet
+    #     - for arch in amd64 arm32v7 arm64v8; do
+    #         ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
+    #         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
+    #       done
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/zeronet
 
