@@ -13,6 +13,7 @@ env:
 stages:
   - lint
   - build
+  - manifest
   - scan
 
 template:
@@ -22,10 +23,13 @@ template:
     - cd "$IMAGE"
     - make build
     - docker images
+
+- &push
   after_success:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
         make push ;
       fi
+
 - &scan
   stage: scan
   cache:
@@ -54,9 +58,7 @@ jobs:
         - bash -c 'shopt -s globstar; shellcheck **/*.sh'
       after_success:
         - fossa test
-    - <<: *build
-      env: IMAGE=archisteamfarm
-    - <<: *build
+    - stage: build
       env: IMAGE=archisteamfarm VARIANT=alpine
       script:
         - cd "$IMAGE"
@@ -66,7 +68,7 @@ jobs:
         - if [ "$TRAVIS_BRANCH" == "master" ]; then
             make push-alpine ;
           fi
-    # - <<: *build
+    # - stage: build
     #   env: IMAGE=code-server
     #   script:
     #     - cd "$IMAGE"
@@ -76,7 +78,7 @@ jobs:
     #     - if [ "$TRAVIS_BRANCH" == "master" ]; then
     #         make push amd64 ;
     #       fi
-    # - <<: *build
+    # - stage: build
     #   env: IMAGE=code-server
     #   script:
     #     - cd "$IMAGE"
@@ -87,16 +89,21 @@ jobs:
     #         make push arm64v8 ;
     #       fi
     - <<: *build
+      <<: *push
       env: IMAGE=halcyon
     - <<: *build
+      <<: *push
       env: IMAGE=kibitzr
     - <<: *build
       env: IMAGE=reddiscord VARIANT=amd64
     - <<: *build
       env: IMAGE=reddiscord VARIANT=arm32v7
+    - <<: *build
+      env: IMAGE=reddiscord VARIANT=arm64v8
    #  - <<: *build
+   #    <<: *push
    #    env: IMAGE=reddiscord VARIANT=arm64v8
-   # - <<: *build
+   # - stage: build
    #    env: IMAGE=reddiscord VARIANT=source
    #    script:
    #      - cd "$IMAGE"
@@ -107,7 +114,13 @@ jobs:
    #          make push-source ;
    #        fi
     - <<: *build
+      <<: *push
       env: IMAGE=zeronet
+
+
+    - <<: &push
+      stage: manifest
+      env: IMAGE=archisteamfarm
 
 
     - <<: *scan
