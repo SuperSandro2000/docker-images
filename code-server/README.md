@@ -2,6 +2,7 @@
 [![Github Stars](https://img.shields.io/github/stars/supersandro2000/docker-images.svg?maxAge=3600&label=Stars)](https://github.com/SuperSandro2000/docker-images)
 
 # Code-Server
+
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/code-server/)
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](code-server/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/code-server.svg)](https://microbadger.com/images/supersandro2000/code-server)
@@ -9,9 +10,11 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/code-server.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/code-server/)
 
 Code-Server Docker Image with multi-arch support.
+Development on hold for now.
 
 ## Docker compose
-````
+
+````yaml
 ---
 version: "3"
 services:
