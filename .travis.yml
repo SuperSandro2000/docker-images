@@ -23,11 +23,15 @@ template:
       - cd "$IMAGE"
       - make build
       - docker images
-
-  - &push
     after_script:
       - if [ "$TRAVIS_BRANCH" == "master" ]; then
         make push ;
+        fi
+
+  - &manifest
+    script:
+      - if [ "$TRAVIS_BRANCH" == "master" ]; then
+        make manifest ;
         fi
 
   - &scan
@@ -89,10 +93,8 @@ jobs:
     #         make push arm64v8 ;
     #       fi
     - <<: *build
-      <<: *push
       env: IMAGE=halcyon
     - <<: *build
-      <<: *push
       env: IMAGE=kibitzr
     - <<: *build
       env: IMAGE=reddiscord VARIANT=amd64
@@ -120,10 +122,13 @@ jobs:
     - <<: *build
       env: IMAGE=zeronet VARIANT=arm64v8
 
-    - <<: *push
+    - <<: *manifest
       stage: manifest
       env: IMAGE=archisteamfarm
-    - <<: *push
+    - <<: *manifest
+      stage: manifest
+      env: IMAGE=reddiscord
+    - <<: *manifest
       stage: manifest
       env: IMAGE=zeronet
 
