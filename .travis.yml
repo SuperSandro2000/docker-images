@@ -25,7 +25,7 @@ template:
     - docker images
 
 - &push
-  after_success:
+  after_script:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
         make push ;
       fi
@@ -56,7 +56,7 @@ jobs:
         - fossa init
         - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"
         - bash -c 'shopt -s globstar; shellcheck **/*.sh'
-      after_success:
+      after_script:
         - fossa test
     - stage: build
       env: IMAGE=archisteamfarm VARIANT=alpine
@@ -64,7 +64,7 @@ jobs:
         - cd "$IMAGE"
         - make build-alpine
         - docker images
-      after_success:
+      after_script:
         - if [ "$TRAVIS_BRANCH" == "master" ]; then
             make push-alpine ;
           fi
@@ -74,7 +74,7 @@ jobs:
     #     - cd "$IMAGE"
     #     - make build ARCH=amd64
     #     - docker images
-    #   after_success:
+    #   after_script:
     #     - if [ "$TRAVIS_BRANCH" == "master" ]; then
     #         make push amd64 ;
     #       fi
@@ -84,7 +84,7 @@ jobs:
     #     - cd "$IMAGE"
     #     - make build ARCH=arm64
     #     - docker images
-    #   after_success:
+    #   after_script:
     #     - if [ "$TRAVIS_BRANCH" == "master" ]; then
     #         make push arm64v8 ;
     #       fi
@@ -109,7 +109,7 @@ jobs:
    #      - cd "$IMAGE"
    #      - make build-source
    #      - docker images
-   #    after_success:
+   #    after_script:
    #      - if [ "$TRAVIS_BRANCH" == "master" ]; then
    #          make push-source ;
    #        fi
