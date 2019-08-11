@@ -114,12 +114,18 @@ jobs:
     #          make push-source ;
     #        fi
     - <<: *build
-      <<: *push
-      env: IMAGE=zeronet
+      env: IMAGE=zeronet VARIANT=amd64
+    - <<: *build
+      env: IMAGE=zeronet VARIANT=arm32v7
+    - <<: *build
+      env: IMAGE=zeronet VARIANT=arm64v8
 
     - <<: *push
       stage: manifest
       env: IMAGE=archisteamfarm
+    - <<: *push
+      stage: manifest
+      env: IMAGE=zeronet
 
     - <<: *scan
       env: trivy=0.1.2 IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
