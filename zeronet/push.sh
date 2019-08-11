@@ -13,7 +13,7 @@ retry() {
   done
 }
 
-version=$($DOCKER run --rm -it supersandro2000/zeronet:amd64-latest python2 -c "from src.Config import Config;c=Config(help);print(str(c.version) + \"-r\" + str(c.rev))" | rev | cut -c 2- | rev)
+version=$($DOCKER run --rm -it supersandro2000/zeronet:amd64-latest python3 -c "from src.Config import Config;c=Config(help);print(str(c.version) + \"-r\" + str(c.rev))" | rev | cut -c 2- | rev)
 
 for arch in amd64 arm32v7 arm64v8; do
   $DOCKER tag supersandro2000/zeronet:$arch-latest supersandro2000/zeronet:"$arch-$version"
