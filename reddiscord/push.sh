@@ -14,14 +14,23 @@ retry() {
   done
 }
 
-version=$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token="${GITHUB_TOKEN}" | jq -r ".[0] | .tag_name")
-
-for arch in amd64 arm32v7 arm64v8; do
-  $DOCKER tag supersandro2000/reddiscord:$arch-latest supersandro2000/reddiscord:"$arch-$version"
+function push() {
+  arch=$1
+  $DOCKER tag "supersandro2000/reddiscord:$arch-latest" supersandro2000/reddiscord:"$arch-$version"
   retry "$DOCKER push supersandro2000/reddiscord:$arch-$version"
   sleep 3
   retry "$DOCKER push supersandro2000/reddiscord:$arch-latest"
   sleep 3
-done
+}
+
+version=$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token="${GITHUB_TOKEN}" | jq -r ".[0] | .tag_name")
+
+if [[ -n ${VARIANT:-} ]]; then
+  push "$VARIANT"
+else
+  for arch in amd64 arm32v7 arm64v8; do
+    push "$arch"
+  done
+fi
 
 curl -X POST https://hooks.microbadger.com/images/supersandro2000/reddiscord/CtjLg5fT78hv5M6mbobg3_1aqeE=

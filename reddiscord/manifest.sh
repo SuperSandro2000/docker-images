@@ -1,7 +1,18 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 set -eoux pipefail
 DOCKER=$1
 export DOCKER_CLI_EXPERIMENTAL=enabled
+
+retry() {
+  for i in {1..5}; do
+    if [ "$(eval "$1")" ]; then
+      break
+    else
+      sleep 10
+    fi
+  done
+}
 
 version=$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token="${GITHUB_TOKEN}" | jq -r ".[0] | .tag_name")
 

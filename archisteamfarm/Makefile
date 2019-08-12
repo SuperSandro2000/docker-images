@@ -1,4 +1,4 @@
-.PHONY: all all-alpine build build-alpine clean clean2 push push-alpine push-login
+.PHONY: all all-alpine build build-alpine clean clean2 manifest push-alpine push-login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
@@ -14,12 +14,12 @@ build-alpine: clean
 push-login:
   if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
 
-push: push-login clean
-  ./push.sh ${DOCKER}
-
 push-alpine: push-login clean
   ./push-alpine.sh ${DOCKER}
 
-all: push clean2
+manifest: push-login clean
+  ./manifest.sh ${DOCKER}
+
+all: manifest clean2
 
 all-alpine: build-alpine push-alpine clean2

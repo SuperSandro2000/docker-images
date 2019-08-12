@@ -1,4 +1,4 @@
-.PHONY: all all-amd64 all-arm32v7 all-arm64v8 all-source build build-amd64 build-arm32v7 build-arm64v8 build-source clean clean2 push push-login push-source
+.PHONY: all all-amd64 all-arm32v7 all-arm64v8 all-source build build-amd64 build-arm32v7 build-arm64v8 build-source clean clean2 manifest push push-login push-source
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
@@ -35,6 +35,9 @@ push: push-login clean
 
 push-source: push-login clean
   ./push-source.sh ${DOCKER}
+
+manifest: clean push-login
+  ./manifest.sh ${DOCKER}
 
 all: build push clean2
 

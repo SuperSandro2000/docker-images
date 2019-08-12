@@ -1,7 +1,18 @@
 #!/bin/bash
+# shellcheck disable=SC2034
 set -eoux pipefail
 DOCKER=$1
 export DOCKER_CLI_EXPERIMENTAL=enabled
+
+retry() {
+  for i in {1..5}; do
+    if [ "$(eval "$1")" ]; then
+      break
+    else
+      sleep 10
+    fi
+  done
+}
 
 version=$($DOCKER run --rm -it supersandro2000/zeronet:amd64-latest python3 -c "from src.Config import Config;c=Config(help);print(str(c.version) + \"-r\" + str(c.rev))" | rev | cut -c 2- | rev)
 
