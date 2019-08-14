@@ -15,11 +15,14 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.version=$VERSION \
   org.label-schema.schema-version="1.0"
 
-WORKDIR /usr/src/app
+RUN addgroup -S kibitzr && adduser -S -G kibitzr kibitzr
 
-COPY ["files/kibitzr-creds.yml", "files/kibitzr.yml", "./"]
+COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
+COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 
-RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml \
+RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml su-exec \
   && pip3 install --no-cache-dir --progress-bar off kibitzr
 
+WORKDIR /usr/src/app
+ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "kibitzr", "run" ]

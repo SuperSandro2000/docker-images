@@ -15,15 +15,20 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.version=$VERSION \
   org.label-schema.schema-version="1.0"
 
-COPY ["files/kibitzr-creds.yml", "files/kibitzr.yml", "./"]
 
-WORKDIR /usr/src/app
+COPY [ "files/pip.conf", "/etc/" ]
+COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
+COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 
 RUN [ "cross-build-start" ]
 
-RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml \
+RUN addgroup -S kibitzr && adduser -S -G kibitzr kibitzr
+
+RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml su-exec \
   && pip3 install --no-cache-dir --progress-bar off kibitzr
 
 RUN [ "cross-build-end" ]
 
+WORKDIR /usr/src/app
+ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "kibitzr", "run" ]
