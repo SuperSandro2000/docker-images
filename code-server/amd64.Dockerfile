@@ -35,12 +35,15 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-WORKDIR /root/project
+RUN addgroup -S code-server && adduser -S -G code-server code-server
+
+COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
+
+RUN apk --no-cache --no-progress add git net-tools openssl su-exec
 
 COPY --from=build /src/packages/server/cli-linux-x64 /usr/local/bin/code-server
 
-RUN apk --no-cache --no-progress add git net-tools openssl
-
+WORKDIR /root/project
 EXPOSE 8443
-
+ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["code-server"]
