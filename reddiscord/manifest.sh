@@ -16,7 +16,7 @@ retry() {
 
 version=$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/releases?access_token="${GITHUB_TOKEN}" | jq -r ".[0] | .tag_name")
 
-for arch in amd64 arm32v7; do
+for arch in amd64 armhf; do
   printf "supersandro2000/reddiscord:%s-%s " "$arch" "$version" >>manifest
   printf "supersandro2000/reddiscord:%s-latest " "$arch" >>manifest_latest
   printf "supersandro2000/reddiscord:%s-source " "$arch" >>manifest_source
@@ -29,13 +29,13 @@ $DOCKER manifest create supersandro2000/reddiscord:latest $(head -n 1 manifest_l
 # shellcheck disable=SC2046
 $DOCKER manifest create supersandro2000/reddiscord:source $(head -n 1 manifest_source)
 $DOCKER manifest annotate supersandro2000/reddiscord:"$version" supersandro2000/reddiscord:amd64-"$version" --os linux --arch amd64
-$DOCKER manifest annotate supersandro2000/reddiscord:"$version" supersandro2000/reddiscord:arm32v7-"$version" --os linux --arch arm --variant v7
+$DOCKER manifest annotate supersandro2000/reddiscord:"$version" supersandro2000/reddiscord:armhf-"$version" --os linux --arch arm --variant v7
 # $DOCKER manifest annotate supersandro2000/reddiscord:"$version" supersandro2000/reddiscord:arm64v8-"$version" --os linux --arch arm64 --variant v8
 $DOCKER manifest annotate supersandro2000/reddiscord:latest supersandro2000/reddiscord:amd64-latest --os linux --arch amd64
-$DOCKER manifest annotate supersandro2000/reddiscord:latest supersandro2000/reddiscord:arm32v7-latest --os linux --arch arm --variant v7
+$DOCKER manifest annotate supersandro2000/reddiscord:latest supersandro2000/reddiscord:armhf-latest --os linux --arch arm --variant v7
 # $DOCKER manifest annotate supersandro2000/reddiscord:latest supersandro2000/reddiscord:arm64v8-latest --os linux --arch arm64 --variant v8
 $DOCKER manifest annotate supersandro2000/reddiscord:source supersandro2000/reddiscord:amd64-source --os linux --arch amd64
-$DOCKER manifest annotate supersandro2000/reddiscord:source supersandro2000/reddiscord:arm32v7-source --os linux --arch arm --variant v7
+$DOCKER manifest annotate supersandro2000/reddiscord:source supersandro2000/reddiscord:armhf-source --os linux --arch arm --variant v7
 # $DOCKER manifest annotate supersandro2000/reddiscord:source supersandro2000/reddiscord:arm64v8-source --os linux --arch arm64 --variant v8
 
 retry "$DOCKER manifest push supersandro2000/reddiscord:$version"

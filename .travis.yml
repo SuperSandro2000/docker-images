@@ -45,7 +45,7 @@ template:
       - tar zxvf trivy_"$trivy"_Linux-64bit.tar.gz
     script:
       - ./trivy --refresh --quiet || ./trivy --reset
-      - for arch in amd64 arm32v7 arm64v8; do
+      - for arch in amd64 armhf arm64; do
         ./trivy --exit-code 0 --severity HIGH -quiet $IMAGE:$arch-latest ;
         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-latest ;
         done
@@ -91,7 +91,7 @@ jobs:
     #     - docker images
     #   after_script:
     #     - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    #         make push arm64v8 ;
+    #         make push arm64 ;
     #       fi
     - <<: *build
       env: IMAGE=halcyon
@@ -100,9 +100,9 @@ jobs:
     - <<: *build
       env: IMAGE=reddiscord VARIANT=amd64
     - <<: *build
-      env: IMAGE=reddiscord VARIANT=arm32v7
+      env: IMAGE=reddiscord VARIANT=armhf
     # - <<: *build
-    #   env: IMAGE=reddiscord VARIANT=arm64v8
+    #   env: IMAGE=reddiscord VARIANT=arm64
     # - stage: build
     #    env: IMAGE=reddiscord VARIANT=source
     #    script:
@@ -116,9 +116,9 @@ jobs:
     - <<: *build
       env: IMAGE=zeronet VARIANT=amd64
     - <<: *build
-      env: IMAGE=zeronet VARIANT=arm32v7
+      env: IMAGE=zeronet VARIANT=armhf
     - <<: *build
-      env: IMAGE=zeronet VARIANT=arm64v8
+      env: IMAGE=zeronet VARIANT=arm64
 
     - <<: *manifest
       stage: manifest
@@ -146,7 +146,7 @@ jobs:
       env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord
       script:
         - ./trivy --refresh --quiet
-        - for arch in amd64 arm32v7; do
+        - for arch in amd64 armhf; do
           ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
           ./trivy --exit-code 0 --severity CRITICAL --quiet $IMAGE:$arch-source ;
           done
@@ -154,7 +154,7 @@ jobs:
     #   env: trivy=0.1.2 IMAGE=supersandro2000/reddiscord VARIANT=source
     #   script:
     #     - ./trivy --refresh --quiet
-    #     - for arch in amd64 arm32v7 arm64v8; do
+    #     - for arch in amd64 armhf arm64; do
     #         ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
     #         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
     #       done

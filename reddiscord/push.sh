@@ -28,7 +28,7 @@ version=$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/relea
 if [[ -n ${VARIANT:-} ]]; then
   push "$VARIANT"
 else
-  for arch in amd64 arm32v7 arm64v8; do
+  for arch in amd64 armhf arm64v8; do
     push "$arch"
   done
 fi

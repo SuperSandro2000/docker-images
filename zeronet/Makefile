@@ -1,4 +1,4 @@
-.PHONY: all build build-amd64 build-arm32v7 build-arm64v8 clean clean2 manifest push push-login
+.PHONY: all build build-amd64 build-armhf build-arm64v8 clean clean2 manifest push push-login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
@@ -16,8 +16,8 @@ build: clean
 build-amd64: clean
   ./build.sh ${DOCKER} amd64
 
-build-arm32v7: clean
-  ./build.sh ${DOCKER} arm32v7
+build-armhf: clean
+  ./build.sh ${DOCKER} armhf
 
 build-arm64v8: clean
   ./build.sh ${DOCKER} arm64v8

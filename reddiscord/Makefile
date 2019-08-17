@@ -1,4 +1,4 @@
-.PHONY: all all-amd64 all-arm32v7 all-arm64v8 all-source build build-amd64 build-arm32v7 build-arm64v8 build-source clean clean2 manifest push push-login push-source
+.PHONY: all all-amd64 all-armhf all-arm64v8 all-source build build-amd64 build-armhf build-arm64v8 build-source clean clean2 manifest push push-login push-source
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
@@ -18,8 +18,8 @@ build: clean lavalink
 build-amd64: clean lavalink
   ./build.sh ${DOCKER} amd64
   
-build-arm32v7: clean lavalink
-  ./build.sh ${DOCKER} arm32v7
+build-armhf: clean lavalink
+  ./build.sh ${DOCKER} armhf
 
 build-arm64v8: clean lavalink
   ./build.sh ${DOCKER} arm64v8
@@ -43,7 +43,7 @@ all: build push clean2
 
 all-amd64: build-amd64 push clean2
 
-all-arm32v7: build-arm32v7 push clean2
+all-armhf: build-armhf push clean2
 
 all-arm64v8: build-arm64v8 push clean2
 

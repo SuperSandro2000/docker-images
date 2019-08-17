@@ -8,7 +8,7 @@ else
   ARG=
 fi
 
-for arch in amd64 arm32v7 arm64v8; do
+for arch in amd64 armhf arm64v8; do
   if [[ -z ${DOCKER_BUILDKIT:-} ]]; then
     ARGS="$ARG --cache-from supersandro2000/reddiscord:$arch-source"
   else

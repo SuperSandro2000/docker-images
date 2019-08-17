@@ -27,7 +27,7 @@ version=$($DOCKER run --rm -it supersandro2000/zeronet:amd64-latest python3 -c "
 if [[ -n ${VARIANT:-} ]]; then
   push "$VARIANT"
 else
-  for arch in amd64 arm32v7 arm64v8; do
+  for arch in amd64 armhf arm64v8; do
     push "$arch"
   done
 fi

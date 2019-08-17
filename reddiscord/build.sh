@@ -31,7 +31,7 @@ function build {
 if [[ -n ${VARIANT:-} ]]; then
   build "$VARIANT"
 else
-  for arch in amd64 arm32v7 arm64v8; do
+  for arch in amd64 armhf arm64v8; do
     build "$arch"
   done
 fi
