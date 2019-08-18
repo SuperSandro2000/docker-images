@@ -134,9 +134,9 @@ jobs:
       env: trivy=0.1.4 IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
       script:
         - ./trivy --refresh --quiet
-        - for variant in master tag; do
-          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$variant-alpine ;
-          ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$variant-alpine ;
+        - for arch in master tag; do
+          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-alpine ;
+          ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-alpine ;
           done
     # - <<: *scan
     #   env: trivy=0.1.4 IMAGE=supersandro2000/code-server
