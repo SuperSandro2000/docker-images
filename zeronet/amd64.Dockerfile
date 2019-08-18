@@ -19,16 +19,18 @@ ENV HOME=/app ENABLE_TOR=false
 
 RUN addgroup -S zeronet && adduser -S -G zeronet zeronet
 
-RUN  apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks su-exec tor \
+RUN  apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client su-exec tor \
   # only fetch specific packages from testing
-  && apk add --no-cache --no-progress -X http://dl-cdn.alpinelinux.org/alpine/edge/testing py3-gevent-websocket
-
-RUN apk add --no-cache --no-progress --virtual .build-deps g++ libffi-dev make python3-dev \
-  && pip3 install --no-cache-dir --progress-bar off base58 bencode.py coincurve merkletools python-bitcoinlib \
-  && apk del .build-deps
+  && apk add --no-cache --no-progress -X http://dl-cdn.alpinelinux.org/alpine/edge/testing py3-maxminddb py3-gevent-websocket
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/run.sh", "/usr/local/bin/" ]
+COPY [ "zeronet-git/requirements.txt", "." ]
+
+RUN apk add --no-cache --no-progress --virtual .build-deps g++ libffi-dev make python3-dev \
+  && pip3 install --no-cache-dir --progress-bar off -r requirements.txt \
+  && apk del .build-deps
+
 COPY [ "zeronet-git/", "/app/" ]
 
 RUN mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
