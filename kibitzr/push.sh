@@ -15,7 +15,7 @@ retry() {
 
 version=$($DOCKER run --rm -it supersandro2000/kibitzr:amd64-latest kibitzr version | rev | cut -c 2- | rev)
 
-for arch in amd64 armhf arm64v8; do
+for arch in amd64 armhf arm64; do
   $DOCKER tag supersandro2000/kibitzr:$arch-latest supersandro2000/kibitzr:"$arch-$version"
   retry "$DOCKER push supersandro2000/kibitzr:$arch-$version"
   sleep 3
