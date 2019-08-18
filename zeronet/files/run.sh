@@ -10,4 +10,5 @@ if [ -n "$UI_PASSWORD" ]; then
 fi
 
 [ "${ENABLE_TOR:-}" = true ] && tor &
-python3 zeronet.py --fileserver_port 26552 --ui_ip 0.0.0.0 "${ARGS:-}" "$@"
+# shellcheck disable=SC2086
+python3 zeronet.py --fileserver_port 26552 --ui_ip 0.0.0.0 ${ARGS:-} "$@"
