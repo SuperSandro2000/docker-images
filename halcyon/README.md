@@ -20,6 +20,6 @@ services:
   halcyon:
     image: supersandro2000/halcyon
     volumes:
-      - $PWD/halcyon/config.ini:/var/www/html/config/config.ini
+      - $PWD/halcyon/:/var/www/html/config/
     restart: unless-stopped
 ````
