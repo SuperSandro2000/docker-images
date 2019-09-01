@@ -19,5 +19,7 @@ version: "3"
 services:
   unbound:
     image: supersandro2000/unbound
+    volumes:
+      - $PWD/unbound/:/etc/unbound/
     restart: unless-stopped
 ````
