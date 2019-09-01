@@ -19,7 +19,7 @@ RUN addgroup -S unbound && adduser -S -G unbound unbound
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apk add --no-cache --no-progress su-exec unbound \
+RUN apk add --no-cache --no-progress openssl su-exec unbound \
   && wget https://www.internic.net/domain/named.cache -O /etc/unbound/root.hints
 
 WORKDIR /etc/unbound/
