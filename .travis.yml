@@ -114,6 +114,8 @@ jobs:
     #          make push-source ;
     #        fi
     - <<: *build
+      env: IMAGE=unbound
+    - <<: *build
       env: IMAGE=zeronet VARIANT=amd64
     - <<: *build
       env: IMAGE=zeronet VARIANT=armhf
@@ -150,6 +152,8 @@ jobs:
     #         ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
     #         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
     #       done
+    - <<: *scan
+      env: trivy=0.1.6 IMAGE=supersandro2000/unbound
     - <<: *scan
       env: trivy=0.1.6 IMAGE=supersandro2000/zeronet
 
