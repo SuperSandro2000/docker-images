@@ -154,6 +154,10 @@ jobs:
     #       done
     - <<: *scan
       env: trivy=0.1.6 IMAGE=supersandro2000/unbound
+      script:
+        - ./trivy --refresh --quiet
+        - ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-alpine
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-alpine
     - <<: *scan
       env: trivy=0.1.6 IMAGE=supersandro2000/zeronet
 
