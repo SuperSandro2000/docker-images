@@ -21,5 +21,7 @@ services:
     image: supersandro2000/unbound
     volumes:
       - $PWD/unbound/:/etc/unbound/
+    cap_add:
+      - NET_BIND_SERVICE
     restart: unless-stopped
 ````
