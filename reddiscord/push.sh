@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2034
 set -eoux pipefail
-DOCKER=$1
+DOCKER=${*:-docker}
 export DOCKER_CLI_EXPERIMENTAL=enabled
 
 retry() {

@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2034
 set -eoux pipefail
-DOCKER=$1
+DOCKER=${*:-docker}
 
 retry() {
   for i in {1..5}; do
