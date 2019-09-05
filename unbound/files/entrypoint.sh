@@ -3,7 +3,7 @@ set -eoux pipefail
 
 # if the first arg starts with "-" pass it to unbound
 if [ "${1#-}" != "$1" ]; then
-  set -- unbound "$@"
+  set -- unbound -d "$@"
 fi
 
 if [ "$1" = "unbound" ] && [ "$(id -u)" = "0" ]; then

@@ -26,4 +26,4 @@ RUN apk add --no-cache --no-progress bash openssl su-exec unbound \
 WORKDIR /etc/unbound/
 EXPOSE 53/udp
 ENTRYPOINT [ "entrypoint.sh" ]
-CMD [ "unbound" ]
+CMD [ "unbound", "-d" ]
