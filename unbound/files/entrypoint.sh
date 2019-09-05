@@ -1,5 +1,5 @@
-#!/bin/sh
-set -eou pipefail
+#!/bin/bash
+set -eoux pipefail
 
 # if the first arg starts with "-" pass it to unbound
 if [ "${1#-}" != "$1" ]; then
