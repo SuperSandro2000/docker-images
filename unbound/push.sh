@@ -13,7 +13,8 @@ retry() {
   done
 }
 
-version=$($DOCKER run --rm -it supersandro2000/unbound:latest unbound | grep '(?<=Version )[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}')
+help=$($DOCKER run --rm -t supersandro2000/unbound:latest unbound -h || true)
+version=$(echo "$help" | grep -oP '(?<=Version )[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}')
 
 $DOCKER tag supersandro2000/unbound:latest supersandro2000/unbound:"$version"
 retry "$DOCKER push supersandro2000/unbound:$version"
