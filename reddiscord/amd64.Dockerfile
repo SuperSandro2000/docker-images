@@ -17,7 +17,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /app
 
-RUN groupadd reddiscord && useradd -g reddiscord reddiscord
+RUN groupadd -r reddiscord && useradd -g reddiscord -r reddiscord
 
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy default-jre-headless git gosu libffi-dev libssl-dev \

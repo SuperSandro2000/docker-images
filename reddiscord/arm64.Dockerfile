@@ -19,7 +19,7 @@ WORKDIR /app
 
 RUN [ "cross-build-start" ]
 
-RUN groupadd reddiscord && useradd -g reddiscord reddiscord
+RUN groupadd -r reddiscord && useradd -g reddiscord -r reddiscord
 
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -qqy default-jre-headless git libffi-dev libssl-dev \
