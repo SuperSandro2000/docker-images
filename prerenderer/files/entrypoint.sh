@@ -8,7 +8,7 @@ fi
 
 if [ "$1" = "node" ] && [ "$(id -u)" = "0" ]; then
     find . \! -user prerenderer -exec chown prerenderer '{}' +
-    exec su-exec prerenderer "$0" "$@"
+    exec gosu prerenderer "$0" "$@"
 fi
 
 exec "$@"
