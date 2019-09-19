@@ -15,7 +15,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.version=$VERSION \
   org.label-schema.schema-version="1.0"
 
-RUN addgroup -S prerenderer && adduser -S -G prerenderer prerenderer
+RUN groupadd -r prerenderer && useradd -g prerenderer -r prerenderer
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "server.js", "/app" ]
