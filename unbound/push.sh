@@ -21,4 +21,4 @@ retry "$DOCKER push supersandro2000/unbound:$version"
 sleep 3
 retry "$DOCKER push supersandro2000/unbound:latest"
 
-# curl -X POST https://hooks.microbadger.com/images/supersandro2000/unbound/SZHNRfRT-225bEYcHQCve7POsRs=
+curl -X POST https://hooks.microbadger.com/images/supersandro2000/unbound/4cxdD8N2iomewH1V7PBYGIWYvRk=
