@@ -17,7 +17,7 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 ### ArchiSteamFarm
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](archisteamfarm/README.md)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/archisteamfarm/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/archisteamfarm.svg)](https://microbadger.com/images/supersandro2000/archisteamfarm)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/archisteamfarm.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
@@ -25,7 +25,7 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 ### Halcyon
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/halcyon/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](halcyon/README.md)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/halcyon/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/halcyon.svg)](https://microbadger.com/images/supersandro2000/halcyon)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/halcyon.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/halcyon/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/halcyon.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/halcyon/)
@@ -33,7 +33,7 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 ### Kibitzr
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/kibitzr/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](kibitzr/README.md)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/kibitzr/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/kibitzr.svg)](https://microbadger.com/images/supersandro2000/kibitzr)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
@@ -41,7 +41,7 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 ### Red-Discord
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/reddiscord/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](reddiscord/README.md)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/reddiscord/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/reddiscord.svg)](https://microbadger.com/images/supersandro2000/reddiscord)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
@@ -49,7 +49,7 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 ### ZeroNet
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/zeronet/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](zeronet/README.md)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/zeronet/README.md)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/zeronet.svg)](https://microbadger.com/images/supersandro2000/zeronet)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/zeronet.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/zeronet.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/zeronet/)
