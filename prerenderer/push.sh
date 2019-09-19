@@ -13,9 +13,9 @@ retry() {
   done
 }
 
-version=$($DOCKER run --rm -t supersandro2000/prerenderer:latest node -p "require('./package.json').version")
+version=$($DOCKER run --rm -t supersandro2000/prerenderer:latest node -p "require('./package.json').version" | tr -d '\r')
 
-$DOCKER tag supersandro2000/unbound:prerenderer supersandro2000/prerenderer:"$version"
+$DOCKER tag supersandro2000/prerenderer:latest supersandro2000/prerenderer:"$version"
 retry "$DOCKER push supersandro2000/prerenderer:$version"
 sleep 3
 retry "$DOCKER push supersandro2000/prerenderer:latest"
