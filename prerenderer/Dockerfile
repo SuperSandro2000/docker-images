@@ -18,7 +18,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN groupadd -r prerenderer && useradd -g prerenderer -r prerenderer
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
-COPY [ "server.js", "/app" ]
 
 RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy chromium git gosu \
@@ -28,6 +27,8 @@ WORKDIR /app
 
 RUN git clone https://github.com/prerender/prerender.git . \
   && npm install
+
+COPY [ "files/server.js", "/app/" ]
 
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["npm", "start", "server"]
