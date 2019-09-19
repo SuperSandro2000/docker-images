@@ -73,26 +73,6 @@ jobs:
         - if [ "$TRAVIS_BRANCH" == "master" ]; then
           make push-alpine ;
           fi
-    # - stage: build
-    #   env: IMAGE=code-server
-    #   script:
-    #     - cd "$IMAGE"
-    #     - make build ARCH=amd64
-    #     - docker images
-    #   after_script:
-    #     - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    #         make push amd64 ;
-    #       fi
-    # - stage: build
-    #   env: IMAGE=code-server
-    #   script:
-    #     - cd "$IMAGE"
-    #     - make build ARCH=arm64
-    #     - docker images
-    #   after_script:
-    #     - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    #         make push arm64 ;
-    #       fi
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
@@ -140,8 +120,6 @@ jobs:
           ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-alpine ;
           ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-alpine ;
           done
-    # - <<: *scan
-    #   env: trivy=0.1.6 IMAGE=supersandro2000/code-server
     - <<: *scan
       env: trivy=0.1.6 IMAGE=supersandro2000/kibitzr
     # - <<: *scan
