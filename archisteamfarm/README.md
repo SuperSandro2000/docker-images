@@ -11,4 +11,5 @@
 
 [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) Docker Image with multi-arch support.
 
-This image is just a manifest to easily transfer `docker-compose.yml` files between architectures.
+The main image is just a manifest to easily transfer `docker-compose.yml` files between architectures.
+The ``alpine``-Tag is a completely new image build from scratch based on alpine to reduce the images size.
