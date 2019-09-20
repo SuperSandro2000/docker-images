@@ -28,5 +28,6 @@ RUN git clone https://github.com/prerender/prerender.git . \
 
 COPY [ "files/server.js", "/app/" ]
 
+EXPOSE 3000
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["npm", "start", "server"]
