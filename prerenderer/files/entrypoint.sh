@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eu
+set -eou pipefail
 
 # if the first arg starts with "-" pass it to node
 if [ "${1#-}" != "$1" ]; then
