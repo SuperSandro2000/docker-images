@@ -1,4 +1,4 @@
-FROM node:buster-slim
+FROM node:alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -15,13 +15,11 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.label-schema.version=$VERSION \
   org.label-schema.schema-version="1.0"
 
-RUN groupadd -r prerenderer && useradd -g prerenderer -r prerenderer
+RUN addgroup -S prerenderer && adduser -g prerenderer -S prerenderer
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apt-get update -q \
-  && apt-get install --no-install-recommends -qy chromium git gosu \
-  && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache --no-progress chromium git su-exec
 
 WORKDIR /app
 

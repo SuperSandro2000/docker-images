@@ -2,7 +2,7 @@
 var prerender = require('./lib');
 
 var server = prerender({
-  chromeLocation: '/usr/bin/chromium',
+  chromeLocation: '/usr/bin/chromium-browser',
   chromeFlags: ['--no-sandbox', '--headless', '--disable-gpu', '--disable-software-rasterizer', '--disable-dev-shm-usage', '--remote-debugging-port=9222', '--hide-scrollbars']
 });
 
