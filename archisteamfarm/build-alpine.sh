@@ -11,7 +11,7 @@ fi
 git clone --depth=1 --recurse-submodules -j2 https://github.com/JustArchiNET/ArchiSteamFarm.git archisteamfarm-git
 cd archisteamfarm-git
 
-for variant in master latest released; do
+for variant in master released; do
   if [[ -z ${DOCKER_BUILDKIT:-} ]]; then
     ARGS="$ARG --cache-from supersandro2000/archisteamfarm:$variant-alpine"
   else
