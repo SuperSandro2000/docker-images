@@ -8,7 +8,7 @@ else
   ARG=
 fi
 
-git clone --recurse-submodules -j2 https://github.com/JustArchiNET/ArchiSteamFarm.git archisteamfarm-git
+git clone --depth=1 --recurse-submodules -j2 https://github.com/JustArchiNET/ArchiSteamFarm.git archisteamfarm-git
 cd archisteamfarm-git
 
 for variant in master latest released; do
@@ -20,7 +20,7 @@ for variant in master latest released; do
 
   case $variant in
   "master")
-    SHA="$(git rev-parse --short HEAD)"
+    SHA="$(git rev-parse HEAD)"
     ;;
   "released")
     SHA=$(curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases?access_token="$GITHUB_TOKEN" | jq -r '.[0].target_commitish')
@@ -34,6 +34,7 @@ for variant in master latest released; do
     ;;
   esac
 
+  git fetch --depth 1 origin "$SHA"
   git checkout "$SHA"
   cp ../Dockerfile.x64.alpine .
   cp ../Dockerfile.Service.x64.alpine .
