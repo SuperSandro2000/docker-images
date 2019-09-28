@@ -1,18 +1,16 @@
-.PHONY: all build clean clean2 push push-login
+.PHONY: all build push push-login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
 DOCKER := "docker"
 
-clean clean2:
-
-build: clean
+build:
   ./build.sh ${DOCKER}
 
 push-login:
   if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
 
-push: push-login clean
+push: push-login
   ./push.sh ${DOCKER}
 
-all: build push clean2
+all: build push
