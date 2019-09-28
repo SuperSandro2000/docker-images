@@ -16,7 +16,7 @@ for arch in amd64 armhf arm64; do
   fi
 
   # shellcheck disable=SC2086
-  $DOCKER build $ARGS \
+  $DOCKER build $ARGS --pull \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
     --build-arg VERSION="$(curl -s https://pypi.org/pypi/kibitzr/json | jq -r '.info.version')" \

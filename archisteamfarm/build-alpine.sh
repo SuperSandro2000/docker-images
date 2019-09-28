@@ -40,7 +40,7 @@ for variant in master released; do
   cp ../Dockerfile.Service.x64.alpine .
 
   # shellcheck disable=SC2086
-  $DOCKER build $ARGS \
+  $DOCKER build $ARGS --pull \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg VCS_REF="$SHA" \
     --build-arg VERSION="$SHA" \

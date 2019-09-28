@@ -16,7 +16,7 @@ for arch in amd64 armhf arm64v8; do
   fi
 
   # shellcheck disable=SC2086
-  $DOCKER build $ARGS \
+  $DOCKER build $ARGS --pull \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
     --build-arg VERSION="$(curl -s https://api.github.com/repos/Cog-Creators/Red-DiscordBot/commits/V3/develop?access_token=$GITHUB_TOKEN | jq -r '.sha')" \
