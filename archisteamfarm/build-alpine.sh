@@ -8,7 +8,7 @@ else
   ARG=
 fi
 
-git clone --depth=1 --recurse-submodules -j2 https://github.com/JustArchiNET/ArchiSteamFarm.git archisteamfarm-git
+git clone --depth=1 --recurse-submodules -j2 --shallow-submodules https://github.com/JustArchiNET/ArchiSteamFarm.git archisteamfarm-git
 cd archisteamfarm-git
 
 for variant in master released; do
