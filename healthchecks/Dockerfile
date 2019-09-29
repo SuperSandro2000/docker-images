@@ -4,8 +4,9 @@ RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy ca-certificates gcc git libcap-dev libjansson-dev \
     libjemalloc-dev libpcre3-dev libxml2-dev libyaml-dev python3-dev python3-distutils zlib1g-dev
 
-RUN git clone --depth=1 https://github.com/unbit/uwsgi.git \
-  && cd uwsgi \
+WORKDIR /uwsgi
+
+RUN git clone --depth=1 https://github.com/unbit/uwsgi.git . \
   && printf "\
 [uwsgi]\n\
 inherit=base\n\
@@ -39,6 +40,7 @@ RUN groupadd -r healthchecks && useradd -g healthchecks -r healthchecks
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "healthchecks-git/requirements.txt", "." ]
 
+# hadolint ignore=SC2086
 RUN export dev_apt="gcc python3-dev python3-pip python3-setuptools" \
   && apt-get update -q \
   && apt-get install --no-install-recommends -qy gosu python3 \

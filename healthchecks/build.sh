@@ -23,5 +23,5 @@ fi
 $DOCKER build $ARGS --pull \
   --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
   --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
-  --build-arg VERSION="$(cd healthchecks-git; git describe --tags $(git rev-list --tags --max-count=1))" \
+  --build-arg VERSION="$(cd healthchecks-git; git describe --tags "$(git rev-list --tags --max-count=1)")" \
   -f Dockerfile -t supersandro2000/healthchecks:latest .
