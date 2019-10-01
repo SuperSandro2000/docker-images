@@ -14,6 +14,8 @@ main_plugin=python\n\
 malloc_implementation=jemalloc\n\
 yaml=libyaml\n\
 " >/uwsgi/buildconf/default.ini \
+  # Fixes compiling in buildkit. See https://github.com/unbit/uwsgi/issues/1318
+  && export CPUCOUNT=1 \
   && python3 uwsgiconfig.py --build
 
 #------------------#
