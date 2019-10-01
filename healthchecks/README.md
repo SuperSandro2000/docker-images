@@ -11,6 +11,8 @@
 
 Healthchecks Docker Image
 
+Requires a database like postgres. For further configuration options visit the [healthchecks repo](https://github.com/healthchecks/healthchecks/).
+
 ## Docker compose
 
 ````yaml
@@ -19,7 +21,20 @@ version: "3"
 services:
   healthchecks:
     image: supersandro2000/healthchecks
-    volumes:
-      - $PWD/healthchecks/local_settings.py:/app/hc/local_settings.py
+    networks:
+      - healthchecks
     restart: unless-stopped
+
+  healthchecks-alerts:
+    image: supersandro2000/healthchecks
+    networks:
+      - healthchecks
+    command: /app/manage.py sendalerts
+    restart: unless-stopped
+````
+
+Setup database with:
+````bash
+docker exec -it $PWD_healthchecks_1 ./manage.py migrate
+docker exec -it $PWD_healthchecks_1 ./manage.py createsuperuser
 ````
