@@ -37,7 +37,6 @@ for variant in master released; do
   git fetch --depth 1 origin "$SHA"
   git checkout "$SHA"
   cp ../Dockerfile.x64.alpine .
-  cp ../Dockerfile.Service.x64.alpine .
 
   # shellcheck disable=SC2086
   $DOCKER build $ARGS --pull \
