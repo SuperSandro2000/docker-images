@@ -46,7 +46,7 @@ COPY [ "healthchecks-git/requirements.txt", "." ]
 RUN export dev_apt="gcc libpq-dev python3-dev python3-pip python3-setuptools" \
   && apt-get update -q \
   && apt-get install --no-install-recommends -qy gosu python3 \
-    libcap2 libjansson4 libjemalloc2 libpython3.7 libxml2 libyaml-0-2 \
+    libcap2 libjansson4 libjemalloc2 libpython3.7 libpq5 libxml2 libyaml-0-2 \
     $dev_apt \
   && pip3 install --no-cache-dir --progress-bar off -r requirements.txt --no-binary psycopg2 \
   && apt-get autoremove -qy --purge $dev_apt \
