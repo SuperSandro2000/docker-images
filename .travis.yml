@@ -138,7 +138,7 @@ jobs:
           ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-alpine ;
           ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-alpine ;
           done
-    - <<: *scan-multi-arch
+    - <<: *scan
       env: IMAGE=supersandro2000/heathchecks
     - <<: *scan-multi-arch
       env: IMAGE=supersandro2000/kibitzr
