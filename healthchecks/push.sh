@@ -13,7 +13,7 @@ retry() {
   done
 }
 
-version=$($DOCKER run --rm -t supersandro2000/healthchecks:latest /app/manage.py version 2>/dev/null)
+version=$($DOCKER run --rm -t supersandro2000/healthchecks:latest /app/manage.py version | tr -d '\r')
 
 $DOCKER tag supersandro2000/healthchecks:latest supersandro2000/healthchecks:"$version"
 retry "$DOCKER push supersandro2000/healthchecks:$version"
