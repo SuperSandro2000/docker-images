@@ -23,8 +23,8 @@ function build {
   # shellcheck disable=SC2086
   $DOCKER build $ARGS --pull \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
-    --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
     --build-arg VERSION="$(curl -s https://pypi.org/pypi/Red-DiscordBot/json | jq -r '.info.version')" \
+    --build-arg REVISION="$(git rev-parse --short HEAD)" \
     -f $arch.Dockerfile -t supersandro2000/reddiscord:$arch-latest .
 }
 

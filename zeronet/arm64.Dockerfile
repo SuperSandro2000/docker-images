@@ -1,19 +1,21 @@
 FROM balenalib/aarch64-alpine:3.10
 
 ARG BUILD_DATE
-ARG VCS_REF
 ARG VERSION
+ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
-  org.label-schema.build-date=$BUILD_DATE \
-  org.label-schema.name="ZeroNet" \
-  org.label-schema.description="Open, free and uncensorable websites, using Bitcoin cryptography and BitTorrent network." \
-  org.label-schema.url="https://zeronet.io" \
-  org.label-schema.vcs-ref=$VCS_REF \
-  org.label-schema.vcs-url="https://github.com/SuperSandro2000/docker-images" \
-  org.label-schema.vendor="SuperSandro2000" \
-  org.label-schema.version=$VERSION \
-  org.label-schema.schema-version="1.0"
+  org.opencontainers.image.created=$BUILD_DATE \
+  org.opencontainers.image.authors="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+  org.opencontainers.image.url="https://github.com/SuperSandro2000/docker-images/tree/master/zeronet" \
+  org.opencontainers.image.documentation="https://zeronet.io/docs/" \
+  org.opencontainers.image.source="https://github.com/SuperSandro2000/docker-images" \
+  org.opencontainers.image.version=$VERSION \
+  org.opencontainers.image.revision=$REVISION \
+  org.opencontainers.image.vendor="SuperSandro2000" \
+  org.opencontainers.image.licenses="GPL-2.0" \
+  org.opencontainers.image.title="ZeroNet" \
+  org.opencontainers.image.description="ZeroNet - Decentralized websites using Bitcoin crypto and BitTorrent network"
 
 ENV HOME=/app ENABLE_TOR=false
 

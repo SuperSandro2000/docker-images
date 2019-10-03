@@ -1,19 +1,21 @@
 FROM php:apache-stretch
 
 ARG BUILD_DATE
-ARG VCS_REF
 ARG VERSION
+ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
-  org.label-schema.build-date=$BUILD_DATE \
-  org.label-schema.name="Halcyon" \
-  org.label-schema.description="Halcyon is a webclient for Mastodon and Pleroma which aims to recreate the simple and beautiful user interface of Twitter while keeping all advantages of decentral networks in focus." \
-  org.label-schema.url="https://notabug.org/halcyon-suite/halcyon" \
-  org.label-schema.vcs-ref=$VCS_REF \
-  org.label-schema.vcs-url="https://github.com/SuperSandro2000/docker-images" \
-  org.label-schema.vendor="SuperSandro2000" \
-  org.label-schema.version=$VERSION \
-  org.label-schema.schema-version="1.0"
+  org.opencontainers.image.created=$BUILD_DATE \
+  org.opencontainers.image.authors="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+  org.opencontainers.image.url="https://github.com/SuperSandro2000/docker-images/tree/master/halcyon" \
+  org.opencontainers.image.documentation="https://notabug.org/halcyon-suite/halcyon" \
+  org.opencontainers.image.source="https://github.com/SuperSandro2000/docker-images" \
+  org.opencontainers.image.version=$VERSION \
+  org.opencontainers.image.revision=$REVISION \
+  org.opencontainers.image.vendor="SuperSandro2000" \
+  org.opencontainers.image.licenses="GPL-3.0" \
+  org.opencontainers.image.title="Halcyon" \
+  org.opencontainers.image.description="Halcyon is a webclient for Mastodon and Pleroma which aims to recreate the simple and beautiful user interface of Twitter while keeping all advantages of decentral networks in focus."
 
 RUN groupadd halcyon && useradd -g halcyon halcyon
 

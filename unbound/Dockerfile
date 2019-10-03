@@ -1,19 +1,21 @@
 FROM alpine:3.10
 
 ARG BUILD_DATE
-ARG VCS_REF
 ARG VERSION
+ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
-  org.label-schema.build-date=$BUILD_DATE \
-  org.label-schema.name="Unbound" \
-  org.label-schema.description="Unbound is a validating, recursive, caching DNS resolver." \
-  org.label-schema.url="https://nlnetlabs.nl/projects/unbound/about/" \
-  org.label-schema.vcs-ref=$VCS_REF \
-  org.label-schema.vcs-url="https://github.com/SuperSandro2000/docker-images" \
-  org.label-schema.vendor="SuperSandro2000" \
-  org.label-schema.version=$VERSION \
-  org.label-schema.schema-version="1.0"
+  org.opencontainers.image.created=$BUILD_DATE \
+  org.opencontainers.image.authors="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+  org.opencontainers.image.url="https://github.com/SuperSandro2000/docker-images/tree/master/unbound" \
+  org.opencontainers.image.documentation="https://nlnetlabs.nl/projects/unbound/about/" \
+  org.opencontainers.image.source="https://github.com/SuperSandro2000/docker-images" \
+  org.opencontainers.image.version=$VERSION \
+  org.opencontainers.image.revision=$REVISION \
+  org.opencontainers.image.vendor="SuperSandro2000" \
+  org.opencontainers.image.licenses="BSD 3-Clause" \
+  org.opencontainers.image.title="Unbound" \
+  org.opencontainers.image.description="Unbound is a validating, recursive, caching DNS resolver."
 
 RUN addgroup -S unbound && adduser -S -G unbound unbound
 
