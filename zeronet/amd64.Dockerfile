@@ -26,10 +26,10 @@ RUN addgroup -S zeronet && adduser -S -G zeronet zeronet \
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/run.sh", "/usr/local/bin/" ]
-COPY [ "zeronet-git/requirements.txt", "." ]
+COPY [ "zeronet-git/requirements.txt", "/app/" ]
 
 RUN apk add --no-cache --no-progress --virtual .build-deps g++ libffi-dev make python3-dev \
-  && pip3 install --no-cache-dir --progress-bar off -r requirements.txt \
+  && pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt \
   && apk del .build-deps
 
 COPY [ "zeronet-git/", "/app/" ]
