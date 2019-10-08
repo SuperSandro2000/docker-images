@@ -15,14 +15,19 @@ retry() {
 
 function push() {
   arch=$1
+  mkdir -p tmp
+
+  container=$($DOCKER create "supersandro2000/zeronet:$arch-latest")
+  $DOCKER cp "$container:/app/src/Config.py" tmp
+  $DOCKER rm -v "$container"
+  version=$(grep -oP "(?<=self\.rev = )[0-9]+" tmp/Config.py)
+
   $DOCKER tag "supersandro2000/zeronet:$arch-latest" supersandro2000/zeronet:"$arch-$version"
   retry "$DOCKER push supersandro2000/zeronet:$arch-$version"
   sleep 3
   retry "$DOCKER push supersandro2000/zeronet:$arch-latest"
   sleep 3
 }
-
-version=$($DOCKER run --rm -it supersandro2000/zeronet:amd64-latest python3 -c "from src.Config import Config;c=Config(help);print(str(c.version) + \"-r\" + str(c.rev))" | rev | cut -c 2- | rev)
 
 if [[ -n ${VARIANT:-} ]]; then
   push "$VARIANT"

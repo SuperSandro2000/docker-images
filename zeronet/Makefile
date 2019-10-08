@@ -9,6 +9,7 @@ clean clean2:
   rm ~/.docker/manifests/docker.io_supersandro2000_zeronet-* -rf
   rm manifest -f
   rm manifest_latest -f
+  rm tmp -f
 
 build: clean
   ./build.sh ${DOCKER}
