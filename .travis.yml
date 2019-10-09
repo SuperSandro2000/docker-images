@@ -88,6 +88,8 @@ jobs:
           make push-alpine ;
           fi
     - <<: *build
+      env: IMAGE=base-alpine
+    - <<: *build
       env: IMAGE=halcyon
     - <<: *build
       env: IMAGE=healthchecks
