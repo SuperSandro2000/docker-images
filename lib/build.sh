@@ -29,8 +29,10 @@ while [[ $# -gt 0 ]]; do
         sudo bash -c "echo \$(jq '.experimental=true' /etc/docker/daemon.json) > /etc/docker/daemon.json"
         sudo service docker restart
       fi
-      export DOCKER_BUILDKIT=1
-      buildkit=true
+      if [[ -z ${CI:-} ]]; then
+        export DOCKER_BUILDKIT=1
+        buildkit=true
+      fi
       ;;
     "-t" | "--tag")
       tag="$2"

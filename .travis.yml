@@ -5,10 +5,10 @@ group: travis_latest
 services:
   - docker
 
-addons:
-  apt:
-    packages:
-    - docker-ce
+# addons:
+#   apt:
+#     packages:
+#     - docker-ce
 
 env:
   global:
