@@ -25,7 +25,7 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     "--buildkit")
-      fi [[ -n ${CI:-} && $(docker --version | awk '{print $3}') =~ 18.06]]; then
+      if [[ -n ${CI:-} && $(docker --version | awk '{print $3}') =~ 18.06 ]]; then
         sudo bash -c "echo \$(jq '.experimental=true' /etc/docker/daemon.json) > /etc/docker/daemon.json"
         sudo service docker restart
       fi
