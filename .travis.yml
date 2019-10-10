@@ -18,6 +18,7 @@ env:
 
 stages:
   - lint
+  - build-base
   - build
   - manifest
   - scan
