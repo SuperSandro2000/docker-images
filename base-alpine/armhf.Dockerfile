@@ -1,5 +1,9 @@
 FROM balenalib/armv7hf-alpine:3.10
 
+ARG BUILD_DATE
+ARG VERSION
+ARG REVISION
+
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \
   org.opencontainers.image.authors="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
