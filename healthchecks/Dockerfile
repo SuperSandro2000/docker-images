@@ -64,7 +64,7 @@ RUN cp /app/hc/local_settings.py.example /app/hc/local_settings.py \
   && /app/manage.py compress --force \
   && /app/manage.py collectstatic --link --no-color --no-input
 
-WORKDIR /app
 EXPOSE 3000
+WORKDIR /app
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "uwsgi", "/app/uwsgi.ini" ]

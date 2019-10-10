@@ -41,8 +41,8 @@ RUN mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword
 
 RUN [ "cross-build-end" ]
 
-VOLUME /app/data
 EXPOSE 43110 26552
+VOLUME /app/data
 WORKDIR /app
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "run.sh" ]

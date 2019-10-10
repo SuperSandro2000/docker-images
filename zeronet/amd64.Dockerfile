@@ -38,8 +38,8 @@ RUN mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc
 
+EXPOSE 43110 26552
 VOLUME /app/data
 WORKDIR /app
-EXPOSE 43110 26552
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "run.sh" ]
