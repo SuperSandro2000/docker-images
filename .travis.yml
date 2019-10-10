@@ -83,6 +83,9 @@ jobs:
         - bash -c 'shopt -s globstar; shellcheck **/*.sh'
       # after_script:
       #   - fossa test
+    - <<: *build
+      stage: build-base
+      env: IMAGE=base-alpine
     - stage: build
       env: IMAGE=archisteamfarm VARIANT=alpine
       script:
@@ -93,8 +96,6 @@ jobs:
         - if [ "$TRAVIS_BRANCH" == "master" ]; then
           make push-alpine ;
           fi
-    - <<: *build
-      env: IMAGE=base-alpine
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
