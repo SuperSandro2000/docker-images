@@ -35,6 +35,7 @@ template:
         fi
 
   - &manifest
+    stage: manifest
     script:
       - cd "$IMAGE"
       - if [ "$TRAVIS_BRANCH" == "master" ]; then
@@ -128,13 +129,10 @@ jobs:
       env: IMAGE=zeronet VARIANT=arm64
 
     - <<: *manifest
-      stage: manifest
       env: IMAGE=archisteamfarm
     - <<: *manifest
-      stage: manifest
       env: IMAGE=reddiscord
     - <<: *manifest
-      stage: manifest
       env: IMAGE=zeronet
 
     - <<: *scan-multi-arch
