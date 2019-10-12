@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM supersandro2000/base-alpine:0.0.1
 
 ARG BUILD_DATE
 ARG VERSION
@@ -17,13 +17,15 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Kibitzr" \
   org.opencontainers.image.description="Personal Web Assistant"
 
-RUN addgroup -S kibitzr && adduser -S -G kibitzr kibitzr
+RUN export user=kibitzr \
+  && addgroup -S $user && adduser -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 
-RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml su-exec \
-  && pip3 install --no-cache-dir --progress-bar off kibitzr
+RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml
+
+RUN pip3 install --no-cache-dir --progress-bar off kibitzr
 
 WORKDIR /usr/src/app
 ENTRYPOINT [ "entrypoint.sh" ]

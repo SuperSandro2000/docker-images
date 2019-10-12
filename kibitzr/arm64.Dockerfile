@@ -1,4 +1,4 @@
-FROM balenalib/aarch64-alpine:3.10
+FROM supersandro2000/base-alpine:arm64-0.0.1
 
 ARG BUILD_DATE
 ARG VERSION
@@ -17,16 +17,18 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Kibitzr" \
   org.opencontainers.image.description="Personal Web Assistant"
 
+RUN [ "cross-build-start" ]
+
+RUN export user=kibitzr \
+  && addgroup -S $user && adduser -S $user -G $user
+
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 
-RUN [ "cross-build-start" ]
+RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml
 
-RUN addgroup -S kibitzr && adduser -S -G kibitzr kibitzr
-
-RUN apk add --no-cache --no-progress ca-certificates git jq python3 py3-cffi py3-cryptography py3-lxml py3-pip py3-yaml su-exec \
-  && pip3 install --no-cache-dir --progress-bar off kibitzr
+RUN pip3 install --no-cache-dir --progress-bar off kibitzr
 
 RUN [ "cross-build-end" ]
 

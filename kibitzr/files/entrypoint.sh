@@ -1,14 +1,17 @@
 #!/bin/sh
-set -eou pipefail
+set -eu
 
-# if the first arg starts with "-" pass it to kibitzr
+CMD=kibitzr
+USER=kibitzr
+
+# if the first arg starts with "-" pass it to program
 if [ "${1#-}" != "$1" ]; then
-    set -- kibitzr run "$@"
+    set -- "$CMD" "$@"
 fi
 
-if [ "$1" = "kibitzr" ] && [ "$(id -u)" = "0" ]; then
-    find . \! -user kibitzr -exec chown kibitzr '{}' +
-    exec su-exec kibitzr "$0" "$@"
+if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
+    find . \! -user $USER -exec chown $USER '{}' +
+    exec su-exec $USER "$0" "$@"
 fi
 
 exec "$@"
