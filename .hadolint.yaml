@@ -1,4 +1,6 @@
 ignored:
+  # ignore FROM version pinning
+  - DÖ3007
   # ignore apt version pinning
   - DL3008
   # ignore pip version pinning
