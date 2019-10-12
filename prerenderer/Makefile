@@ -6,18 +6,16 @@ SHELL := /bin/bash
 DOCKER := "docker"
 VERSION := $(shell curl -s https://raw.githubusercontent.com/prerender/prerender/master/package.json | grep -oP "(?<= \"version\": \")[0-9]+")
 
-clean:
-
-build: clean
+build:
   ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --verbose --version ${VERSION}
 
-build-amd64: clean
+build-amd64:
   ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --variant amd64 --verbose --version ${VERSION}
 
-build-armhf: clean
+build-armhf:
   ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --variant armhf --verbose --version ${VERSION}
 
-build-arm64: clean
+build-arm64:
   ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --variant arm64 --verbose --version ${VERSION}
 
 login:
