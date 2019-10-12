@@ -1,4 +1,4 @@
-FROM php:apache-stretch
+FROM php:apache-buster
 
 ARG BUILD_DATE
 ARG VERSION
