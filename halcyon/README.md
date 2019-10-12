@@ -9,7 +9,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/halcyon.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/halcyon/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/halcyon.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/halcyon/)
 
-Kibitzr Docker Image with multi-arch support.
+Halcyon Docker Image
 
 ## Docker compose
 
