@@ -1,16 +1,19 @@
-#!/bin/bash
-set -eou pipefail
+#!/bin/sh
+set -eu
 
-# if the first arg starts with "-" pass it to unbound
+CMD=unbound
+USER=unbound
+
+# if the first arg starts with "-" pass it to program
 if [ "${1#-}" != "$1" ]; then
-  set -- unbound -d "$@"
+    set -- "$CMD" "$@"
 fi
 
-if [ "$1" = "unbound" ] && [ "$(id -u)" = "0" ]; then
-  find . \! -user unbound -exec chown unbound '{}' +
+if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
+    find . \! -user $USER -exec chown $USER '{}' +
 
   if [[ ! -f /etc/unbound/unbound.conf ]]; then
-    su - unbound -s /bin/sh -c unbound-control-setup
+    su - "$USER" -s /bin/sh -c unbound-control-setup
   fi
 
   # this wouldn't work as we can't bind 53

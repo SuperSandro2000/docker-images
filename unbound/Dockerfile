@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM supersandro2000/base-alpine:latest
 
 ARG BUILD_DATE
 ARG VERSION
@@ -17,12 +17,13 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Unbound" \
   org.opencontainers.image.description="Unbound is a validating, recursive, caching DNS resolver."
 
-RUN addgroup -S unbound && adduser -S -G unbound unbound
+RUN export user=unbound \
+  && addgroup -S $user && adduser -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/unbound.conf", "/etc/unbound/unbound.conf" ]
 
-RUN apk add --no-cache --no-progress bash openssl su-exec unbound \
+RUN apk add --no-cache --no-progress openssl unbound \
   && wget https://www.internic.net/domain/named.cache -O /etc/unbound/root.hints
 
 EXPOSE 53/udp
