@@ -6,7 +6,7 @@ USER=www-data
 
 # if the first arg starts with "-" pass it to program
 if [ "${1#-}" != "$1" ]; then
-    set -- $CMD "$@"
+    set -- "$CMD" "$@"
 fi
 
 if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
