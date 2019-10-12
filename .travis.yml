@@ -70,14 +70,12 @@ template:
 jobs:
   include:
     - stage: lint
-      env: HADOLINT="$HOME/hadolint"
-      install:
+      # install:
         # - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
-        - curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
       script:
         # - fossa init
-        - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"
-        - bash -c 'shopt -s globstar; shellcheck **/*.sh'
+        - make hadolint "$HADOLINT"
+        - make shellcheck
       # after_script:
       #   - fossa test
 
