@@ -1,4 +1,4 @@
-FROM supersandro2000/base-alpine:arm64-0.0.1
+FROM supersandro2000/base-alpine:arm64-3.10
 
 ARG BUILD_DATE
 ARG VERSION
