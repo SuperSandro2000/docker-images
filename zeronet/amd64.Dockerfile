@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM supersandro2000/base-alpine:3.10
 
 ARG BUILD_DATE
 ARG VERSION
@@ -20,23 +20,23 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 ENV HOME=/app ENABLE_TOR=false
 
 RUN addgroup -S zeronet && adduser -S -G zeronet zeronet \
-  && apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client su-exec tor \
+  && apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client tor \
   # only fetch specific packages from testing
   && apk add --no-cache --no-progress -X http://dl-cdn.alpinelinux.org/alpine/edge/testing py3-maxminddb py3-gevent-websocket
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/run.sh", "/usr/local/bin/" ]
-COPY [ "zeronet-git/requirements.txt", "/app/" ]
+
+RUN apk add --no-cache --no-progress git \
+  && git clone --depth=1 https://github.com/HelloZeroNet/ZeroNet.git /app \
+  && apk del git
 
 RUN apk add --no-cache --no-progress --virtual .build-deps g++ libffi-dev make python3-dev \
   && pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt \
-  && apk del .build-deps
-
-COPY [ "zeronet-git/", "/app/" ]
-
-RUN mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
+  && mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
-  && echo "CookieAuthentication 1" >>/etc/tor/torrc
+  && echo "CookieAuthentication 1" >>/etc/tor/torrc \
+  && apk del .build-deps
 
 EXPOSE 43110 26552
 VOLUME /app/data

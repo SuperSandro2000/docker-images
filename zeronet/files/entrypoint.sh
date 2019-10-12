@@ -1,14 +1,17 @@
 #!/bin/sh
-set -eou pipefail
+set -eu
 
-# if the first arg starts with "-" pass it to zeronet
+CMD=run.sh
+USER=zeronet
+
+# if the first arg starts with "-" pass it to program
 if [ "${1#-}" != "$1" ]; then
-    set -- run.sh "$@"
+    set -- "$CMD" "$@"
 fi
 
-if [ "$1" = "run.sh" ] && [ "$(id -u)" = "0" ]; then
-    find . \! -user zeronet -exec chown zeronet '{}' +
-    exec su-exec zeronet "$0" "$@"
+if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
+    find . \! -user $USER -exec chown $USER '{}' +
+    exec su-exec $USER "$0" "$@"
 fi
 
 exec "$@"
