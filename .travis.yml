@@ -31,17 +31,13 @@ template:
       - make build
       - docker images
     after_script:
-      - if [ "$TRAVIS_BRANCH" == "master" ]; then
-        make push ;
-        fi
+      - if [ "$TRAVIS_BRANCH" == "master" ]; then make push; fi
 
   - &manifest
     stage: manifest
     script:
       - cd "$IMAGE"
-      - if [ "$TRAVIS_BRANCH" == "master" ]; then
-        make manifest ;
-        fi
+      - if [ "$TRAVIS_BRANCH" == "master" ]; then make manifest; fi
 
   - &scan-multi-arch
     stage: scan
@@ -84,9 +80,11 @@ jobs:
         - bash -c 'shopt -s globstar; shellcheck **/*.sh'
       # after_script:
       #   - fossa test
+
     - <<: *build
       stage: build-base
       env: IMAGE=base-alpine
+
     - stage: build
       env: IMAGE=archisteamfarm VARIANT=alpine
       script:
@@ -94,9 +92,7 @@ jobs:
         - make build-alpine
         - docker images
       after_script:
-        - if [ "$TRAVIS_BRANCH" == "master" ]; then
-          make push-alpine ;
-          fi
+        - if [ "$TRAVIS_BRANCH" == "master" ]; then make push-alpine; fi
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
