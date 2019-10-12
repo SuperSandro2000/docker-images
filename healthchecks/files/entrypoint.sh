@@ -1,14 +1,17 @@
-#!/bin/bash
-set -eou pipefail
+#!/bin/sh
+set -eu
 
-# if the first arg starts with "-" pass it to uwsgi
+CMD=uwsgi
+USER=healthchecks
+
+# if the first arg starts with "-" pass it to program
 if [ "${1#-}" != "$1" ]; then
-  set -- uwsgi -d "$@"
+    set -- "$CMD" "$@"
 fi
 
-if [ "$1" = "uwsgi" ] && [ "$(id -u)" = "0" ]; then
-  find . \! -user healthchecks -exec chown healthchecks '{}' +
-  exec gosu healthchecks "$0" "$@"
+if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
+    find . \! -user $USER -exec chown $USER '{}' +
+    exec gosu $USER "$0" "$@"
 fi
 
 exec "$@"
