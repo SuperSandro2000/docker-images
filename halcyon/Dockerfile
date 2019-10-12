@@ -17,20 +17,29 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Halcyon" \
   org.opencontainers.image.description="Halcyon is a webclient for Mastodon and Pleroma which aims to recreate the simple and beautiful user interface of Twitter while keeping all advantages of decentral networks in focus."
 
-RUN groupadd halcyon && useradd -g halcyon halcyon
+RUN usermod -aG tty www-data
 
-RUN apt-get update \
-  && apt-get install -qy --no-install-recommends gettext gosu libicu-dev \
+COPY [ "files/ports.conf", "/etc/apache2/ports.conf" ]
+COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
+
+RUN export dev_apt=libicu-dev \
+  && apt-get update -q \
+  && apt-get install -qy --no-install-recommends $dev_apt gettext gosu libicu63 \
+  && docker-php-ext-install -j4 gettext intl \
+  && a2enmod rewrite \
+  && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install gettext intl \
-  && a2enmod rewrite
+RUN export dev_apt=git \
+  && apt-get update -q \
+  && apt-get install -qy --no-install-recommends $dev_apt \
+  && git clone --depth=1 https://notabug.org/halcyon-suite/halcyon.git /var/www/html/ \
+  && bash -c 'chmod 755 /var/www/html/ -R' \
+  && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+  && apt-get autoremove --purge -qy $dev_apt \
+  && rm -rf /var/lib/apt/lists/*
 
-COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
-COPY --chown=www-data halcyon-git/ /var/www/html/
-
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
-  && bash -c 'chmod 755 /var/www/html/ -R'
-
-EXPOSE 80
+EXPOSE 4430 8000
+WORKDIR /var/www/html/
 ENTRYPOINT [ "entrypoint.sh" ]
+CMD [ "apache2-foreground" ]
