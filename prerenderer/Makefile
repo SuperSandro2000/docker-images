@@ -23,10 +23,10 @@ build-arm64: clean
 login:
   if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
 
-push: login
-  ../lib/push.sh --binary ${DOCKER} --image prerenderer --hook https://hooks.microbadger.com/images/supersandro2000/prerenderer/bwqaLj_bma7zIdwAwiK0CofjAnQ= --verbose --version ${VERSION}
-
 manifest: login
   ../lib/manifest.sh --binary ${DOCKER} --image prerenderer --hook https://hooks.microbadger.com/images/supersandro2000/prerenderer/bwqaLj_bma7zIdwAwiK0CofjAnQ= --verbose --version ${VERSION}
+
+push: login manifest
+  ../lib/push.sh --binary ${DOCKER} --image prerenderer --hook https://hooks.microbadger.com/images/supersandro2000/prerenderer/bwqaLj_bma7zIdwAwiK0CofjAnQ= --manifest --verbose --version ${VERSION}
 
 all: build push manifest

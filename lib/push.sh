@@ -9,16 +9,22 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/build.sh [-h|--help] [-b|--binary docker|podman] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
+      echo "../lib/build.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-m|--manifest] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
       echo "--help      Show this help."
       echo "--binary    Binary which runs the build commands."
+      echo "--delay     How many seconds should be waited between pushes."
       echo "--hook      URL to send POST request after sucessful push."
+      echo "--manifest  Push manifests. Need to be created with manifest.sh before."
       echo "--image     Image being pushed"
       echo "--verbose   Be more verbose."
       exit 0
       ;;
     "-b" | "--binary")
       binary="$2"
+      shift
+      ;;
+    "-d" | "--delay")
+      delay="$2"
       shift
       ;;
     "-i" | "--image")
@@ -28,6 +34,9 @@ while [[ $# -gt 0 ]]; do
     "--hook")
       hook="$2"
       shift
+      ;;
+    "-m" | "--manifest")
+      manifest=true
       ;;
     "--variant")
       variant="$2"
@@ -57,8 +66,19 @@ function check_tool() {
   fi
 }
 
+if [[ -z ${binary:-} ]]; then
+  binary=docker
+fi
+
 check_tool "$binary --version" docker
 check_tool "curl --version" curl
+
+if [[ -z ${delay:-} ]]; then
+  delay=3
+elif ! [[ $delay =~ ^[0-9]+$ ]]; then
+  echo "$delay is not a number. Delay only takes whole numbers."
+  exit 1
+fi
 
 if [[ -z ${image:-} ]]; then
   echo "You need to supply --image NAME."
@@ -78,6 +98,13 @@ if [[ -z ${version:-} ]]; then
   exit 1
 fi
 
+function check_manifest() {
+  if $binary inspect "$image:$version" && $binary inspect "$image:latest"; then
+    return
+  fi
+  exit 2
+}
+
 function retry() {
   #shellcheck disable=SC2034
   for i in {1..5}; do
@@ -95,13 +122,12 @@ function push() {
   if [[ -n ${arch:-} ]]; then
     image_variant="$image:$arch"
   else
-    image_variant="Dockerfile"
+    image_variant="$image:"
   fi
 
-  $binary tag "$image_variant-latest" "$image_variant-$version"
-  retry "$binary push $image_variant-$version"
+  retry "$binary push $image:$version"
   sleep 3
-  retry "$binary push $image_variant-latest"
+  retry "$binary push $image:latest"
   sleep 3
 }
 
@@ -110,6 +136,14 @@ for arch in $variant; do
   IFS=" "
   push "$arch"
 done
+
+export DOCKER_CLI_EXPERIMENTAL=enabled
+
+if [[ -n ${manifest:-} ]]; then
+  retry "$binary manifest push $image_variant-$version"
+  sleep 3
+  retry "$binary manifest push $image_variant-latest"
+fi
 
 if [[ -z $hook ]]; then
   curl -X POST "$hook"
