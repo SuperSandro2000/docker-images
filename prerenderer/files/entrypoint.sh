@@ -1,14 +1,17 @@
 #!/bin/sh
-set -eou pipefail
+set -eu
 
-# if the first arg starts with "-" pass it to node
+CMD="node server.js"
+USER=prerenderer
+
+# if the first arg starts with "-" pass it to program
 if [ "${1#-}" != "$1" ]; then
-    set -- node server.js "$@"
+    set -- "$CMD" "$@"
 fi
 
-if [ "$1" = "node" ] && [ "$(id -u)" = "0" ]; then
-    find . \! -user prerenderer -exec chown prerenderer '{}' +
-    exec su-exec prerenderer "$0" "$@"
+if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
+    find . \! -user $USER -exec chown $USER '{}' +
+    exec su-exec $USER "$0" "$@"
 fi
 
 exec "$@"

@@ -15,22 +15,22 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 RUN [ "cross-build-start" ]
 
-RUN addgroup -S prerenderer && adduser -g prerenderer -S prerenderer
+RUN export user=prerenderer \
+  && addgroup -S $user && adduser -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 RUN apk add --no-cache --no-progress chromium git \
-  && git clone https://github.com/prerender/prerender.git . \
+  && git clone https://github.com/prerender/prerender.git /app \
   && apk del git
 
-WORKDIR /app
-
-RUN npm install
+RUN npm install /app
 
 COPY [ "files/server.js", "/app/" ]
 
 RUN [ "cross-build-end" ]
 
 EXPOSE 3000
+WORKDIR /app
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["npm", "start", "server"]

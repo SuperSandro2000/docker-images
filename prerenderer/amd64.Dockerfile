@@ -17,7 +17,8 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Prerenderer" \
   org.opencontainers.image.description="Node server that uses Headless Chrome to render a javascript-rendered page as HTML. To be used in conjunction with prerender middleware."
 
-RUN addgroup -S prerenderer && adduser -g prerenderer -S prerenderer
+RUN export user=prerenderer \
+  && addgroup -S $user && adduser -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
