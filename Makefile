@@ -30,4 +30,4 @@ lint: hadolint shellcheck
 build: $(SUBDIRS)
 
 $(SUBDIRS):
-  cd $@ && make build
+  cd $@ && make EXTRA_FLAGS= build
