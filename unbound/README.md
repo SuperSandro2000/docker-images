@@ -9,7 +9,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/unbound.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/unbound/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/unbound.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/unbound/)
 
-Unbound Docker Image
+Unbound Docker Image with multi-arch support.
 
 ## Docker compose
 
