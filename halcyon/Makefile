@@ -8,7 +8,7 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/halcyon/SZHNRfRT-22
 SUDO = $(shell if ! groups | grep docker; then echo sudo; fi)
 TAG := halcyon
 VARIANT := amd64
-VERSION := $(shell curl -s https://notabug.org/halcyon-suite/halcyon/src/master/version.txt | grep -Eo '[([0-9]\.){2}[0-9]]')
+VERSION := $(shell curl -s https://notabug.org/halcyon-suite/halcyon/raw/master/version.txt | grep -Eo '([0-9]\.){2}[0-9]')
 
 define BUILD_template =
 build-$(1):
