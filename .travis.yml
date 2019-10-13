@@ -27,10 +27,20 @@ template:
     stage: build
     script:
       - cd "$IMAGE"
-      - make build
+      - if [[ -z $VARIANT ]]; then
+          make build
+        else
+          make build-$VARIANT
+        fi
       - docker images
     after_script:
-      - if [ "$TRAVIS_BRANCH" == "master" ]; then make push; fi
+      - if [ "$TRAVIS_BRANCH" == "master" ]; then
+          if [[ -z $VARIANT ]]; then
+            make push
+          else
+            make push-$VARIANT
+          fi
+        fi
 
   - &manifest
     stage: manifest
@@ -104,14 +114,6 @@ jobs:
     #   env: IMAGE=reddiscord VARIANT=arm64
     # - stage: build
     #    env: IMAGE=reddiscord VARIANT=source
-    #    script:
-    #      - cd "$IMAGE"
-    #      - make build-source
-    #      - docker images
-    #    after_script:
-    #      - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    #          make push-source ;
-    #        fi
     - <<: *build
       env: IMAGE=unbound
     - <<: *build
@@ -142,14 +144,8 @@ jobs:
       env: IMAGE=supersandro2000/kibitzr
     - <<: *scan
       env: IMAGE=supersandro2000/prerenderer
-    # - <<: *scan
+    # - <<: *scan-multi-arch
     #   env: IMAGE=supersandro2000/reddiscord VARIANT=source
-    #   script:
-    #     - ./trivy --refresh --quiet || ./trivy --reset
-    #     - for arch in amd64 armhf arm64; do
-    #         ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-source ;
-    #         ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-source ;
-    #       done
     - <<: *scan
       env: IMAGE=supersandro2000/unbound
     - <<: *scan-multi-arch
