@@ -28,25 +28,25 @@ template:
     script:
       - cd "$IMAGE"
       - if [[ -z $VARIANT ]]; then
-          make build
+          make build;
         else
-          make build-$VARIANT
+          make build-$VARIANT;
         fi
       - docker images
     after_script:
-      - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      - if [[ $TRAVIS_BRANCH == master ]]; then
           if [[ -z $VARIANT ]]; then
-            make push
+            make push;
           else
-            make push-$VARIANT
-          fi
+            make push-$VARIANT;
+          fi;
         fi
 
   - &manifest
     stage: manifest
     script:
       - cd "$IMAGE"
-      - if [ "$TRAVIS_BRANCH" == "master" ]; then make manifest; fi
+      - if [[ $TRAVIS_BRANCH == master ]]; then make manifest; fi
 
   - &scan-multi-arch
     stage: scan
@@ -97,7 +97,7 @@ jobs:
         - make build-alpine
         - docker images
       after_script:
-        - if [ "$TRAVIS_BRANCH" == "master" ]; then make push-alpine; fi
+        - if [[ $TRAVIS_BRANCH == master ]]; then make push-alpine; fi
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
