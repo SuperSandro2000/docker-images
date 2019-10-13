@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eou pipefail
 
+# shellcheck source=functions.sh
+source "$(dirname "$(realpath -s "$0")")/functions.sh"
+
 if [[ $# == 0 ]]; then
   $#="--help"
 fi
@@ -16,7 +19,10 @@ while [[ $# -gt 0 ]]; do
       echo "--hook      URL to send POST request after sucessful push."
       echo "--manifest  Push manifests. Need to be created with manifest.sh before."
       echo "--image     Image being pushed"
+      echo "--variant   Variants which should be included seperated by comma. Defaults to amd64,arm64,armhf."
       echo "--verbose   Be more verbose."
+      echo
+      show_exit_codes
       exit 0
       ;;
     "-b" | "--binary")
@@ -39,8 +45,15 @@ while [[ $# -gt 0 ]]; do
       manifest=true
       ;;
     "--variant")
-      variant="$2"
-      shift
+      case "$2" in
+        "amd64" | "arm64" | "armhf")
+          variant="$2"
+          shift
+          ;;
+        "*")
+          echo "Varaint $2 is not supported. See --help for supported variants."
+          exit 2
+      esac
       ;;
     "--verbose")
       verbose=true
@@ -57,15 +70,6 @@ if [[ -n ${verbose:-} ]]; then
   set -x
 fi
 
-function check_tool() {
-  if ! eval "$1" >/dev/null 2>&1; then
-    echo "You need $1 to run this script."
-    echo "On Debian-based systems you can install it with:"
-    echo "apt install ${2}"
-    exit 1
-  fi
-}
-
 if [[ -z ${binary:-} ]]; then
   binary=docker
 fi
@@ -77,12 +81,12 @@ if [[ -z ${delay:-} ]]; then
   delay=3
 elif ! [[ $delay =~ ^[0-9]+$ ]]; then
   echo "$delay is not a number. Delay only takes whole numbers."
-  exit 1
+  exit 2
 fi
 
 if [[ -z ${image:-} ]]; then
   echo "You need to supply --image NAME."
-  exit 1
+  exit 2
 else
   if [[ ! $image =~ "/" ]]; then
     image="supersandro2000/$image"
@@ -103,17 +107,6 @@ function check_manifest() {
     return
   fi
   exit 2
-}
-
-function retry() {
-  #shellcheck disable=SC2034
-  for i in {1..5}; do
-    if [ "$(eval "$1")" ]; then
-      break
-    else
-      sleep 5
-    fi
-  done
 }
 
 function push() {

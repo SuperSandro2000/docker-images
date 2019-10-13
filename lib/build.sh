@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eou pipefail
 
+# shellcheck source=functions.sh
+source "$(dirname "$(realpath -s "$0")")/functions.sh"
+
 if [[ $# == 0 ]]; then
   $#="--help"
 fi
@@ -9,15 +12,18 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/build.sh [--help] [-b|--binary docker|podman] [--buildkit] [--ci] [-t|--tag supersandro2000/base-alpine|base-alpine] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
+      echo "../lib/build.sh [--help] [-b|--binary docker|podman] [--buildkit] [--ci] [-d|--delay N] [-t|--tag supersandro2000/base-alpine|base-alpine] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
       echo "--help      Show this help."
       echo "--binary    Binary which runs the build commands."
       echo "--buildkit  Run docker with buildkit enabled."
       echo "--ci        Specify if ran by an CI."
+      echo "--delay     How many seconds should be waited between pushes."
       echo "--tag       Tags added to the image."
       echo "--variant   Variants to be build. May define multiple seperated with comma. Valid values are amd64, arm64 or armhf."
       echo "--verbose   Be more verbose."
       echo "--version   Version the image gets tagged with. 'infile' means the Dockerfile is tagged manually."
+      echo
+      show_exit_codes
       exit 0
       ;;
     "-b" | "--binary")
@@ -33,6 +39,10 @@ while [[ $# -gt 0 ]]; do
         export DOCKER_BUILDKIT=1
         buildkit=true
       fi
+      ;;
+    "-d" | "--delay")
+      delay="$2"
+      shift
       ;;
     "-t" | "--tag")
       tag="$2"
@@ -61,21 +71,19 @@ if [[ -z ${binary:-} ]]; then
   binary="docker"
 fi
 
-function check_tool() {
-  if ! eval "$1" >/dev/null 2>&1; then
-    echo "You need $1 to run this script."
-    echo "On Debian-based systems you can install it with:"
-    echo "apt install ${2}"
-    exit 1
-  fi
-}
-
 check_tool "$binary --version" docker
 check_tool "git --version" git
 
+if [[ -z ${delay:-} ]]; then
+  delay=3
+elif ! [[ $delay =~ ^[0-9]+$ ]]; then
+  echo "$delay is not a number. Delay only takes whole numbers."
+  exit 2
+fi
+
 if [[ -z ${tag:-} ]]; then
   echo "You need to supply --tag NAME."
-  exit 1
+  exit 2
 else
   if [[ ! $tag =~ "/" ]]; then
     tag="supersandro2000/$tag"
@@ -88,7 +96,7 @@ fi
 
 if [[ -z ${version:-} ]]; then
   echo "You need to supply --version 1.0.0."
-  exit 1
+  exit 2
 fi
 
 if [[ -n ${CI:-} && -n ${buildkit:-} ]]; then
