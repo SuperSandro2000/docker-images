@@ -1,35 +1,35 @@
-.PHONY: all build build-amd64 build-armhf build-arm64v8 clean clean2 manifest push push-login
+.DEFAULT_GOAL := all
+.PHONY: all build build-% manifest push push-% login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
-DOCKER := "docker"
+BINARY := docker
+HOOK := https://hooks.microbadger.com/images/supersandro2000/zeronet/B9vzdMxCP5RYwUuPtaP61aOsM8E=
+SUDO = $(shell if ! groups | grep docker; then echo sudo; fi)
+TAG := zeronet
+VARIANT := amd64 arm64 armhf
+VERSION = $(shell curl -Ls https://github.com/HelloZeroNet/ZeroNet/raw/py3/src/Config.py | grep -oP "(?<= self.version = \")([0-9]\.){2}[0-9]")
 
-clean clean2:
-  rm zeronet-git -rf
-  rm ~/.docker/manifests/docker.io_supersandro2000_zeronet-* -rf
-  rm manifest -f
-  rm manifest_latest -f
-  rm tmp -f
+define BUILD_template =
+build-$(1):
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --variant ${1}  --verbose --version $(VERSION)
 
-build: clean
-  ./build.sh ${DOCKER}
+push-$(1): login
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --variant $(1) --verbose --version $(VERSION)
+endef
 
-build-amd64: clean
-  ./build.sh ${DOCKER} amd64
+build:
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --verbose --version $(VERSION)
 
-build-armhf: clean
-  ./build.sh ${DOCKER} armhf
+login:
+  if [ -n "${CI}" ]; then echo ${DOCKER_PASSWORD} | $(BINARY) login -u ${DOCKER_USERNAME} --password-stdin; fi
 
-build-arm64v8: clean
-  ./build.sh ${DOCKER} arm64v8
+manifest: login
+  $(SUDO) ../lib/manifest.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --verbose --version $(VERSION)
 
-push-login:
-  if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
+push: login manifest
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --manifest --verbose --version $(VERSION)
 
-push: clean push-login
-  ./push.sh ${DOCKER}
+$(foreach VAR,$(VARIANT),$(eval $(call BUILD_template,$(VAR))))
 
-manifest: clean push-login
-  ./manifest.sh ${DOCKER}
-
-all: build push manifest clean2
+all: build push manifest
