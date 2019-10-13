@@ -1,10 +1,13 @@
 .DEFAULT_GOAL := lint
-.PHONY: all hadolint lint trivy shellcheck
+.PHONY: all build hadolint lint trivy shellcheck
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
 HADOLINT := ${HOME}/.local/bin/hadolint
 TRIVY := ${HOME}/.local/bin/trivy
+
+SUBDIRS := $(shell find * -maxdepth 0 -type d)
+.PHONY: $(SUBDIRS)
 
 $(HADOLINT):
   curl -sLo "$(HADOLINT)" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
@@ -23,4 +26,7 @@ trivy: $(TRIVY)
 
 lint: hadolint shellcheck
 
-all: lint
+build: $(SUBDIRS)
+
+$(SUBDIRS):
+  cd $@ && make build
