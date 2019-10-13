@@ -20,7 +20,7 @@ hadolint: $(HADOLINT)
   git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 $(HADOLINT)
 
 shellcheck:
-  bash -c 'shopt -s globstar; shellcheck **/*.sh'
+  bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
 
 trivy: $(TRIVY)
 
