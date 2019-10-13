@@ -9,7 +9,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/healthchecks.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/healthchecks/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/healthchecks.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/healthchecks/)
 
-Healthchecks Docker Image
+Healthchecks Docker Image with multi-arch support.
 
 Requires a database like postgres. For further configuration options visit the [healthchecks repo](https://github.com/healthchecks/healthchecks/).
 
@@ -34,6 +34,7 @@ services:
 ````
 
 Setup database with:
+
 ````bash
 docker exec -it $PWD_healthchecks_1 ./manage.py migrate
 docker exec -it $PWD_healthchecks_1 ./manage.py createsuperuser
