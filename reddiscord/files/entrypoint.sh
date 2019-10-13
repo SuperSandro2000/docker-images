@@ -1,14 +1,17 @@
 #!/bin/sh
 set -eu
 
-# if the first arg starts with "-" pass it to reddiscord
+CMD="redbot docker"
+USER=reddiscord
+
+# if the first arg starts with "-" pass it to program
 if [ "${1#-}" != "$1" ]; then
-    set -- redbot docker "$@"
+    set -- "$CMD" "$@"
 fi
 
-if [ "$1" = "redbot" ] && [ "$(id -u)" = "0" ]; then
-    find . \! -user reddiscord -exec chown reddiscord '{}' +
-    exec gosu reddiscord "$0" "$@"
+if [ "$1 $2" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
+    find . \! -user $USER -exec chown $USER '{}' +
+    exec gosu $USER "$0" "$@"
 fi
 
 exec "$@"

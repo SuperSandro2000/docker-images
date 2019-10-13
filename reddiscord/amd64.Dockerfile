@@ -19,20 +19,26 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 WORKDIR /app
 
-RUN groupadd -r reddiscord && useradd -g reddiscord -r reddiscord
+RUN export user=reddiscord \
+  && groupadd -r $user && useradd -r -g $user $user
 
-RUN apt-get update -q \
-  && apt-get install --no-install-recommends -qy default-jre-headless git gosu libffi-dev libssl-dev \
-    python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl unzip wget zip \
+# hadolint ignore=SC2086
+RUN export dev_apt="libffi-dev libssl-dev" \
+  && apt-get update -q \
+  && apt-get install --no-install-recommends -qy $dev_apt default-jre-headless git gosu libffi6 libssl1.1 \
+    python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl wget \
+  && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
-COPY [ "files/config.json", "/reddiscord/.config/Red-DiscordBot/" ]
+COPY [ "files/config.json", "/usr/local/share/Red-DiscordBot/" ]
 
-RUN apt-get update -q \
-  && apt-get install --no-install-recommends -qy build-essential \
+# hadolint ignore=SC2086
+RUN export dev_apt="build-essential unzip zip" \
+  && apt-get update -q \
+  && apt-get install --no-install-recommends -qy $dev_apt \
   && pip3 install --no-cache-dir --progress-bar off Red-DiscordBot \
-  && apt-get autoremove -qy --purge build-essential \
+  && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT [ "entrypoint.sh" ]

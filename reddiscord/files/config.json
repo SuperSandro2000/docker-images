@@ -1,6 +1,6 @@
 {
     "docker" : {
-        "DATA_PATH" : "/data",
+        "DATA_PATH" : "/app/data",
         "COG_PATH_APPEND" : "cogs",
         "CORE_PATH_APPEND" : "core",
         "STORAGE_TYPE" : "JSON",

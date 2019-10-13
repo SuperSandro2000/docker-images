@@ -20,6 +20,6 @@ services:
   reddiscord:
     image: supersandro2000/reddiscord
     volumes:
-      - $PWD/reddiscord:/data
+      - $PWD/reddiscord:/app/data
     restart: unless-stopped
 ```
