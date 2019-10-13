@@ -1,30 +1,35 @@
 .DEFAULT_GOAL := all
-.PHONY: all build build-amd64 build-armhf build-arm64 manifest push login
+.PHONY: all build build-% manifest push push-% login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
-DOCKER := "docker"
-VERSION := $(shell curl -s https://raw.githubusercontent.com/prerender/prerender/master/package.json | grep -oP "(?<= \"version\": \")[0-9]+")
+BINARY := docker
+HOOK := https://hooks.microbadger.com/images/supersandro2000/prerenderer/bHfhzXpwydlqXnX5Z1Gm5SKzfMw=
+SUDO = $(shell if ! groups | grep docker; then echo sudo; fi)
+TAG := prerenderer
+VARIANT := amd64 arm64 armhf
+VERSION := $(shell curl -Ls https://github.com/prerender/prerender/raw/master/package.json | grep -oP "(?<= \"version\": \")[0-9]+")
+
+define BUILD_template =
+build-$(1):
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --variant ${1}  --verbose --version $(VERSION)
+
+push-$(1): login
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --variant $(1) --verbose --version $(VERSION)
+endef
 
 build:
-  ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --verbose --version ${VERSION}
-
-build-amd64:
-  ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --variant amd64 --verbose --version ${VERSION}
-
-build-armhf:
-  ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --variant armhf --verbose --version ${VERSION}
-
-build-arm64:
-  ../lib/build.sh --binary ${DOCKER} --buildkit --tag prerenderer --variant arm64 --verbose --version ${VERSION}
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --verbose --version $(VERSION)
 
 login:
-  if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
+  if [ -n "${CI}" ]; then echo ${DOCKER_PASSWORD} | $(BINARY) login -u ${DOCKER_USERNAME} --password-stdin; fi
 
 manifest: login
-  ../lib/manifest.sh --binary ${DOCKER} --image prerenderer --hook https://hooks.microbadger.com/images/supersandro2000/prerenderer/bwqaLj_bma7zIdwAwiK0CofjAnQ= --verbose --version ${VERSION}
+  $(SUDO) ../lib/manifest.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --verbose --version $(VERSION)
 
 push: login manifest
-  ../lib/push.sh --binary ${DOCKER} --image prerenderer --hook https://hooks.microbadger.com/images/supersandro2000/prerenderer/bwqaLj_bma7zIdwAwiK0CofjAnQ= --manifest --verbose --version ${VERSION}
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --manifest --verbose --version $(VERSION)
+
+$(foreach VAR,$(VARIANT),$(eval $(call BUILD_template,$(VAR))))
 
 all: build push manifest
