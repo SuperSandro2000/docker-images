@@ -1,19 +1,35 @@
-.PHONY: all build clean clean2 push push-login
+.DEFAULT_GOAL := all
+.PHONY: all build build-% manifest push push-% login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
-DOCKER := "docker"
+BINARY := docker
+HOOK := https://hooks.microbadger.com/images/supersandro2000/halcyon/SZHNRfRT-225bEYcHQCve7POsRs=
+SUDO = $(shell if ! groups | grep docker; then echo sudo; fi)
+TAG := halcyon
+VARIANT := amd64
+VERSION := $(shell curl -s https://notabug.org/halcyon-suite/halcyon/src/master/version.txt | grep -Eo '[([0-9]\.){2}[0-9]]')
 
-clean clean2:
-  rm halcyon-git -fr
+define BUILD_template =
+build-$(1):
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --variant ${1}  --verbose --version $(VERSION)
 
-build: clean
-  ./build.sh ${DOCKER}
+push-$(1): login
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --variant $(1) --verbose --version $(VERSION)
+endef
 
-push-login:
-  if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
+build:
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --verbose --version $(VERSION)
 
-push: push-login clean
-  ./push.sh ${DOCKER}
+login:
+  if [ -n "${CI}" ]; then echo ${DOCKER_PASSWORD} | $(BINARY) login -u ${DOCKER_USERNAME} --password-stdin; fi
 
-all: build push clean2
+manifest: login
+  $(SUDO) ../lib/manifest.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --verbose --version $(VERSION)
+
+push: login manifest
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --manifest --verbose --version $(VERSION)
+
+$(foreach VAR,$(VARIANT),$(eval $(call BUILD_template,$(VAR))))
+
+all: build push manifest
