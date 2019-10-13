@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eou pipefail
 
-# shellcheck source=functions.sh
+# shellcheck source=functions.sh source=lib/functions.sh disable=SC1091
 source "$(dirname "$(realpath -s "$0")")/functions.sh"
 
 if [[ $# == 0 ]]; then
