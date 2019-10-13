@@ -12,6 +12,12 @@ TRIVY := ${BIN_DIR}/trivy
 SUBDIRS := $(shell find * -maxdepth 0 -type d)
 .PHONY: $(SUBDIRS)
 
+EXECUTABLES = curl git jq
+K := $(foreach exec,$(EXECUTABLES),\
+        $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
+
+export PATH := ${PATH}:${BIN_DIR}
+
 $(HADOLINT):
   mkdir -p $$(dirname $(HADOLINT))
   curl -sLo "$(HADOLINT)" $$(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
