@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := lint
 .PHONY: all build hadolint lint trivy shellcheck
 .RECIPEPREFIX +=
+MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
 HADOLINT := ${HOME}/.local/bin/hadolint

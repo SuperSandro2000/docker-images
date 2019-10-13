@@ -1,5 +1,6 @@
 .PHONY: all all-amd64 all-armhf all-arm64v8 all-source build build-amd64 build-armhf build-arm64v8 build-source clean clean2 manifest push push-login push-source
 .RECIPEPREFIX +=
+MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
 DOCKER := "docker"
@@ -17,7 +18,7 @@ build: clean lavalink
 
 build-amd64: clean lavalink
   ./build.sh ${DOCKER} amd64
-  
+
 build-armhf: clean lavalink
   ./build.sh ${DOCKER} armhf
 
