@@ -1,21 +1,35 @@
-.PHONY: all build clean clean2 push push-login
+.DEFAULT_GOAL := all
+.PHONY: all build build-% manifest push push-% login
 .RECIPEPREFIX +=
 SHELL := /bin/bash
 
-DOCKER := "docker"
+BINARY := docker
+HOOK := https://hooks.microbadger.com/images/supersandro2000/kibitzr/rp5PBR5DxYGVZebsNNO91I-8894=
+SUDO = $(shell if ! groups | grep docker; then echo sudo; fi)
+TAG := kibitzr
+VARIANT := amd64 arm64 armhf
+VERSION := $(shell curl -s https://pypi.org/pypi/kibitzr/json | jq -r '.info.version')
 
-clean clean2:
-  rm ~/.docker/manifests/docker.io_supersandro2000_kibitzr-* -rf
-  rm manifest -f
-  rm manifest_latest -f
+define BUILD_template =
+build-$(1):
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --variant ${1}  --verbose --version $(VERSION)
 
-build: clean
-  ./build.sh ${DOCKER}
+push-$(1): login
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --variant $(1) --verbose --version $(VERSION)
+endef
 
-push-login:
-  if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
+build:
+  $(SUDO) ../lib/build.sh --binary $(BINARY) --buildkit --tag $(TAG) --verbose --version $(VERSION)
 
-push: push-login clean
-  ./push.sh ${DOCKER}
+login:
+  if [ -n "${CI}" ]; then echo ${DOCKER_PASSWORD} | $(BINARY) login -u ${DOCKER_USERNAME} --password-stdin; fi
 
-all: build push clean2
+manifest: login
+  $(SUDO) ../lib/manifest.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --verbose --version $(VERSION)
+
+push: login manifest
+  $(SUDO) ../lib/push.sh --binary $(BINARY) --image $(TAG) --hook $(HOOK) --manifest --verbose --version $(VERSION)
+
+$(foreach VAR,$(VARIANT),$(eval $(call BUILD_template,$(VAR))))
+
+all: build push manifest
