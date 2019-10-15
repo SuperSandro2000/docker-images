@@ -12,13 +12,15 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/build.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-m|--manifest] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
+      echo "../lib/build.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [-n|--dry-run] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-m|--manifest] [-t|--tag edge|stable|1.0.0] [--variant amd64|arm64|armhf] [-v|--verbose]"
       echo "--help      Show this help."
       echo "--binary    Binary which runs the build commands."
       echo "--delay     How many seconds should be waited between pushes."
+      echo "--dry-run   Show commands which would be run."
       echo "--hook      URL to send POST request after sucessful push."
       echo "--manifest  Push manifests. Need to be created with manifest.sh before."
       echo "--image     Image being pushed"
+      echo "--tag       Tags added to the image."
       echo "--variant   Variants which should be included seperated by comma. Defaults to amd64,arm64,armhf."
       echo "--verbose   Be more verbose."
       echo
@@ -33,6 +35,9 @@ while [[ $# -gt 0 ]]; do
       delay="$2"
       shift
       ;;
+    "-n" | "--dry-run")
+      dry_run=true
+      ;;
     "-i" | "--image")
       image="$2"
       shift
@@ -42,7 +47,12 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     "-m" | "--manifest")
-      manifest=true
+      export DOCKER_CLI_EXPERIMENTAL=enabled
+      manifest=manifest
+      ;;
+    "-t" | "--tag")
+      tag="$2"
+      shift
       ;;
     "--variant")
       case "$2" in
@@ -53,6 +63,7 @@ while [[ $# -gt 0 ]]; do
         "*")
           echo "Varaint $2 is not supported. See --help for supported variants."
           exit 2
+          ;;
       esac
       ;;
     "--verbose")
@@ -62,6 +73,10 @@ while [[ $# -gt 0 ]]; do
       version="$2"
       shift
       ;;
+    *)
+      echo "Argument $1 is not understood."
+      exit 2
+      ;;
   esac
   shift
 done
@@ -70,16 +85,16 @@ if [[ -n ${verbose:-} ]]; then
   set -x
 fi
 
-if [[ -z ${binary:-} ]]; then
-  binary=docker
+binary="${binary:-docker}"
+if [[ -n ${dry_run:-} ]]; then
+  binary="echo $binary"
 fi
 
 check_tool "$binary --version" docker
 check_tool "curl --version" curl
 
-if [[ -z ${delay:-} ]]; then
-  delay=3
-elif ! [[ $delay =~ ^[0-9]+$ ]]; then
+delay=${delay:-3}
+if ! [[ $delay =~ ^[0-9]+$ ]]; then
   echo "$delay is not a number. Delay only takes whole numbers."
   exit 2
 fi
@@ -97,8 +112,8 @@ if [[ -z ${variant:-} ]]; then
   variant="amd64,arm64,armhf"
 fi
 
-if [[ -z ${version:-} ]]; then
-  echo "You need to supply --version 1.0.0."
+if [[ -z ${tag:-} && -z ${version:-} ]]; then
+  echo "You need to supply either --tag edge|stable|1.0.0 or --version 1.0.0.."
   exit 1
 fi
 
@@ -112,16 +127,17 @@ function check_manifest() {
 function push() {
   arch=$1
 
-  if [[ -n ${arch:-} ]]; then
-    image_variant="$image:$arch"
-  else
-    image_variant="$image:"
-  fi
+  image_variant="$image:${arch:-}"
 
-  retry "$binary push $image:$version"
-  sleep 3
-  retry "$binary push $image:latest"
-  sleep 3
+  if [[ -n ${tag:-} ]]; then
+    retry "$binary ${manifest:-} push $image_variant-$tag"
+    sleep 3
+  fi
+  if [[ -n ${version:-} ]]; then
+    retry "$binary ${manifest:-} push $image:$version"
+    sleep 3
+    retry "$binary ${manifest:-} push $image:latest"
+  fi
 }
 
 IFS=","
@@ -129,14 +145,6 @@ for arch in $variant; do
   IFS=" "
   push "$arch"
 done
-
-export DOCKER_CLI_EXPERIMENTAL=enabled
-
-if [[ -n ${manifest:-} ]]; then
-  retry "$binary manifest push $image_variant-$version"
-  sleep 3
-  retry "$binary manifest push $image_variant-latest"
-fi
 
 if [[ -z $hook ]]; then
   curl -X POST "$hook"

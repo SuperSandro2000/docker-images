@@ -20,12 +20,15 @@ function check_tool() {
 }
 
 function retry() {
-  #shellcheck disable=SC2034
+   tries=${2:-3}
   for i in {1..5}; do
     if [ "$(eval "$1")" ]; then
       break
     else
       sleep "${delay:-3}"
+    fi
+    if [[ $i == 5 ]]; then
+      echo "Command: $1 failed with $tries."
     fi
   done
 }

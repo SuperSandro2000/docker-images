@@ -12,16 +12,17 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/build.sh [--help] [-b|--binary docker|podman] [--buildkit] [--ci] [-d|--delay N] [-t|--tag supersandro2000/base-alpine|base-alpine] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
+      echo "../lib/build.sh [--help] [-b|--binary docker|podman] [--buildkit] [--ci] [-d|--delay N] [-n|--dry-run] [-i|--image supersandro2000/base-alpine|base-alpine] [-t|--tag edge|stable|1.0.0] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0]"
       echo "--help      Show this help."
       echo "--binary    Binary which runs the build commands."
+      echo "--dry-run   Show commands which would be run."
       echo "--buildkit  Run docker with buildkit enabled."
       echo "--ci        Specify if ran by an CI."
       echo "--delay     How many seconds should be waited between pushes."
+      echo "--image     How the image is being named."
       echo "--tag       Tags added to the image."
       echo "--variant   Variants to be build. May define multiple seperated with comma. Valid values are amd64, arm64 or armhf."
       echo "--verbose   Be more verbose."
-      echo "--version   Version the image gets tagged with. 'infile' means the Dockerfile is tagged manually."
       echo
       show_exit_codes
       exit 0
@@ -44,6 +45,13 @@ while [[ $# -gt 0 ]]; do
       delay="$2"
       shift
       ;;
+    "-n" | "--dry-run")
+      dry_run=true
+      ;;
+    "-i" | "--image")
+      image="$2"
+      shift
+      ;;
     "-t" | "--tag")
       tag="$2"
       shift
@@ -59,6 +67,10 @@ while [[ $# -gt 0 ]]; do
       version="$2"
       shift
       ;;
+    *)
+      echo "Argument $1 is not understood."
+      exit 2
+      ;;
   esac
   shift
 done
@@ -67,26 +79,26 @@ if [[ -n ${verbose:-} ]]; then
   set -x
 fi
 
-if [[ -z ${binary:-} ]]; then
-  binary="docker"
+binary=${bianry:-docker}
+if [[ -n ${dry_run:-} ]]; then
+  binary="echo $binary"
 fi
 
 check_tool "$binary --version" docker
 check_tool "git --version" git
 
-if [[ -z ${delay:-} ]]; then
-  delay=3
-elif ! [[ $delay =~ ^[0-9]+$ ]]; then
+delay=${delay:-3}
+if ! [[ $delay =~ ^[0-9]+$ ]]; then
   echo "$delay is not a number. Delay only takes whole numbers."
   exit 2
 fi
 
-if [[ -z ${tag:-} ]]; then
-  echo "You need to supply --tag NAME."
+if [[ -z ${image:-} ]]; then
+  echo "You need to supply --image NAME."
   exit 2
 else
-  if [[ ! $tag =~ "/" ]]; then
-    tag="supersandro2000/$tag"
+  if [[ ! $image =~ "/" ]]; then
+    image="supersandro2000/$image"
   fi
 fi
 
@@ -94,43 +106,35 @@ if [[ -z ${variant:-} ]]; then
   variant="amd64,arm64,armhf"
 fi
 
-if [[ -z ${version:-} ]]; then
-  echo "You need to supply --version 1.0.0."
+if [[ -z ${tag:-} && -z ${version:-} ]]; then
+  echo "You need to supply either --tag edge|stable|1.0.0 or --version 1.0.0.."
   exit 2
 fi
 
 if [[ -n ${CI:-} && -n ${buildkit:-} ]]; then
-  build_arg="--progress plain"
-else
-  build_arg=
+  build_args+=" --progress plain"
 fi
 
 function build() {
   arch=$1
-  build_tag="$tag:$arch-latest"
+
+  if [[ -n ${tag:-} ]]; then
+    file_prefix="$arch-$tag."
+  else
+    file_prefix="$arch."
+  fi
+  build_image="$image:$arch-${tag:-latest}"
 
   if [[ -z ${buildkit:-} ]]; then
-    build_args="$build_arg --cache-from $build_tag"
-  else
-    build_args=
-  fi
-
-  if [[ -n ${arch:-} ]]; then
-    file="$arch.Dockerfile"
-  else
-    file="Dockerfile"
-  fi
-
-  if [[ $version != "infile" ]]; then
-    version_arg="--build-arg VERSION=$version"
+    build_args+=" --cache-from $build_image"
   fi
 
   #shellcheck disable=SC2068
-  $binary build $build_args --pull \
-    --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
-    ${version_arg[@]} \
+  $binary build ${build_args[@]:-} --pull \
+    --build-arg BUILD_DATE="$(date -u +"%Y-%m-%d")" \
+    --build-arg VERSION="${version:-tag}" \
     --build-arg REVISION="$(git rev-parse --short HEAD)" \
-    -f "$file" -t "$build_tag" .
+    -f "${file_prefix}Dockerfile" -t "$build_image" .
 }
 
 IFS=","
