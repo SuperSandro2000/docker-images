@@ -66,7 +66,7 @@ while [[ $# -gt 0 ]]; do
           ;;
       esac
       ;;
-    "--verbose")
+    "-v" | "--verbose")
       verbose=true
       ;;
     "--version")

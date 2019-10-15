@@ -57,7 +57,7 @@ while [[ $# -gt 0 ]]; do
       variant="$2"
       shift
       ;;
-    "--verbose")
+    "-v" | "--verbose")
       verbose=true
       ;;
     "--version")
