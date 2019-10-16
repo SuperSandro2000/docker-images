@@ -120,10 +120,11 @@ function build() {
 
   if [[ -n ${tag:-} ]]; then
     file_prefix="$arch-$tag."
+    build_image="$image:$arch-$tag"
   else
     file_prefix="$arch."
+    build_image="$image:$arch-$version"
   fi
-  build_image="$image:$arch-${tag:-latest}"
 
   if [[ -z ${buildkit:-} ]]; then
     build_args+=" --cache-from $build_image"
@@ -132,9 +133,9 @@ function build() {
   #shellcheck disable=SC2068
   $binary build ${build_args[@]:-} --pull \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%d")" \
-    --build-arg VERSION="${version:-tag}" \
+    --build-arg VERSION="${version:-$tag}" \
     --build-arg REVISION="$(git rev-parse --short HEAD)" \
-    -f "${file_prefix}Dockerfile" -t "$build_image" .
+    -f "${file_prefix}Dockerfile" -t "$build_image" -t "$image:$arch-latest" .
 }
 
 IFS=","
