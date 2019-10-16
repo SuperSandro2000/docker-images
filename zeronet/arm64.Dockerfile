@@ -20,7 +20,10 @@ ENV HOME=/app ENABLE_TOR=false
 
 RUN [ "cross-build-start" ]
 
-RUN addgroup -S zeronet && adduser -S -G zeronet zeronet \
+RUN export user=zeronet \
+  && addgroup -S $user && adduser -S -G $user $user
+
+RUN apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client tor \
   && apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client tor \
   # only fetch specific packages from testing
   && apk add --no-cache --no-progress -X http://dl-cdn.alpinelinux.org/alpine/edge/testing py3-maxminddb py3-gevent-websocket
