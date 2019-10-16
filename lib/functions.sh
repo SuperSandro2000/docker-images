@@ -20,15 +20,17 @@ function check_tool() {
 }
 
 function retry() {
-   tries=${2:-3}
-  for i in {1..5}; do
-    if [ "$(eval "$1")" ]; then
+  tries=${2:-3}
+  #for i in {1..$tries}; do
+  for ((i = 0; i < tries; i++)); do
+    if eval "$1"; then
       break
     else
       sleep "${delay:-3}"
     fi
-    if [[ $i == 5 ]]; then
-      echo "Command: $1 failed with $tries."
+    if ((i == tries - 1)); then
+      echo "Command: \"$1\" failed after $tries tries."
+      exit 10
     fi
   done
 }
