@@ -55,16 +55,21 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     "--variant")
-      case "$2" in
-        "amd64" | "arm64" | "armhf")
-          variant="$2"
-          shift
-          ;;
-        "*")
-          echo "Varaint $2 is not supported. See --help for supported variants."
-          exit 2
-          ;;
-      esac
+      variant=
+      IFS=","
+      for v_arg in $2; do
+        case $v_arg in
+          "amd64" | "arm64" | "armhf")
+            variant+="$v_arg "
+            ;;
+          *)
+            echo "Varaint $v_arg is not supported. See --help for supported variants."
+            exit 2
+            ;;
+        esac
+      done
+      IFS=" "
+      shift
       ;;
     "-v" | "--verbose")
       verbose=true
