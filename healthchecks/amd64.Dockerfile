@@ -4,9 +4,7 @@ RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy ca-certificates gcc git libcap-dev libjansson-dev \
     libjemalloc-dev libpcre3-dev libxml2-dev libyaml-dev python3-dev python3-distutils zlib1g-dev
 
-WORKDIR /uwsgi
-
-RUN git clone --depth=1 https://github.com/unbit/uwsgi.git . \
+RUN git clone --depth=1 https://github.com/unbit/uwsgi.git /uwsgi \
   && printf "\
 [uwsgi]\n\
 inherit=base\n\
@@ -14,9 +12,9 @@ main_plugin=python\n\
 malloc_implementation=jemalloc\n\
 yaml=libyaml\n\
 " >/uwsgi/buildconf/default.ini \
-  # Fixes compiling in buildkit. See https://github.com/unbit/uwsgi/issues/1318
-  && export CPUCOUNT=1 \
-  && python3 uwsgiconfig.py --build
+  && cd /uwsgi && python3 uwsgiconfig.py --build
+
+RUN git clone --depth=1 https://github.com/healthchecks/healthchecks.git /hc
 
 #------------------#
 
@@ -43,20 +41,20 @@ RUN export user=healthchecks \
   && groupadd -r $user && useradd -r -g $user $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
-COPY [ "healthchecks-git/requirements.txt", "." ]
+COPY --from=builder [ "/hc/requirements.txt", "/app/" ]
 
 # hadolint ignore=SC2086
 RUN export dev_apt="gcc libpq-dev python3-dev python3-pip python3-setuptools" \
   && apt-get update -q \
   && apt-get install --no-install-recommends -qy $dev_apt gosu python3 \
     libcap2 libjansson4 libjemalloc2 libpython3.7 libpq5 libxml2 libyaml-0-2 \
-  && pip3 install --no-cache-dir --progress-bar off -r requirements.txt --no-binary psycopg2 \
+  && pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt --no-binary psycopg2 \
   && apt-get autoremove -qy --purge $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder [ "/uwsgi/uwsgi", "/usr/bin/" ]
 COPY [ "files/uwsgi.ini", "/app/" ]
-COPY [ "healthchecks-git/", "/app/" ]
+COPY --from=builder [ "hc/", "/app/" ]
 
 RUN cp /app/hc/local_settings.py.example /app/hc/local_settings.py \
   && sed -i 's/python/python3/g' /app/manage.py \
