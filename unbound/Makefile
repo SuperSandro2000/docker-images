@@ -5,6 +5,6 @@ SHELL := /bin/bash
 
 HOOK := https://hooks.microbadger.com/images/supersandro2000/unbound/4cxdD8N2iomewH1V7PBYGIWYvRk=
 IMAGE := unbound
-VERSION := $(shell ${BINARY} run --rm -t supersandro2000/unbound:latest unbound -h | grep -oP '(?<=Version )[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}')
+VERSIONS := $(shell curl -s https://git.alpinelinux.org/aports/plain/main/unbound/APKBUILD | grep -oP '(?<=pkgver=)([0-9]\.){2}[0-9]')
 
 include ../lib/Makefile
