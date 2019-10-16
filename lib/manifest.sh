@@ -12,7 +12,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/build.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [-n|--dry-run] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-p|--push] [-t|--tag edge|stable|1.0.0] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
+      echo "../lib/manifest.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [-n|--dry-run] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-p|--push] [-t|--tag edge|stable|1.0.0] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
       echo "--help      Show this help."
       echo "--binary    Binary which runs the build commands."
       echo "--delay     How many seconds should be waited between pushes."
@@ -122,21 +122,25 @@ for version_latest in ${version:-} ${tag:-latest}; do
 
   # remove images that are tagged the same as the manifest being created
   $binary rmi "$image_variant" >/dev/null 2>&1 || true
-  if [[ -z ${tag:-} ]]; then
-    rm -rf "$HOME/.docker/manifests/docker.io_${image//\//_}"
-  else
-    rm -rf "$HOME/.docker/manifests/docker.io_${image//\//_}-$tag"
-  fi
+  rm -rf "$HOME/.docker/manifests/docker.io_${image//\//_}-${tag:-$version_latest}"
 
   #shellcheck disable=SC2068
   $binary manifest create "$image_variant" ${variant_manifest[@]}
 
-  $binary manifest annotate "$image_variant" "$image:amd64-$version_latest" --os linux --arch amd64
-  $binary manifest annotate "$image_variant" "$image:armhf-$version_latest" --os linux --arch arm --variant v7
-  $binary manifest annotate "$image_variant" "$image:arm64-$version_latest" --os linux --arch arm64 --variant v8
+  case $variant in
+    "amd64")
+      $binary manifest annotate "$image_variant" "$image:amd64-$version_latest" --os linux --arch amd64
+      ;;
+    "arm64")
+      $binary manifest annotate "$image_variant" "$image:arm64-$version_latest" --os linux --arch arm64 --variant v8
+      ;;
+    "armhf")
+      $binary manifest annotate "$image_variant" "$image:armhf-$version_latest" --os linux --arch arm --variant v7
+      ;;
+  esac
 
   if [[ -n ${push:-} ]]; then
-    retry "$binary manifest push ${tag:-latest}"
+    retry "$binary manifest push $image_variant # ${tag:-latest}"
   fi
   sleep "$delay"
 done

@@ -126,23 +126,22 @@ function check_manifest() {
 
 function push() {
   arch=$1
-
   image_variant="$image:${arch:-}"
 
   if [[ -n ${tag:-} ]]; then
     retry "$binary ${manifest:-} push $image_variant-$tag"
     sleep 3
   fi
+
   if [[ -n ${version:-} ]]; then
-    retry "$binary ${manifest:-} push $image:$version"
+    retry "$binary ${manifest:-} push $image_variant-$version"
     sleep 3
-    retry "$binary ${manifest:-} push $image:latest"
+    retry "$binary ${manifest:-} push $image_variant-latest"
   fi
 }
 
-IFS=","
+#IFS=","
 for arch in $variant; do
-  IFS=" "
   push "$arch"
 done
 
