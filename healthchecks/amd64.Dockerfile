@@ -4,6 +4,7 @@ RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy ca-certificates gcc git libcap-dev libjansson-dev \
     libjemalloc-dev libpcre3-dev libxml2-dev libyaml-dev python3-dev python3-distutils zlib1g-dev
 
+# hadolint ignore=DL3003
 RUN git clone --depth=1 https://github.com/unbit/uwsgi.git /uwsgi \
   && printf "\
 [uwsgi]\n\
