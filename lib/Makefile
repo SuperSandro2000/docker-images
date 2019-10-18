@@ -8,7 +8,7 @@ SHELL := /bin/bash
 BINARY ?= docker
 HOOK ?=
 IMAGE ?=
-SUDO ?= $(shell if ! groups | grep -o docker; then echo sudo; fi)
+SUDO ?= $(shell if ! groups | grep -q docker; then echo sudo; fi)
 TAGS ?= stable
 VARIANT ?= amd64,arm64,armhf
 
