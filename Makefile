@@ -4,7 +4,7 @@
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
-BIN_DIR := $(HOME)/.local/bin/
+BIN_DIR := $(HOME)/.local/bin
 HADOLINT := ${BIN_DIR}/hadolint
 SHELLCHECK := ${BIN_DIR}/shellcheck
 TRIVY := ${BIN_DIR}/trivy
