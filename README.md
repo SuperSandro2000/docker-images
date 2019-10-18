@@ -77,4 +77,4 @@ Thanks to napnap75 for inspiring me to do this with his [rpi-docker-images](http
 
 ## License
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images.svg)](https://app.fossa.io/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images)
