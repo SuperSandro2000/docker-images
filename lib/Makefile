@@ -48,7 +48,7 @@ define TEMPLATE =
 TAG := $(1)
 VERSION := $(2)
 
-ifneq ($$(TAG),$$(VERSION))
+ifeq ($$(TAG),$$(VERSION))
 PREFIX := $$(TAG)
 PREFIXED := $$(PREFIX)-
 endif
