@@ -90,14 +90,8 @@ jobs:
       stage: build-base
       env: IMAGE=base-alpine
 
-    - stage: build
+    - <<: *build
       env: IMAGE=archisteamfarm VARIANT=alpine
-      script:
-        - cd "$IMAGE"
-        - make build-alpine
-        - docker images
-      after_script:
-        - if [[ $TRAVIS_BRANCH == master ]]; then make push-alpine; fi
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
@@ -107,21 +101,13 @@ jobs:
     - <<: *build
       env: IMAGE=prerenderer
     - <<: *build
-      env: IMAGE=reddiscord VARIANT=amd64
+      env: IMAGE=reddiscord
     - <<: *build
-      env: IMAGE=reddiscord VARIANT=armhf
-    # - <<: *build
-    #   env: IMAGE=reddiscord VARIANT=arm64
-    # - stage: build
-    #    env: IMAGE=reddiscord VARIANT=source
+      env: IMAGE=reddiscord VARIANT=source
     - <<: *build
       env: IMAGE=unbound
     - <<: *build
-      env: IMAGE=zeronet VARIANT=amd64
-    - <<: *build
-      env: IMAGE=zeronet VARIANT=armhf
-    - <<: *build
-      env: IMAGE=zeronet VARIANT=arm64
+      env: IMAGE=zeronet
 
     - <<: *manifest
       env: IMAGE=archisteamfarm
