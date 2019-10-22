@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := lint
-.PHONY: all build hadolint lint trivy shellcheck
+.PHONY: all build hadolint lint trivy shellcheck shfmt
 .RECIPEPREFIX +=
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
@@ -27,6 +27,9 @@ $(SHELLCHECK):
   curl -s https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz | tar Jx shellcheck-stable/shellcheck --strip=1
   mv shellcheck $(SHELLCHECK)
 
+$(SHFMT):
+  curl -sLo "$(SHFMT)" $$(curl -s https://api.github.com/repos/mvdan/sh/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
+
 $(TRIVY):
   curl -sL $$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
@@ -35,6 +38,9 @@ hadolint: $(HADOLINT)
 
 shellcheck: $(SHELLCHECK)
   bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
+
+shfmt: $(SHFMT)
+  bash -c 'shopt -s globstar; shfmt -ci -i 2 -s -w **/*.{sh,Dockerfile}'
 
 trivy: $(TRIVY)
 
