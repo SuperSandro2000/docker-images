@@ -145,6 +145,6 @@ for version_latest in ${version:-} ${tag:-latest}; do
   sleep "$delay"
 done
 
-if [[ -z $hook ]]; then
+if [[ -n ${hook:-} ]]; then
   curl -X POST "$hook"
 fi

@@ -150,6 +150,6 @@ for arch in $variant; do
   push "$arch"
 done
 
-if [[ -z $hook ]]; then
+if [[ -n ${hook:-} ]]; then
   curl -X POST "$hook"
 fi
