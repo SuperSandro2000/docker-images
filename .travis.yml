@@ -103,7 +103,7 @@ jobs:
     - <<: *build
       env: IMAGE=reddiscord
     - <<: *build
-      env: IMAGE=reddiscord VARIANT=source
+      env: IMAGE=reddiscord TAGS=source VERSIONS=source
     - <<: *build
       env: IMAGE=unbound
     - <<: *build
