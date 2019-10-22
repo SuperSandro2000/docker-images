@@ -21,7 +21,6 @@ function check_tool() {
 
 function retry() {
   tries=${2:-3}
-  #for i in {1..$tries}; do
   for ((i = 0; i < tries; i++)); do
     if eval "$1"; then
       break
