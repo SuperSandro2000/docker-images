@@ -87,7 +87,7 @@ $$$$(PREFIXED)push: $$(if $${CI},login,)
 # $$$$(PREFIXED)login:
 
 .PHONY: $$$$(PREFIX)
-$$$$(PREFIX): $$$$(PREFIXED)build $$$$(PREFIXED)push $$$$(PREFIXED)manifest
+$$$$(PREFIX): $$$$(PREFIXED)build $$$$(PREFIXED)push
 
 ALL += $$$$(PREFIX)
 .PHONY: all
