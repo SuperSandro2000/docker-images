@@ -6,7 +6,8 @@ RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy ca-certificates gcc git libcap-dev libjansson-dev \
     libjemalloc-dev libpcre3-dev libxml2-dev libyaml-dev python3-dev python3-distutils zlib1g-dev
 
-# hadolint ignore=DL3003
+WORKDIR /uwsgi
+
 RUN git clone --depth=1 https://github.com/unbit/uwsgi.git /uwsgi \
   && printf "\
 [uwsgi]\n\
@@ -16,7 +17,7 @@ malloc_implementation=jemalloc\n\
 yaml=libyaml\n\
 " >/uwsgi/buildconf/default.ini \
   && sed -i 's/%lu/%zu/g' /uwsgi/plugins/redislog/redislog_plugin.c \
-  && cd /uwsgi && python3 uwsgiconfig.py --build
+  && python3 uwsgiconfig.py --build
 
 RUN git clone --depth=1 https://github.com/healthchecks/healthchecks.git /hc
 
