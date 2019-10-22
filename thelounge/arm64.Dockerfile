@@ -26,7 +26,7 @@ RUN yarn global add thelounge
 
 RUN [ "cross-build-end" ]
 
-ENV THELOUNGE_HOME=/data
+ENV THELOUNGE_HOME=/app
 EXPOSE 3000
 WORKDIR /app
 ENTRYPOINT [ "entrypoint.sh" ]
