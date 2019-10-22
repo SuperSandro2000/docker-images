@@ -40,7 +40,7 @@ shellcheck: $(SHELLCHECK)
   bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
 
 shfmt: $(SHFMT)
-  bash -c 'shopt -s globstar; shfmt -ci -i 2 -s -w **/*.{sh,Dockerfile}'
+  bash -c 'shopt -s globstar; shfmt -bn -ci -i 2 -s -w **/*.{sh,Dockerfile}'
 
 trivy: $(TRIVY)
 
