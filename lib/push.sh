@@ -55,20 +55,7 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     "--variant")
-      variant=
-      IFS=","
-      for v_arg in $2; do
-        case $v_arg in
-          "amd64" | "arm64" | "armhf")
-            variant+="$v_arg "
-            ;;
-          *)
-            echo "Varaint $v_arg is not supported. See --help for supported variants."
-            exit 2
-            ;;
-        esac
-      done
-      IFS=" "
+      variant="$2"
       shift
       ;;
     "-v" | "--verbose")
@@ -145,9 +132,17 @@ function push() {
   fi
 }
 
-#IFS=","
+IFS=","
 for arch in $variant; do
-  push "$arch"
+  case $arch in
+    "amd64" | "arm64" | "armhf")
+      push "$arch"
+      ;;
+    *)
+      echo "Variant $arch is not supported. See --help for supported variants."
+      exit 2
+      ;;
+  esac
 done
 
 if [[ -n ${hook:-} ]]; then

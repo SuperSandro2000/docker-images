@@ -1,16 +1,17 @@
 .DEFAULT_GOAL := all
-.PHONY: all $(PREFIXED)build% $(PREFIXED)login $(PREFIXED)manifest $(PREFIXED)push% $(PREFIX)
 .RECIPEPREFIX +=
 .SUFFIXES:
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
+comma :=,
+
 BINARY ?= docker
-HOOK ?=
+HOOK_ARG ?=$(if $(filter $(HOOK),%),--hook $(HOOK),)
 IMAGE ?=
 SUDO ?= $(shell if ! groups | grep -q docker; then echo sudo; fi)
 TAGS ?= stable
-VARIANT ?= amd64,arm64,armhf
+VARIANTS ?= amd64,arm64,armhf
 
 ifndef IMAGE
 $(error IMAGE needs to be set.)
@@ -30,57 +31,87 @@ ifdef VERBOSE
 FLAGS += --verbose
 endif
 
-define DYNAMIC_TEMPLATE =
-$(PREFIXED)build-$(1):
-  $(SUDO) ../lib/build.sh $(FLAGS) --buildkit --variant $(1)
-
-$(PREFIXED)push-$(1): $$(if $${CI},login,)
-  $(SUDO) ../lib/push.sh $(FLAGS) --hook $(HOOK) --variant $(1)
-endef
-
-
-define TEMPLATE =
 
 ############
 # TEMPLATE #
 ############
-
+define TEMPLATE =
 TAG := $(1)
 VERSION := $(2)
 
-ifeq ($$(TAG),$$(VERSION))
-PREFIX := $$(TAG)
-PREFIXED := $$(PREFIX)-
-endif
-
 $(1)_FLAGS := $$(FLAGS)
-$(1)_FLAGS += --variant $(VARIANT)
 ifeq ($$(TAG),$$(VERSION))
 $(1)_FLAGS += --tag $$(TAG)
 else
 $(1)_FLAGS += --version $$(VERSION)
 endif
 
-$$(PREFIXED)build:
-  $(SUDO) ../lib/build.sh $$($(1)_FLAGS) --buildkit
 
-$$(PREFIXED)login:
-  if [ -n $${CI} ]; then echo $${DOCKER_PASSWORD} | $(BINARY) login -u $${DOCKER_USERNAME} --password-stdin; fi
+define TAGS_VERSIONS =
+VARIANT := $$(1)
+$$(1)_FLAGS_VARIANT := $$($(1)_FLAGS) --variant $$(1)
 
-$$(PREFIXED)push: $$(if $${CI},login,)
-  $(SUDO) ../lib/push.sh $$($(1)_FLAGS) --hook $(HOOK)
-
-$$(PREFIXED)manifest:
-  $(SUDO) ../lib/manifest.sh $$($(1)_FLAGS) --hook $(HOOK) --push
-
-ifdef PREFIX
-$$(PREFIX): $$(PREFIXED)build $$(PREFIXED)push $$(PREFIXED)manifest
+ifeq ($$$$(TAG),$$$$(VERSION))
+PREFIX := $$$$(TAG)
 endif
 
-all: $$(PREFIXED)build $$(PREFIXED)push $$(PREFIXED)manifest
+ifneq ($$$$(VARIANT),all)
+PREFIX := $$$$(VARIANT)
+else
+PREFIX :=
+endif
+
+ifneq ($$$$(PREFIX),)
+PREFIXED := $$$$(PREFIX)-
+else
+PREFIXED :=
+endif
+
+ifdef DEBUG2
+$$$$(info PREFIX $$$$(PREFIX) PREFIXED $$$$(PREFIXED))
+endif
+
+.PHONY: $$$$(PREFIXED)login
+$$$$(PREFIXED)login:
+  if [ -n $$${CI} ]; then echo $$${DOCKER_PASSWORD} | $$(BINARY) login -u $$${DOCKER_USERNAME} --password-stdin; fi
+
+.PHONY: $$$$(PREFIXED)build
+$$$$(PREFIXED)build:
+  $(SUDO) ../lib/build.sh $$$$($$(1)_FLAGS_VARIANT) --buildkit
+
+.PHONY: $$$$(PREFIXED)push
+$$$$(PREFIXED)push: $$(if $${CI},login,)
+  $(SUDO) ../lib/push.sh $$$$($$(1)_FLAGS_VARIANT) $(HOOK_ARG)
+
+# .PHONY: $$$$(PREFIXED)login
+# $$$$(PREFIXED)login:
+
+.PHONY: $$$$(PREFIX)
+$$$$(PREFIX): $$$$(PREFIXED)build $$$$(PREFIXED)push $$$$(PREFIXED)manifest
+
+ALL += $$$$(PREFIX)
+.PHONY: all
+all: $$(ALL)
 endef
 
-# $(foreach VAR,$(VARIANT),$(eval $(call DYNAMIC_TEMPLATE,$$(VAR))))
+
+.PHONY: $$(PREFIXED)manifest
+$$(PREFIXED)manifest:
+  $(SUDO) ../lib/manifest.sh $$($(1)_FLAGS) --variant $$(VARIANTS) --push $(HOOK_ARG)
+
+ifdef DEBUG2
+$$(info SUBST $$(subst $$(comma), ,$$(VARIANTS)))
+$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(info FOREACH SUBST $$i))
+$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(info $$(call TAGS_VERSIONS,$$i)))
+endif
+
+$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(eval $$(call TAGS_VERSIONS,$$i)))
+endef
+
+
+# .PHONY: all
+# all: build push manifest
+
 
 # saved my day https://stackoverflow.com/a/28458071/4446318
 JOINED  := $(join $(addsuffix :,$(TAGS)),$(VERSIONS))
@@ -88,7 +119,10 @@ GET_TAGS  = $(word 1,$(subst :, ,$1))
 GET_VERSIONS = $(word 2,$(subst :, ,$1))
 
 ifdef DEBUG
-$(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j))))
-else
-$(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j))))
+$(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(1))))
 endif
+$(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(1))))
+
+.PHONY: debug
+debug:
+  @echo DEBUG!!!
