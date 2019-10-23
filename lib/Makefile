@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := default
 .RECIPEPREFIX +=
 .SUFFIXES:
 MAKEFLAGS=--warn-undefined-variables
@@ -7,6 +7,7 @@ SHELL := /bin/bash
 comma :=,
 
 BINARY ?= docker
+DEFAULT ?=
 HOOK_ARG ?=$(if $(filter $(HOOK),%),--hook $(HOOK),)
 IMAGE ?=
 SUDO ?= $(shell if ! groups | grep -q docker; then echo sudo; fi)
@@ -51,24 +52,24 @@ define TAGS_VERSIONS =
 VARIANT := $$(1)
 $$(1)_FLAGS_VARIANT := $$($(1)_FLAGS) --variant $$(1)
 
-ifeq ($$$$(TAG),$$$$(VERSION))
-PREFIX := $$$$(TAG)
-endif
-
 ifneq ($$$$(VARIANT),all)
 PREFIX := $$$$(VARIANT)
 else
+ifeq ($$$$(TAG),$$$$(VERSION))
+PREFIX := $$$$(TAG)
+else
 PREFIX :=
+endif
 endif
 
 ifneq ($$$$(PREFIX),)
-PREFIXED := $$$$(PREFIX)-
+PREFIXED := $$$$(PREFIX)-$$$$(TAG)-
 else
 PREFIXED :=
 endif
 
 ifdef DEBUG2
-$$$$(info PREFIX $$$$(PREFIX) PREFIXED $$$$(PREFIXED))
+$$$$(info PREFIX $$$$(PREFIX) PREFIXED $$$$(PREFIXED); TAG $$(TAG) VERSION $$(VERSION))
 endif
 
 .PHONY: $$$$(PREFIXED)login
@@ -83,23 +84,18 @@ $$$$(PREFIXED)build:
 $$$$(PREFIXED)push: $$(if $${CI},login,)
   $(SUDO) ../lib/push.sh $$$$($$(1)_FLAGS_VARIANT) $(HOOK_ARG)
 
-# .PHONY: $$$$(PREFIXED)login
-# $$$$(PREFIXED)login:
-
 .PHONY: $$$$(PREFIX)
 $$$$(PREFIX): $$$$(PREFIXED)build $$$$(PREFIXED)push
 
-ALL += $$$$(PREFIX)
-.PHONY: all
-all: $$(ALL)
+default: $$$$(PREFIX) $$(VERSION)manifest
 endef
 
 
-.PHONY: $$(PREFIXED)manifest
-$$(PREFIXED)manifest:
-  $(SUDO) ../lib/manifest.sh $$($(1)_FLAGS) --variant $$(VARIANTS) --push $(HOOK_ARG)
+.PHONY: $$(VERSION)manifest
+$$(VERSION)manifest:
+  $(SUDO) ../lib/manifest.sh $$($(1)_FLAGS) --variant $(VARIANTS) --push $(HOOK_ARG)
 
-ifdef DEBUG2
+ifdef DEBUG3
 $$(info SUBST $$(subst $$(comma), ,$$(VARIANTS)))
 $$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(info FOREACH SUBST $$i))
 $$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(info $$(call TAGS_VERSIONS,$$i)))
@@ -107,10 +103,6 @@ endif
 
 $$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(eval $$(call TAGS_VERSIONS,$$i)))
 endef
-
-
-# .PHONY: all
-# all: build push manifest
 
 
 # saved my day https://stackoverflow.com/a/28458071/4446318
@@ -123,6 +115,6 @@ $(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERS
 endif
 $(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(1))))
 
-.PHONY: debug
+.PHONY: debug default
 debug:
   @echo DEBUG!!!
