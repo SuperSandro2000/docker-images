@@ -34,7 +34,7 @@ $(TRIVY):
   curl -sL $$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
 hadolint: $(HADOLINT)
-  git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 $(HADOLINT)
+  $(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 $(HADOLINT)
 
 shellcheck: $(SHELLCHECK)
   bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
