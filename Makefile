@@ -42,6 +42,9 @@ shellcheck: $(SHELLCHECK)
 shfmt: $(SHFMT)
   bash -c 'shopt -s globstar; shfmt -bn -ci -i 2 -s -w **/*.{sh,Dockerfile}'
 
+travis:
+  travis lint
+
 trivy: $(TRIVY)
 
 lint: hadolint shellcheck
