@@ -62,6 +62,14 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/reddiscord.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 
+### TheLounge
+
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/thelounge/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/thelounge/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/thelounge.svg)](https://microbadger.com/images/supersandro2000/thelounge)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/thelounge.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/thelounge/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/thelounge.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/thelounge/)
+
 ### ZeroNet
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/zeronet/)
@@ -73,7 +81,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 ## Credits
 
 Thanks to napnap75 for inspiring me to do this with his [rpi-docker-images](https://github.com/napnap75/rpi-docker-images/) repo.
-
 
 ## License
 
