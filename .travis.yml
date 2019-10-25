@@ -26,19 +26,11 @@ template:
     stage: build
     script:
       - cd "$IMAGE"
-      - if [[ -z $VARIANT ]]; then
-          make build;
-        else
-          make build-$VARIANT;
-        fi
+      - make build;
       - docker images
     after_script:
       - if [[ $TRAVIS_BRANCH == master ]]; then
-          if [[ -z $VARIANT ]]; then
-            make push;
-          else
-            make push-$VARIANT;
-          fi;
+          make push;
         fi
 
   - &manifest
