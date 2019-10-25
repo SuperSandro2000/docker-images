@@ -47,7 +47,7 @@ travis:
 
 trivy: $(TRIVY)
 
-lint: hadolint shellcheck
+lint: hadolint shellcheck $(if ${CI},,travis)
 
 build: $(SUBDIRS)
 
