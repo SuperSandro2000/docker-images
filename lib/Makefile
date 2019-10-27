@@ -64,10 +64,12 @@ endif
 $$(PREFIXED)login:
   if [ -n ${CI} ]; then echo ${DOCKER_PASSWORD} | $(BINARY) login -u ${DOCKER_USERNAME} --password-stdin; fi
 
+build: $$(PREFIXED)build
 .PHONY: $$(PREFIXED)build
 $$(PREFIXED)build:
   $(SUDO) ../lib/build.sh $$($(1)_FLAGS_$(VERSION)) --buildkit
 
+push: $$(PREFIXED)push
 .PHONY: $$(PREFIXED)push
 $$(PREFIXED)push: $(if ${CI},login,)
   $(SUDO) ../lib/push.sh $$($(1)_FLAGS_$(VERSION)) $(HOOK_ARG)
@@ -92,11 +94,11 @@ $$(TAG)-manifest:
 
 ifdef DEBUG3
 $$(info SUBST $$(subst $$(comma), ,$$(VARIANTS)))
-$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(info FOREACH SUBST $$i))
-$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(info $$(call TAGS_VERSIONS,$$i)))
+$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)),$$(info FOREACH SUBST $$i))
+$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)),$$(info $$(call TAGS_VERSIONS,$$i)))
 endif
 
-$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)) all,$$(eval $$(call TAGS_VERSIONS,$$i)))
+$$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)),$$(eval $$(call TAGS_VERSIONS,$$i)))
 endef
 
 
@@ -110,6 +112,6 @@ $(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERS
 endif
 $(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(1))))
 
-.PHONY: debug default
+.PHONY: build debug default push manifest
 debug:
   @echo DEBUG!!!
