@@ -27,11 +27,12 @@ template:
     stage: build
     script:
       - cd "$IMAGE"
-      - make build;
+        - make build;
       - docker images
     after_script:
       - if [[ $TRAVIS_BRANCH == master ]]; then
           make push;
+          make manifest;
         fi
 
   - &manifest
