@@ -1,5 +1,6 @@
+os: linux
 dist: bionic
-language: bash
+language: shell
 group: travis_latest
 services:
   - docker
