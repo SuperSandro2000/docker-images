@@ -73,7 +73,7 @@ push: $$(PREFIXED)push
 .PHONY: $$(PREFIXED)push
 $$(PREFIXED)push: $(if ${CI},login,)
   $(SUDO) ../lib/push.sh $$($(1)_FLAGS_$(VERSION)) $(HOOK_ARG)
-  sleep 0.5
+  $(if ${CI},sleep 3,)
 
 $$(PREFIX): $$(PREFIXED)build $$(PREFIXED)push
 endef
