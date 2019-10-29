@@ -67,7 +67,7 @@ $$(PREFIXED)login:
 build: $$(PREFIXED)build
 .PHONY: $$(PREFIXED)build
 $$(PREFIXED)build:
-  $(SUDO) ../lib/build.sh $$($(1)_FLAGS_$(VERSION)) $(if ${CI},--buildkit,)
+  $(SUDO) ../lib/build.sh $$($(1)_FLAGS_$(VERSION)) $(if ${CI},,--buildkit)
 
 push: $$(PREFIXED)push
 .PHONY: $$(PREFIXED)push
