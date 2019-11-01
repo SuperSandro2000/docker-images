@@ -24,9 +24,8 @@ RUN export user=zeronet \
   && addgroup -S $user && adduser -S -G $user $user
 
 RUN apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client tor \
-  && apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client tor \
   # only fetch specific packages from testing
-  && apk add --no-cache --no-progress -X http://dl-cdn.alpinelinux.org/alpine/edge/testing py3-maxminddb py3-gevent-websocket
+  && apk add --no-cache --no-progress --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing py3-maxminddb py3-gevent-websocket
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
