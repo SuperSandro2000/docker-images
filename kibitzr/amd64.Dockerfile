@@ -18,7 +18,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="Personal Web Assistant"
 
 RUN export user=kibitzr \
-  && addgroup -S $user && adduser -S $user -G $user
+  && addgroup -S $user && adduser -D -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]

@@ -20,7 +20,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN [ "cross-build-start" ]
 
 RUN export user=unbound \
-  && addgroup -S $user && adduser -S $user -G $user
+  && addgroup -S $user && adduser -D -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/unbound.conf", "/etc/unbound/unbound.conf" ]

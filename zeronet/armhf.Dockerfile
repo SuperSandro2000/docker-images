@@ -22,7 +22,7 @@ ENV HOME=/app ENABLE_TOR=false
 RUN [ "cross-build-start" ]
 
 RUN export user=zeronet \
-  && addgroup -S $user && adduser -S -G $user $user
+  && addgroup -S $user && adduser -D -S -G $user $user
 
 RUN apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client tor \
   # only fetch specific packages from testing

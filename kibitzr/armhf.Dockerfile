@@ -20,7 +20,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN [ "cross-build-start" ]
 
 RUN export user=kibitzr \
-  && addgroup -S $user && adduser -S $user -G $user
+  && addgroup -S $user && adduser -D -S $user -G $user
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]

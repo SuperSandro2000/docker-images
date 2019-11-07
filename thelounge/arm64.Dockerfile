@@ -16,7 +16,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN [ "cross-build-start" ]
 
 RUN export user=thelounge \
-  && addgroup -S $user && adduser -S $user -G $user
+  && addgroup -S $user && adduser -D -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 

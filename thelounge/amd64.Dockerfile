@@ -18,7 +18,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="Modern, responsive, cross-platform, self-hosted web IRC client"
 
 RUN export user=thelounge \
-  && addgroup -S $user && adduser -S $user -G $user
+  && addgroup -S $user && adduser -D -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 

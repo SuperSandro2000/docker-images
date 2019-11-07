@@ -18,7 +18,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="Unbound is a validating, recursive, caching DNS resolver."
 
 RUN export user=unbound \
-  && addgroup -S $user && adduser -S $user -G $user
+  && addgroup -S $user && adduser -D -S $user -G $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/unbound.conf", "/etc/unbound/unbound.conf" ]
