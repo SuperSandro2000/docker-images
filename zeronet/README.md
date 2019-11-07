@@ -26,6 +26,7 @@ services:
       - 127.0.0.1:43110:43110
     environment:
       - ENABLE_TOR=true
+      - UI_HOST=zeronet.example.com
       - UI_PASSWORD=secret
     restart: unless-stopped
 ````
