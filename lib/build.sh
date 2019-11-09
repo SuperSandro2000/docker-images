@@ -41,6 +41,9 @@ while [[ $# -gt 0 ]]; do
         buildkit=true
       fi
       ;;
+    "--ci")
+      CI=true
+      ;;
     "-d" | "--delay")
       delay="$2"
       shift
