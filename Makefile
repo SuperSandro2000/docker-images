@@ -3,6 +3,7 @@
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
+CI ?=
 BIN_DIR := $(HOME)/.local/bin
 HADOLINT := ${BIN_DIR}/hadolint
 MDL := ${GEM_HOME}/bin/mdl
