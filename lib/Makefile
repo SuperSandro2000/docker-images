@@ -60,10 +60,6 @@ ifdef DEBUG
 $$(info PREFIX $$(PREFIX) PREFIXED $$(PREFIXED); TAG $(TAG) VERSION $(VERSION))
 endif
 
-.PHONY: $$(PREFIXED)login
-$$(PREFIXED)login:
-  if [ -n ${CI} ]; then echo ${DOCKER_PASSWORD} | $(BINARY) login -u ${DOCKER_USERNAME} --password-stdin; fi
-
 build: $$(PREFIXED)build
 .PHONY: $$(PREFIXED)build
 $$(PREFIXED)build:
@@ -112,6 +108,10 @@ ifdef DEBUG2
 $(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(1))))
 endif
 $(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(1))))
+
+.PHONY: login
+login:
+  if [ -n ${CI} ]; then echo ${DOCKER_PASSWORD} | $(BINARY) login -u ${DOCKER_USERNAME} --password-stdin; fi
 
 .PHONY: build debug default push manifest
 debug:
