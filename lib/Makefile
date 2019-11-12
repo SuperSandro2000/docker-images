@@ -46,7 +46,6 @@ PREFIX := $$(VARIANT)-$$(TAG)
 .PHONY: $$(PREFIX)
 default: $$(PREFIX)
 else
-default: $$(TAG)-manifest
 PREFIX := $$(TAG)
 endif
 
@@ -85,6 +84,7 @@ else
 $(1)_FLAGS := $$(FLAGS) --version $$(VERSION)
 endif
 
+manifest: $$(TAG)-manifest
 .PHONY: $$(TAG)-manifest
 $$(TAG)-manifest:
   $(SUDO) ../lib/manifest.sh $$($(1)_FLAGS) --variant $(VARIANTS) --push $(HOOK_ARG)
@@ -94,8 +94,9 @@ $$(info SUBST $$(subst $$(comma), ,$$(VARIANTS)))
 $$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)),$$(info FOREACH SUBST $$i))
 $$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)),$$(info $$(call TAGS_VERSIONS,$$i)))
 endif
-
 $$(foreach i,$$(subst $$(comma), ,$$(VARIANTS)),$$(eval $$(call TAGS_VERSIONS,$$i)))
+
+default: $$(TAG)-manifest
 endef
 
 
