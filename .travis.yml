@@ -98,9 +98,12 @@ jobs:
     - <<: *build
       env: IMAGE=prerenderer
     - <<: *build
-      env: IMAGE=reddiscord
+      env: IMAGE=reddiscord VARIANTS=amd64,armhf
     - <<: *build
-      env: IMAGE=reddiscord TAGS=source VERSIONS=source
+      env: IMAGE=reddiscord TAGS=source VARIANTS=amd64,armh VERSIONS=source
+    - <<: *build
+      arch: arm64
+      env: IMAGE=reddiscord VARIANTS=arm64
     - <<: *build
       env: IMAGE=unbound
     - <<: *build
