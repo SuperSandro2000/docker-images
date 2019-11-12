@@ -100,7 +100,9 @@ jobs:
     - <<: *build
       env: IMAGE=reddiscord VARIANTS=amd64,armhf
     - <<: *build
-      env: IMAGE=reddiscord TAGS=source VARIANTS=amd64,armh VERSIONS=source
+      env: IMAGE=reddiscord TAGS=source VARIANTS=amd64,armhf VERSIONS=source
+      install:
+        - apt install zip
     - <<: *build
       arch: arm64
       env: IMAGE=reddiscord VARIANTS=arm64
