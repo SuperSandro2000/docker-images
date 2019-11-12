@@ -110,7 +110,7 @@ if [[ -z ${variant:-} ]]; then
 fi
 
 if [[ -z ${tag:-} && -z ${version:-} ]]; then
-  echo "You need to supply either --tag edge|stable|1.0.0 or --version 1.0.0.."
+  echo "You need to supply either --tag edge|stable|1.0.0 or --version 1.0.0."
   exit 2
 fi
 
@@ -122,11 +122,15 @@ function build() {
   arch=$1
 
   if [[ -n ${tag:-} ]]; then
-    file_prefix="$arch-$tag."
+    file_prefix="$arch-$tag"
     build_image="$image:$arch-$tag"
   else
-    file_prefix="$arch."
     build_image="$image:$arch-$version"
+    if [[ $(uname -m) == "$arch" ]]; then
+      file_prefix="$arch"
+    else
+      file_prefix="amd64"
+    fi
   fi
 
   if [[ -z ${buildkit:-} ]]; then
@@ -138,7 +142,7 @@ function build() {
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%d")" \
     --build-arg VERSION="${version:-$tag}" \
     --build-arg REVISION="$(git rev-parse --short HEAD)" \
-    -f "${file_prefix}Dockerfile" -t "$build_image" -t "$image:$arch-latest" .
+    -f "${file_prefix}.Dockerfile" -t "$build_image" -t "$image:$arch-latest" .
 }
 
 IFS=","

@@ -14,7 +14,7 @@ function check_tool() {
   if ! eval "$1" >/dev/null 2>&1; then
     echo "You need $1 to run this script."
     echo "On Debian-based systems you can install it with:"
-    echo "apt install ${2}"
+    echo "apt install $2"
     exit 3
   fi
 }
