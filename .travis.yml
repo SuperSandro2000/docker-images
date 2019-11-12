@@ -80,7 +80,7 @@ jobs:
       #   - fossa test
 
     - <<: *build
-      stage: build-base
+      stage: Build base
       env: IMAGE=base-alpine
 
     - <<: *build
