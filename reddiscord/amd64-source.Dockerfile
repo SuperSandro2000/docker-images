@@ -28,6 +28,7 @@ RUN export dev_apt="libffi-dev libssl-dev" \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
+COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/config.json", "/usr/local/share/Red-DiscordBot/" ]
 
