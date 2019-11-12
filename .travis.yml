@@ -23,7 +23,7 @@ stages:
   - manifest
   - scan
 
-template:
+.template:
   - &build
     stage: build
     script:
