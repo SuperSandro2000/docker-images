@@ -105,7 +105,7 @@ jobs:
       arch: arm64
       env: IMAGE=reddiscord VARIANTS=arm64
       install:
-        - apt install zip
+        - sudo apt install zip
     - <<: *build
       env: IMAGE=unbound
     - <<: *build
