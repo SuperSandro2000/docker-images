@@ -5,7 +5,7 @@ set -eou pipefail
 source "$(dirname "$(realpath -s "$0")")/functions.sh"
 
 if [[ $# == 0 ]]; then
-  $#="--help"
+  set -- --help
 fi
 
 while [[ $# -gt 0 ]]; do
