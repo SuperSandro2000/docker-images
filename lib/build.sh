@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2016
 set -eou pipefail
 
 # shellcheck source=functions.sh source=lib/functions.sh disable=SC1091
