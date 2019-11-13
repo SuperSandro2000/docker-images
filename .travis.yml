@@ -89,7 +89,7 @@ jobs:
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
-      env: IMAGE=healthchecks VARIANTS=amd64,armhf
+      env: IMAGE=healthchecks VARIANTS=amd64
     - <<: *build
       arch: arm64
       env: IMAGE=healthchecks VARIANTS=arm64
