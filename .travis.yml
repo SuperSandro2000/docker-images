@@ -10,6 +10,9 @@ addons:
     packages:
       # - docker-ce
       - jq
+  pip:
+    packages:
+      - j2cli
 
 env:
   global:
