@@ -1,0 +1,7 @@
+FROM supersandro2000/base-alpine:armhf-3.10
+
+RUN [ "cross-build-start" ]
+
+{% include 'Dockerfile.j2' %}
+
+RUN [ "cross-build-end" ]

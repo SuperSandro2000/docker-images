@@ -1,5 +1,3 @@
-FROM supersandro2000/base-alpine:armhf-3.10
-
 ARG BUILD_DATE
 ARG VERSION
 ARG REVISION
@@ -17,8 +15,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Unbound" \
   org.opencontainers.image.description="Unbound is a validating, recursive, caching DNS resolver."
 
-RUN [ "cross-build-start" ]
-
 RUN export user=unbound \
   && addgroup -S $user && adduser -D -S $user -G $user
 
@@ -27,8 +23,6 @@ COPY [ "files/unbound.conf", "/etc/unbound/unbound.conf" ]
 
 RUN apk add --no-cache --no-progress openssl unbound \
   && wget https://www.internic.net/domain/named.cache -O /etc/unbound/root.hints
-
-RUN [ "cross-build-end" ]
 
 EXPOSE 53/udp
 WORKDIR /etc/unbound/

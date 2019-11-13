@@ -7,4 +7,7 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/unbound/4cxdD8N2iom
 IMAGE := unbound
 VERSIONS := $(shell curl -s https://git.alpinelinux.org/aports/plain/main/unbound/APKBUILD | grep -oP '(?<=pkgver=)([0-9]+\.){2}[0-9]+')
 
+%.Dockerfile: ../lib/templates/%-alpine-base.Dockerfile.j2
+  j2 $< >> $@
+
 include ../lib/Makefile
