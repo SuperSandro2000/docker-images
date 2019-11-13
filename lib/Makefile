@@ -67,9 +67,12 @@ ifdef DEBUG
 $$(info PREFIX $$(PREFIX) PREFIXED $$(PREFIXED); TAG $(TAG) VERSION $(VERSION))
 endif
 
+.PHONY: dockerfile
+dockerfile: $$(VARIANT).Dockerfile
+
 build: $$(PREFIXED)build
 .PHONY: $$(PREFIXED)build
-$$(PREFIXED)build:
+$$(PREFIXED)build: $$(VARIANT).Dockerfile
   $(SUDO) ../lib/build.sh $$($(1)_FLAGS_$(VERSION)) $$($(1)_BUILD_FLAGS_$(VERSION)) $(if ${CI},,--buildkit)
 
 push: $$(PREFIXED)push
@@ -131,3 +134,9 @@ login:
 .PHONY: build debug default push manifest
 debug:
   @echo DEBUG!!!
+
+# TODO enable when all images switched to templates
+# default: clean
+.PHONY: clean
+clean:
+  rm {amd64,arm64,armhf}.Dockerfile

@@ -144,9 +144,9 @@ function build() {
   else
     build_image="$image:$tag_suffix$arch-$version"
     if [[ $(uname -m) == "$arch" ]]; then
-      file_prefix="$arch"
-    else
       file_prefix="amd64"
+    else
+      file_prefix="$arch"
     fi
   fi
 

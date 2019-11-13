@@ -1,9 +1,6 @@
 .vscode/
-*-git
-hadolint
-manifest
-manifest_latest
-manifest_source
 reddiscord/files/Lavalink.jar
 reddiscord/files/libconnector.so
-tmp
+open-web-calendar/amd64.Dockerfile
+open-web-calendar/arm64.Dockerfile
+open-web-calendar/armhf.Dockerfile
