@@ -102,7 +102,7 @@ endif
 
 manifest: $$(TAG)-manifest
 .PHONY: $$(TAG)-manifest
-$$(TAG)-manifest: login
+$$(TAG)-manifest: $(if ${CI},login,)
   $(SUDO) ../lib/manifest.sh $$($(1)_FLAGS) --variant $(VARIANTS) --push $(HOOK_ARG)
 
 ifdef DEBUG3
