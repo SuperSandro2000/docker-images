@@ -33,3 +33,9 @@ function retry() {
     fi
   done
 }
+
+function docker_sudo() {
+  if ! groups | grep -q docker; then
+    echo "sudo --preserve-env=DOCKER_CLI_EXPERIMENTAL"
+  fi
+}

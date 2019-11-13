@@ -12,17 +12,18 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/manifest.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [-n|--dry-run] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-p|--push] [-t|--tag edge|stable|1.0.0] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
-      echo "--help      Show this help."
-      echo "--binary    Binary which runs the build commands."
-      echo "--delay     How many seconds should be waited between pushes."
-      echo "--dry-run   Show commands which would be run."
-      echo "--hook      URL to send POST request after sucessful push."
-      echo "--image     Image being pushed"
-      echo "--push      Push manifest to registry. Manifest variants need to be on the registry already."
-      echo "--tag       Tags added to the image."
-      echo "--variant   Variants which should be included seperated by comma. Defaults to amd64,arm64,armhf."
-      echo "--verbose   Be more verbose."
+      echo "../lib/manifest.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [-n|--dry-run] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-p|--push] [-t|--tag edge|stable|1.0.0] [--tag-suffix alpine-] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0|infile]"
+      echo "--help         Show this help."
+      echo "--binary       Binary which runs the build commands."
+      echo "--delay        How many seconds should be waited between pushes."
+      echo "--dry-run      Show commands which would be run."
+      echo "--hook         URL to send POST request after sucessful push."
+      echo "--image        Image being pushed"
+      echo "--push         Push manifest to registry. Manifest variants need to be on the registry already."
+      echo "--tag          Tags added to the image."
+      echo "--tag-suffix   Suffix added infront of each tag."
+      echo "--variant      Variants which should be included seperated by comma. Defaults to amd64,arm64,armhf."
+      echo "--verbose      Be more verbose."
       echo
       show_exit_codes
       exit 0
@@ -51,6 +52,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     "-t" | "--tag")
       tag="$2"
+      shift
+      ;;
+    "--tag-suffix")
+      tag_suffix="$2"
       shift
       ;;
     "--variant")
@@ -112,30 +117,31 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 
 for version_latest in ${version:-} ${tag:-latest}; do
   variant_manifest=""
-  image_variant="$image:$version_latest"
+  image_variant="$image:${tag_suffix:-}$version_latest"
 
+  OLD_IFS=$IFS
   IFS=","
   for arch in $variant; do
-    variant_manifest+="$image:$arch-$version_latest "
+    variant_manifest+="$image:${tag_suffix:-}$arch-$version_latest "
   done
-  IFS=" "
+  IFS=$OLD_IFS
 
   # remove images that are tagged the same as the manifest being created
   $binary rmi "$image_variant" >/dev/null 2>&1 || true
-  rm -rf "$HOME/.docker/manifests/docker.io_${image//\//_}-${tag:-$version_latest}"
+  rm -rf "$HOME/.docker/manifests/docker.io_${image//\//_}-${tag_suffix:-}${tag:-$version_latest}"
 
   #shellcheck disable=SC2068
   $binary manifest create "$image_variant" ${variant_manifest[@]}
 
   case $variant in
     "amd64")
-      $binary manifest annotate "$image_variant" "$image:amd64-$version_latest" --os linux --arch amd64
+      $binary manifest annotate "$image_variant" "$image:${tag_suffix:-}amd64-$version_latest" --os linux --arch amd64
       ;;
     "arm64")
-      $binary manifest annotate "$image_variant" "$image:arm64-$version_latest" --os linux --arch arm64 --variant v8
+      $binary manifest annotate "$image_variant" "$image:${tag_suffix:-}arm64-$version_latest" --os linux --arch arm64 --variant v8
       ;;
     "armhf")
-      $binary manifest annotate "$image_variant" "$image:armhf-$version_latest" --os linux --arch arm --variant v7
+      $binary manifest annotate "$image_variant" "$image:${tag_suffix:-}armhf-$version_latest" --os linux --arch arm --variant v7
       ;;
   esac
 

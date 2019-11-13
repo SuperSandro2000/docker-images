@@ -12,17 +12,18 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/build.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [-n|--dry-run] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-m|--manifest] [-t|--tag edge|stable|1.0.0] [--variant amd64|arm64|armhf] [-v|--verbose]"
-      echo "--help      Show this help."
-      echo "--binary    Binary which runs the build commands."
-      echo "--delay     How many seconds should be waited between pushes."
-      echo "--dry-run   Show commands which would be run."
-      echo "--hook      URL to send POST request after sucessful push."
-      echo "--manifest  Push manifests. Need to be created with manifest.sh before."
-      echo "--image     Image being pushed"
-      echo "--tag       Tags added to the image."
-      echo "--variant   Variants which should be included seperated by comma. Defaults to amd64,arm64,armhf."
-      echo "--verbose   Be more verbose."
+      echo "../lib/build.sh [-h|--help] [-b|--binary docker|podman] [-d|--delay N] [-n|--dry-run] [--hook URL] [-i|--image supersandro2000/base-alpine|base-alpine] [-m|--manifest] [-t|--tag edge|stable|1.0.0] [--tag-suffix alpine-] [--variant amd64|arm64|armhf] [-v|--verbose]"
+      echo "--help         Show this help."
+      echo "--binary       Binary which runs the build commands."
+      echo "--delay        How many seconds should be waited between pushes."
+      echo "--dry-run      Show commands which would be run."
+      echo "--hook         URL to send POST request after sucessful push."
+      echo "--manifest     Push manifests. Need to be created with manifest.sh before."
+      echo "--image        Image being pushed"
+      echo "--tag          Tags added to the image."
+      echo "--tag-suffix   Suffix added infront of each tag."
+      echo "--variant      Variants which should be included seperated by comma. Defaults to amd64,arm64,armhf."
+      echo "--verbose      Be more verbose."
       echo
       show_exit_codes
       exit 0
@@ -52,6 +53,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     "-t" | "--tag")
       tag="$2"
+      shift
+      ;;
+    "--tag-suffix")
+      tag_suffix="$2"
       shift
       ;;
     "--variant")
@@ -118,7 +123,7 @@ function check_manifest() {
 
 function push() {
   arch=$1
-  image_variant="$image:${arch:-}"
+  image_variant="$image:${tag_suffix:-}${arch:-}"
 
   if [[ -n ${tag:-} ]]; then
     retry "$binary ${manifest:-} push $image_variant-$tag"

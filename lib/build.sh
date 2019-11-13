@@ -13,23 +13,34 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     "-h" | "--help")
       echo "Usage:"
-      echo "../lib/build.sh [--help] [-b|--binary docker|podman] [--buildkit] [--ci] [-d|--delay N] [-n|--dry-run] [-i|--image supersandro2000/base-alpine|base-alpine] [-t|--tag edge|stable|1.0.0] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0]"
-      echo "--help      Show this help."
-      echo "--binary    Binary which runs the build commands."
-      echo "--dry-run   Show commands which would be run."
-      echo "--buildkit  Run docker with buildkit enabled."
-      echo "--ci        Specify if ran by an CI."
-      echo "--delay     How many seconds should be waited between pushes."
-      echo "--image     How the image is being named."
-      echo "--tag       Tags added to the image."
-      echo "--variant   Variants to be build. May define multiple seperated with comma. Valid values are amd64, arm64 or armhf."
-      echo "--verbose   Be more verbose."
+      echo "../lib/build.sh [--help] [-b|--binary docker|podman] [--build-args EXAMPLE=VAL[,TWO=VAL]] [--buildkit] [--ci] [-d|--delay N] [-n|--dry-run] [-i|--image supersandro2000/base-alpine|base-alpine] [-t|--tag edge|stable|1.0.0] [--tag-suffix alpine-] [--variant amd64|arm64|armhf] [-v|--verbose] [--version 1.0.0]"
+      echo "--help         Show this help."
+      echo "--binary       Binary which runs the build commands."
+      echo '--build-args   Build args passed to $BINARY build.'
+      echo "--buildkit     Run docker with buildkit enabled."
+      echo "--dry-run      Show commands which would be run."
+      echo "--ci           Specify if ran by an CI."
+      echo "--delay        How many seconds should be waited between pushes."
+      echo "--image        How the image is being named."
+      echo "--tag          Tags added to the image."
+      echo "--tag-suffix   Suffix added infront of each tag."
+      echo "--variant      Variants to be build. May define multiple seperated with comma. Valid values are amd64, arm64 or armhf."
+      echo "--verbose      Be more verbose."
       echo
       show_exit_codes
       exit 0
       ;;
     "-b" | "--binary")
       binary="$2"
+      shift
+      ;;
+    "--build-args")
+      OLD_IFS=$IFS
+      IFS=","
+      for arg in $2; do
+        build_args+="--build-arg $arg "
+      done
+      IFS=$OLD_IFS
       shift
       ;;
     "--buildkit")
@@ -58,6 +69,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     "-t" | "--tag")
       tag="$2"
+      shift
+      ;;
+    "--tag-suffix")
+      tag_suffix="$2"
       shift
       ;;
     "--variant")
@@ -121,12 +136,13 @@ fi
 
 function build() {
   arch=$1
+  tag_suffix=${tag_suffix:=}
 
   if [[ -n ${tag:-} ]]; then
     file_prefix="$arch-$tag"
-    build_image="$image:$arch-$tag"
+    build_image="$image:$tag_suffix$arch-$tag"
   else
-    build_image="$image:$arch-$version"
+    build_image="$image:$tag_suffix$arch-$version"
     if [[ $(uname -m) == "$arch" ]]; then
       file_prefix="$arch"
     else
@@ -143,7 +159,7 @@ function build() {
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%d")" \
     --build-arg VERSION="${version:-$tag}" \
     --build-arg REVISION="$(git rev-parse --short HEAD)" \
-    -f "${file_prefix}.Dockerfile" -t "$build_image" -t "$image:$arch-latest" .
+    -f "${file_prefix}.Dockerfile" -t "$build_image" -t "$image:$tag_suffix$arch-latest" .
 }
 
 IFS=","
