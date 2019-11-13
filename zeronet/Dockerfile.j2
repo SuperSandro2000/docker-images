@@ -1,5 +1,3 @@
-FROM supersandro2000/base-alpine:armhf-3.10
-
 ARG BUILD_DATE
 ARG VERSION
 ARG REVISION
@@ -18,8 +16,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="ZeroNet - Decentralized websites using Bitcoin crypto and BitTorrent network"
 
 ENV HOME=/app ENABLE_TOR=false
-
-RUN [ "cross-build-start" ]
 
 RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
@@ -42,8 +38,6 @@ RUN apk add --no-cache --no-progress --virtual .build-deps g++ libffi-dev make p
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc \
   && apk del .build-deps
-
-RUN [ "cross-build-end" ]
 
 EXPOSE 43110 26552
 VOLUME /app/data
