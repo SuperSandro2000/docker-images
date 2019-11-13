@@ -143,11 +143,11 @@ function build() {
     build_image="$image:$tag_suffix$arch-$tag"
   else
     build_image="$image:$tag_suffix$arch-$version"
-    if [[ $(uname -m) == aarch64 && $arch == arm64 ]]; then
-      file_prefix="amd64"
-    else
-      file_prefix="$arch"
-    fi
+    file_prefix="$arch"
+  fi
+
+  if [[ $(uname -m) == aarch64 && $arch == arm64 ]]; then
+    file_prefix="amd64"
   fi
 
   if [[ -z ${buildkit:-} ]]; then
