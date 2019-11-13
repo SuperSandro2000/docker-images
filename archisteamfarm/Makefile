@@ -1,25 +1,17 @@
-.PHONY: all all-alpine build build-alpine clean clean2 manifest push-alpine push-login
+.DEFAULT_GOAL := all
 .RECIPEPREFIX +=
+MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
-DOCKER := "docker"
+LATEST ?= $(shell curl -s https://api.github.com/repos/justarchinet/archisteamfarm/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.tag_name')
+RELEASED ?= $(shell curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases?access_token="${GITHUB_TOKEN}" | jq -r '.[0].tag_name')
 
-clean clean2:
-  rm ~/.docker/manifests/docker.io_supersandro2000_archisteamfarm-* -rf
-  rm archisteamfarm-git -rf
+HOOK := https://hooks.microbadger.com/images/supersandro2000/archisteamfarm/uFaZZ9Eb73O7_EOTXqHxPQls45E=
+IMAGE := archisteamfarm
+VARIANTS := amd64
+TAGS := latest released
+VERSIONS := $(LATEST) $(RELEASED)
+TAG_SUFFIX := alpine-
+BUILD_ARGS := VERSION=$(LATEST) VERSION=$(RELEASED)
 
-build-alpine: clean
-  ./build-alpine.sh ${DOCKER}
-
-push-login:
-  if [ -n "$$CI" ]; then echo $$DOCKER_PASSWORD | $(DOCKER) login -u $$DOCKER_USERNAME --password-stdin; fi
-
-push-alpine: push-login clean
-  ./push-alpine.sh ${DOCKER}
-
-manifest: push-login clean
-  ./manifest.sh ${DOCKER}
-
-all: manifest clean2
-
-all-alpine: build-alpine push-alpine clean2
+include ../lib/Makefile

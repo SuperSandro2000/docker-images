@@ -1,6 +1,13 @@
+FROM alpine:3.10 as git
+RUN apk add --no-cache --no-progress git
+WORKDIR /src
+ARG VERSION
+RUN git clone --recurse-submodules -j2 https://github.com/JustArchiNET/ArchiSteamFarm.git /src \
+  && git checkout $VERSION
+
 FROM node:lts-alpine AS build-node
 WORKDIR /app
-COPY ASF-ui .
+COPY --from=git /src/ASF-ui .
 RUN echo "node: $(node --version)" \
   && echo "npm: $(npm --version)" \
   && npm ci \
@@ -11,8 +18,8 @@ ENV CONFIGURATION Release
 ENV NET_CORE_VERSION netcoreapp3.0
 WORKDIR /app
 COPY --from=build-node /app/dist ASF-ui/dist
-COPY ArchiSteamFarm ArchiSteamFarm
-COPY ArchiSteamFarm.Tests ArchiSteamFarm.Tests
+COPY --from=git /src/ArchiSteamFarm ArchiSteamFarm
+COPY --from=git /src/ArchiSteamFarm.Tests ArchiSteamFarm.Tests
 RUN dotnet --info \
   # TODO: Remove workaround for https://github.com/microsoft/msbuild/issues/3897 when it's no longer needed
   && if [ -f "ArchiSteamFarm/Localization/Strings.zh-CN.resx" ]; then ln -s "Strings.zh-CN.resx" "ArchiSteamFarm/Localization/Strings.zh-Hans.resx"; fi \
