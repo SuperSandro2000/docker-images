@@ -10,6 +10,6 @@ BUILD_ARGS := SHA=$(shell curl -s https://api.github.com/repos/niccokunzmann/ope
 
 %.Dockerfile: ../lib/templates/%-alpine-python.Dockerfile.j2
   cat source.Dockerfile > $@
-  j2 $< >> $@
+  j2 $< -o $@
 
 include ../lib/Makefile
