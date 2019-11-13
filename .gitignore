@@ -4,3 +4,6 @@ reddiscord/files/libconnector.so
 open-web-calendar/amd64.Dockerfile
 open-web-calendar/arm64.Dockerfile
 open-web-calendar/armhf.Dockerfile
+thelounge/amd64.Dockerfile
+thelounge/arm64.Dockerfile
+thelounge/armhf.Dockerfile
