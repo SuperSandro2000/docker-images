@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eu
-set -x
+
 CMD="thelounge"
 USER=thelounge
 
