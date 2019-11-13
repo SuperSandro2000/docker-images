@@ -20,24 +20,24 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN export user=reddiscord \
   && groupadd -r $user && useradd -r -g $user $user
 
-# hadolint ignore=SC2086
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN export dev_apt="libffi-dev libssl-dev" \
   && apt-get update -q \
-  && apt-get install --no-install-recommends -qy $dev_apt default-jre-headless git gosu libffi6 libssl1.1 \
+  && apt-get install --no-install-recommends -qy "${dev_apt[@]}" default-jre-headless git gosu libffi6 libssl1.1 \
     python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl wget \
-  && apt-get autoremove --purge -qy $dev_apt \
+  && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/config.json", "/usr/local/share/Red-DiscordBot/" ]
 
-# hadolint ignore=SC2086
 RUN export dev_apt="build-essential unzip zip" \
   && apt-get update -q \
-  && apt-get install --no-install-recommends -qy $dev_apt \
+  && apt-get install --no-install-recommends -qy "${dev_apt[@]}" \
   && pip3 install --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot \
-  && apt-get autoremove --purge -qy $dev_apt \
+  && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
