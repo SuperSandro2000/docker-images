@@ -113,6 +113,8 @@ jobs:
 
     - <<: *manifest
       env: IMAGE=archisteamfarm
+      before_script:
+        - if [[ $TRAVIS_BRANCH == master ]]; then  cd archisteamfarm; ./manifest.sh; fi
     - <<: *manifest
       env: IMAGE=reddiscord
     - <<: *manifest
