@@ -41,7 +41,9 @@ $(TRIVY):
 
 .PHONY: hadolint
 hadolint: $(HADOLINT)
-  $(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 $(HADOLINT)
+  @echo Creating Dockerfiles...
+  -@for D in */; do (cd $$D; pwd; make dockerfile)> /dev/null 2>&1; done
+  $(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | grep -v ".j2" | xargs --max-lines=1 $(HADOLINT)
 
 .PHONY: mdl
 mdl: $(MDL)
