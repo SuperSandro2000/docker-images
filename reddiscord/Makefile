@@ -8,6 +8,12 @@ IMAGE := base-alpine
 TAGS := stable source
 VERSIONS := $(shell curl -Ls https://github.com/Cog-Creators/Red-DiscordBot/raw/V3/develop/redbot/__init__.py | grep -oP "(?<=__version__ = \")([0-9]+\.){2}[0-9]+") source
 
+%.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2 Dockerfile.j2
+  j2 $< -o $@
+
+%-source.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2  source.Dockerfile.j2
+  j2 $< -o $@
+
 include ../lib/Makefile
 
 LAVALINK := files/Lavalink.jar
