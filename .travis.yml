@@ -10,9 +10,6 @@ addons:
     packages:
       # - docker-ce
       - jq
-  pip:
-    packages:
-      - j2cli
 
 env:
   global:
@@ -30,6 +27,7 @@ stages:
   - &build
     stage: build
     script:
+      - pip install j2cli
       - cd "$IMAGE"
       - make build;
       - docker images
