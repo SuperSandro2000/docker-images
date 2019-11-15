@@ -8,6 +8,6 @@ IMAGE := zeronet
 VERSIONS = $(shell curl -Ls https://github.com/HelloZeroNet/ZeroNet/raw/py3/src/Config.py | grep -oP "(?<= self.version = \")([0-9]+\.){2}[0-9]+")
 
 %.Dockerfile: ../lib/templates/%-alpine-base.Dockerfile.j2 Dockerfile.j2
-  j2 $< >> $@
+  j2 $< -o $@
 
 include ../lib/Makefile
