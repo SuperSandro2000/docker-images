@@ -20,9 +20,12 @@ ENV HOME=/app ENABLE_TOR=false
 RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
-RUN apk add --no-cache --no-progress openssl python3 py3-msgpack py3-pysocks py3-rsa py3-websocket-client tor \
-  # only fetch specific packages from testing
-  && apk add --no-cache --no-progress --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing py3-maxminddb py3-gevent-websocket
+RUN apk add --no-cache --no-progress python3 tor \
+  && printf "\
+manylinux1_compatible = True\n\
+manylinux2010_compatible = True\n\
+manylinux2014_compatible = True\n\
+"> /usr/lib/python3.7/site-packages/_manylinux.py
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
@@ -30,14 +33,11 @@ COPY [ "files/run.sh", "/usr/local/bin/" ]
 
 RUN apk add --no-cache --no-progress git \
   && git clone --depth=1 https://github.com/HelloZeroNet/ZeroNet.git /app \
-  && apk del git
-
-RUN apk add --no-cache --no-progress --virtual .build-deps g++ libffi-dev make python3-dev \
   && pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt \
   && mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc \
-  && apk del .build-deps
+  && apk del git
 
 EXPOSE 43110 26552
 VOLUME /app/data
