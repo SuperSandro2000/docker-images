@@ -135,6 +135,9 @@ login:
 debug:
   @echo DEBUG!!!
 
+files/pip.conf: ../lib/templates/pip.conf
+  cp $< $@
+
 # TODO enable when all images switched to templates
 # default: clean
 .PHONY: clean

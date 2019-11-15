@@ -73,6 +73,9 @@ lint: hadolint mdl shellcheck $(if ${CI},,travis)
 .PHONY: build
 build: $(SUBDIRS)
 
+%/files/pip.conf: lib/templates/pip.conf
+  cp $< $@
+
 .PHONY: $(SUBDIRS)
 $(SUBDIRS):
   cd $@ && make EXTRA_FLAGS= build

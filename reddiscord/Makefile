@@ -8,21 +8,7 @@ IMAGE := base-alpine
 TAGS := stable source
 VERSIONS := $(shell curl -Ls https://github.com/Cog-Creators/Red-DiscordBot/raw/V3/develop/redbot/__init__.py | grep -oP "(?<=__version__ = \")([0-9]+\.){2}[0-9]+") source
 
-%.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2 Dockerfile.j2
-  j2 $< -o $@
-
-%-source.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2  source.Dockerfile.j2
-  j2 $< -o $@
-
-include ../lib/Makefile
-
 LAVALINK := files/Lavalink.jar
-
-.PHONY: arm64-source arm64-stable armhf-source armhf-stable
-arm64-source-build: $(LAVALINK)
-arm64-stable-build: $(LAVALINK)
-armhf-source-build: $(LAVALINK)
-armhf-stable-build: $(LAVALINK)
 
 files/Lavalink.jar:
   cd files
@@ -31,3 +17,11 @@ files/Lavalink.jar:
   cp libconnector.so natives/linux-arm/
   zip Lavalink.jar natives/linux-arm/libconnector.so
   rm -r natives/
+
+%.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2 Dockerfile.j2 files/pip.conf $(LAVALINK)
+  j2 $< -o $@
+
+%-source.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2  source.Dockerfile.j2 files/pip.conf $(LAVALINK)
+  j2 $< -o $@
+
+include ../lib/Makefile

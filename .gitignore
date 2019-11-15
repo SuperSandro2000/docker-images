@@ -1,6 +1,7 @@
 .vscode/
-reddiscord/files/Lavalink.jar
-reddiscord/files/libconnector.so
+files/pip.conf
+Lavalink.jar
+libconnector.so
 amd64*.Dockerfile
 arm64*.Dockerfile
 armhf*.Dockerfile

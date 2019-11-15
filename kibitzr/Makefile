@@ -7,7 +7,7 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/kibitzr/rp5PBR5DxYG
 IMAGE := kibitzr
 VERSIONS := $(shell curl -s https://pypi.org/pypi/kibitzr/json | jq -r '.info.version')
 
-%.Dockerfile: ../lib/templates/%-alpine-python.Dockerfile.j2 Dockerfile.j2
+%.Dockerfile: ../lib/templates/%-alpine-python.Dockerfile.j2 Dockerfile.j2 files/pip.conf
   j2 $< -o $@
 
 include ../lib/Makefile
