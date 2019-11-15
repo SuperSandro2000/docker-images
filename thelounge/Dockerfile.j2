@@ -16,12 +16,15 @@ RUN export user=thelounge \
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apk add --no-cache --no-progress su-exec
+RUN apk add --no-cache --no-progress g++ make python3 su-exec \
+  && ln -s /usr/bin/python3 /usr/bin/python \
+  && npm install -g --unsafe-perm sqlite3 \
+  && apk del g++ make
 
 RUN yarn global add thelounge
 
 ENV THELOUNGE_HOME=/app
-EXPOSE 3000
+EXPOSE 9000
 WORKDIR /app
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD ["thelounge", "start"]
