@@ -1,7 +1,12 @@
+{% if as is defined %}
+FROM balenalib/aarch64-debian:sid as {{ as }}
+{% else %}
 FROM balenalib/aarch64-debian:sid
+{% endif %}
 
 RUN [ "cross-build-start" ]
 
-{% include 'Dockerfile.j2' %}
+{% set Dockerfile = Dockerfile|default('Dockerfile.j2') %}
+{% include Dockerfile %}
 
 RUN [ "cross-build-end" ]
