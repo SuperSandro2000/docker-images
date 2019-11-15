@@ -1,9 +1,6 @@
 .vscode/
 reddiscord/files/Lavalink.jar
 reddiscord/files/libconnector.so
-open-web-calendar/amd64.Dockerfile
-open-web-calendar/arm64.Dockerfile
-open-web-calendar/armhf.Dockerfile
-thelounge/amd64.Dockerfile
-thelounge/arm64.Dockerfile
-thelounge/armhf.Dockerfile
+amd64*.Dockerfile
+arm64*.Dockerfile
+armhf*.Dockerfile
