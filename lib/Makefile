@@ -5,6 +5,10 @@ MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
 comma :=,
+# Official Docker Images do not use arm64 but instead arm64v8. We need to transalte this.
+DOCKER_ARCH_amd64 ?= amd64
+DOCKER_ARCH_arm64 ?= arm64v8
+DOCKER_ARCH_armhf ?= arm32v7
 
 BINARY ?= docker
 BUILD_ARGS ?=
