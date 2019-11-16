@@ -8,7 +8,7 @@ IMAGE := healthchecks
 VERSIONS := $(shell curl -s https://api.github.com/repos/healthchecks/healthchecks/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.tag_name' | grep -Eo '([0-9]+\.){2}[0-9]+')
 
 %.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2 Dockerfile.j2 builder.Dockerfile.j2 files/pip.conf
-  (export Dockerfile=builder.Dockerfile.j2 as=builder && j2 $< > $@)
+  (export Dockerfile=builder.Dockerfile.j2 as=builder && j2 $< -o $@)
   echo "#------------------#" >> $@
   j2 $< >> $@
 
