@@ -28,6 +28,7 @@ stages:
     stage: build
     script:
       - pip install j2cli
+      - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - cd "$IMAGE"
       - make build;
       - docker images
@@ -41,7 +42,9 @@ stages:
     stage: manifest
     script:
       - cd "$IMAGE"
-      - if [[ $TRAVIS_BRANCH == master ]]; then make manifest; fi
+      - if [[ $TRAVIS_BRANCH == master ]]; then
+          make manifest;
+        fi
 
   - &scan-multi-arch
     stage: scan
