@@ -7,4 +7,7 @@ HOOK :=
 IMAGE := aports
 VERSIONS = latest 
 
+%.Dockerfile: Dockerfile.j2
+  (export arch=$* && j2 $< -o $@)
+
 include ../lib/Makefile

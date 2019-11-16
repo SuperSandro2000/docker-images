@@ -1,4 +1,4 @@
-FROM supersandro2000/base-alpine:armhf-3.10
+FROM {% if arch is defined %}supersandro2000/base-alpine:{{arch}}-3.10{% else %}supersandro2000/base-alpine:{{arch}}-3.10{% endif %}
 
 RUN apk add --no-cache --no-progress abuild g++ git make nano
 
