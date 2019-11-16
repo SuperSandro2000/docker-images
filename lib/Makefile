@@ -10,8 +10,10 @@ DOCKER_ARCH_amd64 ?= amd64
 DOCKER_ARCH_arm64 ?= arm64v8
 DOCKER_ARCH_armhf ?= arm32v7
 
+
 BINARY ?= docker
 BUILD_ARGS ?=
+CI ?=
 FLAGS ?=
 HOOK_ARG ?=$(if $(filter $(HOOK),%),--hook $(HOOK),)
 IMAGE ?=
@@ -127,9 +129,9 @@ GET_VERSIONS = $(word 2,$(subst :, ,$1))
 GET_BUILD_ARGS = $(word 3,$(subst :, ,$1))
 
 ifdef DEBUG2
-$(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(call GET_BUILD_ARGS,$j),$(1))))
+$(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(call GET_BUILD_ARGS,$j))))
 endif
-$(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(call GET_BUILD_ARGS,$j),$(1))))
+$(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(call GET_BUILD_ARGS,$j))))
 
 .PHONY: login
 login:

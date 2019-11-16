@@ -11,7 +11,8 @@ SHELLCHECK := ${BIN_DIR}/shellcheck
 TRAVIS := ${GEM_HOME}/bin/travis
 TRIVY := ${BIN_DIR}/trivy
 
-SUBDIRS := $(shell find * -maxdepth 0 -type d)
+SUBDIRS ?= $(shell find * -maxdepth 0 -path lib -prune -o -type d -print)
+SHFMT_FILE ?= $(shell ls */*.{sh,Dockerfile})
 
 EXECUTABLES = curl git jq
 K := $(foreach exec,$(EXECUTABLES),$(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
@@ -40,15 +41,7 @@ $(TRIVY):
   curl -sL $$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
 .PHONY: hadolint
-hadolint: $(HADOLINT)
-  @echo Creating Dockerfiles...
-  -@for dir in */; do \
-    (
-      cd $$dir;
-      pwd;
-      make dockerfile
-    )> /dev/null 2>&1;
-  done
+hadolint: $(HADOLINT) $(SUBDIRS)/%.Dockerfile
   $(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | grep -v ".j2" | xargs --max-lines=1 $(HADOLINT)
 
 .PHONY: mdl
@@ -69,14 +62,11 @@ trivy: $(TRIVY)
 .PHONY: lint
 lint: hadolint mdl shellcheck $(if ${CI},,travis)
 
+$(SHFMT_FILE):
+  shfmt -bn -ci -i 2 -s -w $@
+
 .PHONY: shfmt
-shfmt: $(SHFMT)
-  bash -c '( \
-    shopt -s globstar; \
-    for file in **/*.{sh,Dockerfile}; do \
-      shfmt -bn -ci -i 2 -s -w $$file; \
-    done \
-  )'
+shfmt: $(SHFMT) $(SHFMT_FILE)
 
 .PHONY: format
 format: shfmt
@@ -84,6 +74,13 @@ format: shfmt
 %/files/pip.conf: lib/templates/pip.conf
   cp $< $@
 
+%/%.Dockerfile:
+  @echo Creating Dockerfiles...
+  cd $* && $(MAKE) dockerfile
+
 .PHONY: $(SUBDIRS)
 $(SUBDIRS):
-  cd $@ && make EXTRA_FLAGS= build
+  cd $@ && $(MAKE) build
+
+.PHONY: build
+build: $(SUBDIRS)
