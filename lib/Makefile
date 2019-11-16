@@ -127,7 +127,7 @@ GET_VERSIONS = $(word 2,$(subst :, ,$1))
 GET_BUILD_ARGS = $(word 3,$(subst :, ,$1))
 
 ifdef DEBUG2
-$(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(1))))
+$(foreach j,$(JOINED),$(info $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(call GET_BUILD_ARGS,$j),$(1))))
 endif
 $(foreach j,$(JOINED),$(eval $(call TEMPLATE,$(call GET_TAGS,$j),$(call GET_VERSIONS,$j),$(call GET_BUILD_ARGS,$j),$(1))))
 
