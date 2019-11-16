@@ -1,8 +1,3 @@
-{% if as is defined %}
-FROM debian:sid as {{ as }}
-{% else %}
-FROM debian:sid
-{% endif %}
+FROM {% if as is defined %}debian:sid as {{ as }}{% else %}debian:sid{% endif %}
 
-{% set Dockerfile = Dockerfile|default('Dockerfile.j2') %}
-{% include Dockerfile %}
+{% set Dockerfile = Dockerfile|default('Dockerfile.j2') %}{% include Dockerfile %}

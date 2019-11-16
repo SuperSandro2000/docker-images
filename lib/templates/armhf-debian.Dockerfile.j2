@@ -1,12 +1,7 @@
-{% if as is defined %}
-FROM balenalib/armv7hf-debian:sid as {{ as }}
-{% else %}
-FROM balenalib/armv7hf-debian:sid
-{% endif %}
+FROM {% if as is defined %}balenalib/armv7hf-debian:sid as {{ as }}{% else %}balenalib/armv7hf-debian:sid{% endif %}
 
 RUN [ "cross-build-start" ]
 
-{% set Dockerfile = Dockerfile|default('Dockerfile.j2') %}
-{% include Dockerfile %}
+{% set Dockerfile = Dockerfile|default('Dockerfile.j2') %}{% include Dockerfile %}
 
 RUN [ "cross-build-end" ]
