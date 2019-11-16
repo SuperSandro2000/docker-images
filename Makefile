@@ -42,7 +42,13 @@ $(TRIVY):
 .PHONY: hadolint
 hadolint: $(HADOLINT)
   @echo Creating Dockerfiles...
-  -@for D in */; do (cd $$D; pwd; make dockerfile)> /dev/null 2>&1; done
+  -@for dir in */; do \
+    (
+      cd $$dir;
+      pwd;
+      make dockerfile
+    )> /dev/null 2>&1;
+  done
   $(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | grep -v ".j2" | xargs --max-lines=1 $(HADOLINT)
 
 .PHONY: mdl
@@ -53,25 +59,27 @@ mdl: $(MDL)
 shellcheck: $(SHELLCHECK)
   bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
 
-.PHONY: shfmt
-shfmt: $(SHFMT)
-  bash -c 'shopt -s globstar; shfmt -bn -ci -i 2 -s -w **/*.{sh,Dockerfile}'
-
 .PHONY: travis
 travis: $(TRAVIS)
   travis lint
 
-.PHONY: traviy
+.PHONY: trivy
 trivy: $(TRIVY)
-
-.PHONY: format
-format: shfmt
 
 .PHONY: lint
 lint: hadolint mdl shellcheck $(if ${CI},,travis)
 
-.PHONY: build
-build: $(SUBDIRS)
+.PHONY: shfmt
+shfmt: $(SHFMT)
+  bash -c '( \
+    shopt -s globstar; \
+    for file in **/*.{sh,Dockerfile}; do \
+      shfmt -bn -ci -i 2 -s -w $$file; \
+    done \
+  )'
+
+.PHONY: format
+format: shfmt
 
 %/files/pip.conf: lib/templates/pip.conf
   cp $< $@
