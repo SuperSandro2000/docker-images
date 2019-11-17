@@ -1,3 +1,5 @@
+FROM {% if arch is defined %}{{arch}}/{% endif %}debian:sid
+
 ARG BUILD_DATE
 ARG VERSION
 ARG REVISION

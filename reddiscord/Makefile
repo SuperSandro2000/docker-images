@@ -10,18 +10,19 @@ VERSIONS := $(shell curl -Ls https://github.com/Cog-Creators/Red-DiscordBot/raw/
 
 LAVALINK := files/Lavalink.jar
 
+.ONESHELL: files/Lavalink.jar
 files/Lavalink.jar:
   cd files
-  curl -Lso Lavalink.jar "$(curl -s https://api.github.com/repos/Frederikam/Lavalink/releases?access_token="$GITHUB_TOKEN" | jq '[.[] | select(.assets[].name=="Lavalink.jar")][1] | .assets | .[0].browser_download_url' | tr -d \'\")"
+  curl -Lso Lavalink.jar "$$(curl -s https://api.github.com/repos/Frederikam/Lavalink/releases?access_token="${GITHUB_TOKEN}" | jq '[.[] | select(.assets[].name=="Lavalink.jar")][1] | .assets | .[0].browser_download_url' | tr -d \'\")"
   mkdir -p natives/linux-arm/
   cp libconnector.so natives/linux-arm/
   zip Lavalink.jar natives/linux-arm/libconnector.so
   rm -r natives/
 
-%.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2 Dockerfile.j2 files/pip.conf $(LAVALINK)
-  j2 $< -o $@
+%-source.Dockerfile: source.Dockerfile.j2 files/pip.conf $(LAVALINK)
+  (export arch=$(DOCKER_ARCH_$*) && j2 $< -o $@)
 
-%-source.Dockerfile: ../lib/templates/%-debian.Dockerfile.j2  source.Dockerfile.j2 files/pip.conf $(LAVALINK)
-  j2 $< -o $@
+%.Dockerfile: Dockerfile.j2 files/pip.conf $(LAVALINK) %-source.Dockerfile
+  (export arch=$(DOCKER_ARCH_$*) && j2 $< -o $@)
 
 include ../lib/Makefile
