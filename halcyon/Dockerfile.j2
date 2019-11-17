@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/php:apache-buster{% else %}php:apache-buster{% endif %}
+FROM {% if arch is defined %}{{arch}}/{% endif %}php:apache-buster
 
 ARG BUILD_DATE
 ARG VERSION
