@@ -7,7 +7,7 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/thelounge/8YEKunv2f
 IMAGE := thelounge
 VERSIONS := $(shell curl -s https://api.github.com/repos/thelounge/thelounge/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.tag_name' | grep -Eo '([0-9]+\.){2}[0-9]+')
 
-%.Dockerfile: ../lib/templates/%-alpine-node.Dockerfile.j2 Dockerfile.j2
-  j2 $< -o $@
+%.Dockerfile: Dockerfile.j2
+  (export arch=$(DOCKER_ARCH_$*) && j2 $< -o $@)
 
 include ../lib/Makefile
