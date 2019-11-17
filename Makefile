@@ -11,9 +11,10 @@ SHELLCHECK := ${BIN_DIR}/shellcheck
 TRAVIS := ${GEM_HOME}/bin/travis
 TRIVY := ${BIN_DIR}/trivy
 
+ARCHS ?= amd64 arm64 armhf
+DOCKERFILES ?= archisteamfarm/amd64.Dockerfile code-server-extra/amd64.Dockerfile $(foreach DIR,$(SUBDIRS),$(foreach ARCH,$(ARCHS),$(DIR)/$(ARCH).Dockerfile))
                             # syntax: -path A -prune -or -path B -prune
-SUBDIRS ?= $(shell find * -maxdepth 0 -path lib -prune -o -type d -print)
-SHFMT_FILE ?= $(shell ls */*.{sh,Dockerfile})
+SUBDIRS ?= $(shell find * -maxdepth 0 -path archisteamfarm -prune -or -path code-server-extra -prune -or -path lib -prune -o -type d -print)
 
 EXECUTABLES = curl git jq
 K := $(foreach exec,$(EXECUTABLES),$(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
@@ -42,7 +43,7 @@ $(TRIVY):
   curl -sL $$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
 .PHONY: hadolint
-hadolint: $(HADOLINT) $(SUBDIRS)/%.Dockerfile
+hadolint: $(HADOLINT) $(DOCKERFILES)
   $(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | grep -v ".j2" | xargs --max-lines=1 $(HADOLINT)
 
 .PHONY: mdl
@@ -63,11 +64,12 @@ trivy: $(TRIVY)
 .PHONY: lint
 lint: hadolint mdl shellcheck $(if ${CI},,travis)
 
-$(SHFMT_FILE):
-  shfmt -bn -ci -i 2 -s -w $@
-
 .PHONY: shfmt
-shfmt: $(SHFMT) $(SHFMT_FILE)
+shfmt: $(SHFMT)
+  @find . -name *.sh -or -name *.Dockerfile -type f -print0 | \
+      while IFS= read -r -d '' line; do \
+        shfmt -bn -ci -i 2 -s -w $$line ;\
+      done
 
 .PHONY: format
 format: shfmt
