@@ -26,6 +26,7 @@ stages:
 .template:
   - &build
     stage: build
+    env: MANIFEST=true
     script:
       - pip install j2cli
       - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
@@ -35,7 +36,8 @@ stages:
     after_script:
       - if [[ $TRAVIS_BRANCH == master ]]; then
           make push;
-          make manifest;
+          if [[ $MANIFEST == true ]]; then
+           make manifest;
         fi
 
   - &manifest
@@ -104,12 +106,12 @@ jobs:
     - <<: *build
       env: IMAGE=prerenderer
     - <<: *build
-      env: IMAGE=reddiscord VARIANTS=amd64,armhf
+      env: IMAGE=reddiscord VARIANTS=amd64,armhf MANIFEST=false
     - <<: *build
-      env: IMAGE=reddiscord TAGS=source VARIANTS=amd64,armhf VERSIONS=source
+      env: IMAGE=reddiscord TAGS=source VARIANTS=amd64,armhf VERSIONS=source MANIFEST=false
     - <<: *build
       arch: arm64
-      env: IMAGE=reddiscord VARIANTS=arm64
+      env: IMAGE=reddiscord VARIANTS=arm64 MANIFEST=false
       install:
         - sudo apt install zip
     - <<: *build
@@ -122,11 +124,12 @@ jobs:
     - <<: *manifest
       env: IMAGE=archisteamfarm
       before_script:
-        - if [[ $TRAVIS_BRANCH == master ]]; then  cd archisteamfarm; ./manifest.sh; fi
+        - if [[ $TRAVIS_BRANCH == master ]]; then
+            cd archisteamfarm;
+            ./manifest.sh;
+          fi
     - <<: *manifest
       env: IMAGE=reddiscord
-    - <<: *manifest
-      env: IMAGE=zeronet
 
     - <<: *scan-multi-arch
       env: IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
