@@ -77,9 +77,9 @@ format: shfmt
 %/files/pip.conf: lib/templates/pip.conf
   cp $< $@
 
-%/%.Dockerfile:
+%.Dockerfile:
   @echo Creating Dockerfiles...
-  cd $* && $(MAKE) dockerfile
+  cd $(@D) && $(MAKE) dockerfile
 
 .PHONY: $(SUBDIRS)
 $(SUBDIRS):
