@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}supersandro2000/base-alpine:{{arch}}-3.10{% else %}supersandro2000/base-alpine:{{arch}}-3.10{% endif %}
+FROM supersandro2000/base-alpine:{% if arch is defined %}{{arch}}-{% endif %}3.10
 
 RUN apk add --no-cache --no-progress abuild g++ git make nano
 
