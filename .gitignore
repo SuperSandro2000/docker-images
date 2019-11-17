@@ -1,5 +1,5 @@
 .vscode/
-files/pip.conf
+pip.conf
 Lavalink.jar
 libconnector.so
 amd64*.Dockerfile
