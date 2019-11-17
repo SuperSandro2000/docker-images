@@ -11,6 +11,7 @@ SHELLCHECK := ${BIN_DIR}/shellcheck
 TRAVIS := ${GEM_HOME}/bin/travis
 TRIVY := ${BIN_DIR}/trivy
 
+                            # syntax: -path A -prune -or -path B -prune
 SUBDIRS ?= $(shell find * -maxdepth 0 -path lib -prune -o -type d -print)
 SHFMT_FILE ?= $(shell ls */*.{sh,Dockerfile})
 
