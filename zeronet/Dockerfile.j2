@@ -1,3 +1,5 @@
+FROM {% if arch is defined %}{{arch}}/{% endif %}python:3-alpine
+
 ARG BUILD_DATE
 ARG VERSION
 ARG REVISION
@@ -20,12 +22,7 @@ ENV HOME=/app ENABLE_TOR=false
 RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
-RUN apk add --no-cache --no-progress python3 tor \
-  && printf "\
-manylinux1_compatible = True\n\
-manylinux2010_compatible = True\n\
-manylinux2014_compatible = True\n\
-" >/usr/lib/python3.7/site-packages/_manylinux.py
+RUN apk add --no-cache --no-progress tor
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
