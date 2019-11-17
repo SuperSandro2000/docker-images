@@ -1,4 +1,4 @@
-FROM balenalib/aarch64-alpine-node:3.10
+FROM {% if arch is defined %}{{arch}}/{% endif %}node:alpine
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \
@@ -13,8 +13,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Prerenderer" \
   org.opencontainers.image.description="Node server that uses Headless Chrome to render a javascript-rendered page as HTML. To be used in conjunction with prerender middleware."
 
-RUN [ "cross-build-start" ]
-
 RUN export user=prerenderer \
   && addgroup -S $user && adduser -D -S $user -G $user
 
@@ -27,8 +25,6 @@ RUN apk add --no-cache --no-progress chromium git \
 RUN npm install /app
 
 COPY [ "files/server.js", "/app/" ]
-
-RUN [ "cross-build-end" ]
 
 EXPOSE 3000
 WORKDIR /app
