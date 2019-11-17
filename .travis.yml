@@ -107,7 +107,7 @@ jobs:
     - <<: *manifest
       env: IMAGE=reddiscord
 
-    - <<: *scan
+    - stage: scan
       cache:
         directories:
           - $HOME/.cache/trivy
@@ -115,22 +115,17 @@ jobs:
         - make trivy
         - ./trivy --refresh --quiet || ./trivy --reset
       script:
-        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/archisteamfarm:master-alpine
+        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/archisteamfarm:master-alpine
         - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/archisteamfarm:master-alpine
-
-        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/healthchecks:latest
+        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/healthchecks:latest
         - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/healthchecks:latest
-
-        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/kibitzr:latest
+        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/kibitzr:latest
         - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/kibitzr:latest
-
-        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/prerenderer:latest
+        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/prerenderer:latest
         - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/prerenderer:latest
-
-        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/unbound:latest
+        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/unbound:latest
         - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/unbound:latest
-
-        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/zeronet:latest
+        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/zeronet:latest
         - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/zeronet:latest
 
 # notifications:
