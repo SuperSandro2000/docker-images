@@ -97,10 +97,10 @@ jobs:
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
-      env: IMAGE=healthchecks VARIANTS=amd64
+      env: IMAGE=healthchecks VARIANTS=amd64 MANIFEST=false
     - <<: *build
       arch: arm64
-      env: IMAGE=healthchecks VARIANTS=arm64
+      env: IMAGE=healthchecks VARIANTS=arm64 MANIFEST=false
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
@@ -128,6 +128,8 @@ jobs:
             cd archisteamfarm;
             ./manifest.sh;
           fi
+    - <<: *manifest
+      env: IMAGE=healthchecks
     - <<: *manifest
       env: IMAGE=reddiscord
 
