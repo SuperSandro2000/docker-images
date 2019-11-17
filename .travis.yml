@@ -48,32 +48,6 @@ stages:
           make manifest;
         fi
 
-  - &scan-multi-arch
-    stage: scan
-    cache:
-      directories:
-        - $HOME/.cache/trivy
-    install:
-      - make trivy
-    script:
-      - ./trivy --refresh --quiet || ./trivy --reset
-      - for arch in amd64 armhf arm64; do
-        ./trivy --exit-code 0 --severity HIGH -quiet $IMAGE:$arch-latest ;
-        ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-latest ;
-        done
-
-  - &scan
-    stage: scan
-    cache:
-      directories:
-        - $HOME/.cache/trivy
-    install:
-        - make trivy
-    script:
-      - ./trivy --refresh --quiet || ./trivy --reset
-      - ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:latest
-      - ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:latest
-
 jobs:
   include:
     - stage: lint
@@ -133,26 +107,31 @@ jobs:
     - <<: *manifest
       env: IMAGE=reddiscord
 
-    - <<: *scan-multi-arch
-      env: IMAGE=supersandro2000/archisteamfarm VARIANT=alpine
+    - <<: *scan
+      cache:
+        directories:
+          - $HOME/.cache/trivy
+      install:
+        - make trivy
+        - ./trivy --refresh --quiet || ./trivy --reset
       script:
-        - ./trivy --refresh --quiet || ./travis --reset
-        - for arch in master tag; do
-          ./trivy --exit-code 0 --severity HIGH --quiet $IMAGE:$arch-alpine ;
-          ./trivy --exit-code 1 --severity CRITICAL --quiet $IMAGE:$arch-alpine ;
-          done
-    - <<: *scan
-      env: IMAGE=supersandro2000/healthchecks
-    - <<: *scan-multi-arch
-      env: IMAGE=supersandro2000/kibitzr
-    - <<: *scan
-      env: IMAGE=supersandro2000/prerenderer
-    # - <<: *scan-multi-arch
-    #   env: IMAGE=supersandro2000/reddiscord VARIANT=source
-    - <<: *scan
-      env: IMAGE=supersandro2000/unbound
-    - <<: *scan-multi-arch
-      env: IMAGE=supersandro2000/zeronet
+        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/archisteamfarm:master-alpine
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/archisteamfarm:master-alpine
+
+        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/healthchecks:latest
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/healthchecks:latest
+
+        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/kibitzr:latest
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/kibitzr:latest
+
+        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/prerenderer:latest
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/prerenderer:latest
+
+        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/unbound:latest
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/unbound:latest
+
+        - ./trivy --exit-code 0 --severity HIGH --quiet supersandro2000/zeronet:latest
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/zeronet:latest
 
 # notifications:
 #   webhooks:
