@@ -91,6 +91,8 @@ jobs:
     - <<: *build
       env: IMAGE=archisteamfarm VARIANT=alpine
     - <<: *build
+      env: IMAGE=code-server-extra
+    - <<: *build
       env: IMAGE=halcyon
     - <<: *build
       env: IMAGE=healthchecks VARIANTS=amd64
