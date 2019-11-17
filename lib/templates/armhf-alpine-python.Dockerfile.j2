@@ -1,7 +1,0 @@
-FROM balenalib/armv7hf-alpine-python:3-3.10
-
-RUN [ "cross-build-start" ]
-
-{% include 'Dockerfile.j2' %}
-
-RUN [ "cross-build-end" ]
