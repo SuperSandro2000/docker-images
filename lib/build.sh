@@ -146,10 +146,6 @@ function build() {
     file_prefix="$arch"
   fi
 
-  if [[ $(uname -m) == aarch64 && $arch == arm64 ]]; then
-    file_prefix="amd64"
-  fi
-
   if [[ -z ${buildkit:-} ]]; then
     build_args+=" --cache-from $build_image"
   fi
