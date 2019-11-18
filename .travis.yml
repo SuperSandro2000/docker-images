@@ -99,7 +99,7 @@ jobs:
 
     - <<: *manifest
       env: IMAGE=archisteamfarm
-      before_script:
+      script:
         - if [[ $TRAVIS_BRANCH == master ]]; then
             cd archisteamfarm;
             make login;
