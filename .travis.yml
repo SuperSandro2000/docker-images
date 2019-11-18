@@ -12,7 +12,7 @@ addons:
       - jq
 
 install:
-  - pip install j2cli
+  - pip install --user j2cli
 
 env:
   global:
