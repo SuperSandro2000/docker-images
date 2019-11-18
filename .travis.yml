@@ -118,8 +118,8 @@ jobs:
         - make trivy
         - ./trivy --refresh --quiet || ./trivy --reset
       script:
-        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/archisteamfarm:master-alpine
-        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/archisteamfarm:master-alpine
+        - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/archisteamfarm:alpine-latest
+        - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/archisteamfarm:alpine-latest
         - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/healthchecks:latest
         - ./trivy --exit-code 1 --severity CRITICAL --quiet supersandro2000/healthchecks:latest
         - ./trivy --exit-code 0 --severity HIGH     --quiet supersandro2000/kibitzr:latest
