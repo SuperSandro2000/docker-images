@@ -11,6 +11,9 @@ addons:
       # - docker-ce
       - jq
 
+install:
+  - pip install j2cli
+
 env:
   global:
     - DOCKER_CLI_EXPERIMENTAL=enabled
@@ -28,7 +31,6 @@ stages:
     stage: build
     env: MANIFEST=true
     script:
-      - pip install j2cli
       - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - cd "$IMAGE"
       - make build;
