@@ -88,7 +88,7 @@ jobs:
     - <<: *build
       arch: arm64
       env: IMAGE=reddiscord VARIANTS=arm64 MANIFEST=false
-      install:
+      before_script:
         - sudo apt install zip
     - <<: *build
       env: IMAGE=thelounge
