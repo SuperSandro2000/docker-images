@@ -102,6 +102,7 @@ jobs:
       before_script:
         - if [[ $TRAVIS_BRANCH == master ]]; then
             cd archisteamfarm;
+            make login;
             ./manifest.sh;
           fi
     - <<: *manifest
