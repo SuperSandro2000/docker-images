@@ -67,6 +67,8 @@ jobs:
       env: IMAGE=base-alpine
 
     - <<: *build
+      env: IMAGE=aports
+    - <<: *build
       env: IMAGE=archisteamfarm VARIANT=alpine
     - <<: *build
       env: IMAGE=code-server-extra
