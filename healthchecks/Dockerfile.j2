@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}debian:sid as builder
+FROM {% if arch is defined %}{{arch}}/{% endif %}debian:sid-slim as builder
 
 RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy ca-certificates gcc git libcap-dev libjansson-dev \
@@ -22,7 +22,7 @@ RUN git clone --depth=1 https://github.com/healthchecks/healthchecks.git /hc
 
 #------------------#
 
-FROM {% if arch is defined %}{{arch}}/{% endif %}debian:sid
+FROM {% if arch is defined %}{{arch}}/{% endif %}debian:sid-slim
 
 ARG BUILD_DATE
 ARG VERSION
