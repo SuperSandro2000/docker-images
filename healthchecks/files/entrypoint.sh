@@ -11,6 +11,7 @@ fi
 
 if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
   find . \! -user $USER -exec chown $USER '{}' +
+  gosu $USER /app/manage.py migrate
   exec gosu $USER "$0" "$@"
 fi
 
