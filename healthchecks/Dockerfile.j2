@@ -18,6 +18,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # RUN sh -c 'cd /uwsgi && python3 uwsgiconfig.py --build'
 RUN cd /uwsgi && python3 uwsgiconfig.py --build
 
+ARG SHA
+
 RUN git clone --depth=1 https://github.com/healthchecks/healthchecks.git /hc
 
 #------------------#
