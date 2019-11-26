@@ -79,11 +79,11 @@ format: shfmt
 
 %.Dockerfile:
   @echo Creating Dockerfiles...
-  cd $(@D) && $(MAKE) dockerfile
+  @cd $(@D) && $(MAKE) dockerfile
 
 .PHONY: $(SUBDIRS)
 $(SUBDIRS):
-  cd $@ && $(MAKE) build
+  @cd $@ && $(MAKE) build
 
 .PHONY: build
 build: $(SUBDIRS)
