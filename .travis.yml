@@ -52,6 +52,9 @@ stages:
         fi
 
 jobs:
+  allow_failures:
+    - if: stage = scan
+
   include:
     - stage: lint
       # install:
