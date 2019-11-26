@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}python:3-alpine
+FROM supersandro2000/base-alpine:{% if arch is defined %}{{arch}}-{% endif %}3.10
 
 ARG BUILD_DATE
 ARG VERSION
@@ -22,7 +22,9 @@ ENV HOME=/app ENABLE_TOR=false
 RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
-RUN apk add --no-cache --no-progress su-exec tor
+# TODO: When gevent 1.5 hits stable switch to gevent wheel again.
+# The gevent wheel lags _corecffi in gevent.libuv which ZeroNet requires to run. See https://github.com/gevent/gevent/issues/1419
+RUN apk add --no-cache --no-progress py3-gevent py3-pip tor
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
