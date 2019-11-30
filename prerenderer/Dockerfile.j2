@@ -18,7 +18,7 @@ RUN export user=prerenderer \
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apk add --no-cache --no-progress chromium git \
+RUN apk add --no-cache --no-progress chromium git su-exec \
   && git clone https://github.com/prerender/prerender.git /app \
   && apk del git
 
