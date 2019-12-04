@@ -29,7 +29,6 @@ stages:
 .template:
   - &build
     stage: build
-    env: MANIFEST=true
     script:
       - if [[ $TRAVIS_CPU_ARCH == amd64 ]]; then docker run --rm --privileged multiarch/qemu-user-static --reset -p yes; fi
       - cd "$IMAGE"
@@ -38,7 +37,7 @@ stages:
     after_script:
       - if [[ $TRAVIS_BRANCH == master ]]; then
           make push;
-          if [[ $MANIFEST == true ]]; then
+          if [[ ${MANIFEST:-true} == true ]]; then
            make manifest;
           fi;
         fi
