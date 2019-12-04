@@ -85,6 +85,8 @@ jobs:
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
+      env: IMAGE=open-web-calendar
+    - <<: *build
       env: IMAGE=prerenderer
     - <<: *build
       env: IMAGE=reddiscord VARIANTS=amd64,armhf MANIFEST=false
