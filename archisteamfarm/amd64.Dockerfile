@@ -13,7 +13,7 @@ RUN echo "node: $(node --version)" \
   && npm ci \
   && npm run-script deploy
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-alpine AS build-dotnet
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.100-alpine AS build-dotnet
 ENV CONFIGURATION Release
 ENV NET_CORE_VERSION netcoreapp3.0
 WORKDIR /app
