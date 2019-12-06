@@ -13,9 +13,9 @@ RUN echo "node: $(node --version)" \
   && npm ci \
   && npm run-script deploy
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-alpine AS build-dotnet
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-dotnet
 ENV CONFIGURATION Release
-ENV NET_CORE_VERSION netcoreapp3.0
+ENV NET_CORE_VERSION netcoreapp3.1
 WORKDIR /app
 COPY --from=build-node /app/dist ASF-ui/dist
 COPY --from=git /src/ArchiSteamFarm ArchiSteamFarm
@@ -29,7 +29,7 @@ RUN dotnet --info \
   && dotnet publish ArchiSteamFarm -c "$CONFIGURATION" -f "$NET_CORE_VERSION" -o 'out' /nologo /p:ASFVariant=docker /p:PublishTrimmed=false /p:UseAppHost=false \
   && cp "ArchiSteamFarm/overlay/generic/ArchiSteamFarm.sh" "out/ArchiSteamFarm.sh"
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
 ENV ASPNETCORE_URLS=""
 LABEL maintainer="JustArchi <JustArchi@JustArchi.net>"
 EXPOSE 1242
