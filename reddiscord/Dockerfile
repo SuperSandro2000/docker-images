@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}debian:sid
+FROM debian:buster
 
 ARG BUILD_DATE
 ARG VERSION
@@ -16,6 +16,8 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.licenses="GPL-3.0" \
   org.opencontainers.image.title="Red-Discord Bot" \
   org.opencontainers.image.description="A multifunction Discord bot"
+
+WORKDIR /app
 
 RUN export user=reddiscord \
   && groupadd -r $user && useradd -r -g $user $user
@@ -37,10 +39,9 @@ COPY [ "files/run.sh", "files/Lavalink.jar", "/files/" ]
 RUN export dev_apt="build-essential unzip zip" \
   && apt-get update -q \
   && apt-get install --no-install-recommends -qy $dev_apt \
-  && pip3 install --no-cache-dir --progress-bar off https://github.com/Cog-Creators/Red-DiscordBot/archive/V3/develop.tar.gz#egg=Red-DiscordBot \
+  && pip3 install --no-cache-dir --progress-bar off Red-DiscordBot \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "/files/run.sh" ]
