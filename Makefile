@@ -1,5 +1,4 @@
 .DEFAULT_GOAL := lint
-.RECIPEPREFIX +=
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
@@ -22,41 +21,41 @@ K := $(foreach exec,$(EXECUTABLES),$(if $(shell which $(exec)),some string,$(err
 export PATH := ${PATH}:${BIN_DIR}
 
 $(HADOLINT):
-  mkdir -p $$(dirname $(HADOLINT))
-  curl -sLo "$(HADOLINT)" $$(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
-  chmod 700 "$(HADOLINT)"
+	mkdir -p $$(dirname $(HADOLINT))
+	curl -sLo "$(HADOLINT)" $$(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
+	chmod 700 "$(HADOLINT)"
 
 $(MDL):
-  gem install mdl
+	gem install mdl
 
 $(SHELLCHECK):
-  curl -s https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz | tar Jx shellcheck-stable/shellcheck --strip=1
-  mv shellcheck $(SHELLCHECK)
+	curl -s https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz | tar Jx shellcheck-stable/shellcheck --strip=1
+	mv shellcheck $(SHELLCHECK)
 
 $(SHFMT):
-  curl -sLo "$(SHFMT)" $$(curl -s https://api.github.com/repos/mvdan/sh/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
+	curl -sLo "$(SHFMT)" $$(curl -s https://api.github.com/repos/mvdan/sh/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
 
 $(TRAVIS):
-  gem install travis
+	gem install travis
 
 $(TRIVY):
-  curl -sL $$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
+	curl -sL $$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
 .PHONY: hadolint
-hadolint: $(HADOLINT) $(DOCKERFILES)
-  $(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | grep -v ".j2" | xargs --max-lines=1 $(HADOLINT)
+hadolint: $(HADOLINT)
+	$(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | grep -v ".j2" | xargs --max-lines=1 $(HADOLINT)
 
 .PHONY: mdl
 mdl: $(MDL)
-  mdl .
+	mdl .
 
 .PHONY: shellcheck
 shellcheck: $(SHELLCHECK)
-  bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
+	bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
 
 .PHONY: travis
 travis: $(TRAVIS)
-  travis lint
+	travis lint
 
 .PHONY: trivy
 trivy: $(TRIVY)
@@ -66,24 +65,20 @@ lint: hadolint mdl shellcheck $(if ${CI},,travis)
 
 .PHONY: shfmt
 shfmt: $(SHFMT)
-  @find . -name *.sh -or -name *.Dockerfile -type f -print0 | \
-      while IFS= read -r -d '' line; do \
-        shfmt -bn -ci -i 2 -s -w $$line ;\
-      done
+	@find . -name *.sh -or -name *.Dockerfile -type f -print0 | \
+	  while IFS= read -r -d '' line; do \
+	    shfmt -bn -ci -i 2 -s -w $$line ;\
+	  done
 
 .PHONY: format
 format: shfmt
 
 %/files/pip.conf: lib/templates/pip.conf
-  cp $< $@
-
-%.Dockerfile:
-  @echo Creating Dockerfiles...
-  @cd $(@D) && $(MAKE) dockerfile
+	cp $< $@
 
 .PHONY: $(SUBDIRS)
 $(SUBDIRS):
-  @cd $@ && $(MAKE) build
+	@cd $@ && $(MAKE)
 
 .PHONY: build
 build: $(SUBDIRS)
