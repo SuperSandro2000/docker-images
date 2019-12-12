@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}alpine:{% if dist is defined %}{{dist}}{% else %}3.10{% endif %}
+FROM alpine:3.10
 
 ARG BUILD_DATE
 ARG VERSION
