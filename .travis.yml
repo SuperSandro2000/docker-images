@@ -53,6 +53,8 @@ stages:
 jobs:
   allow_failures:
     - stage: scan
+    # remove when builds with .NET 3.1 hit stable
+    - env: IMAGE=archisteamfarm VARIANT=alpine
 
   include:
     - stage: lint
