@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}node:12-alpine
+FROM node:12-alpine
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \
@@ -18,11 +18,12 @@ RUN export user=thelounge \
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apk add --no-cache --no-progress g++ make python su-exec \
-{%- if arch == 'amd64' %}
-  && npm install -g --unsafe-perm sqlite3 \
-{%- endif %}
-  && apk del g++ make
+RUN apk add --no-cache --no-progress su-exec \
+  && if [ "$(uname -m)" = "x86_64" ]; then \
+    apk add --no-cache --no-progress g++ make python \
+    && npm install -g --unsafe-perm sqlite3 \
+    && apk del g++ make python ; \
+  fi
 
 RUN yarn global add thelounge
 
