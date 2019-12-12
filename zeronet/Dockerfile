@@ -1,4 +1,4 @@
-FROM supersandro2000/base-alpine:{% if arch is defined %}{{arch}}-{% endif %}3.10
+FROM supersandro2000/base-alpine:3.10
 
 ARG BUILD_DATE
 ARG VERSION
@@ -29,6 +29,8 @@ RUN apk add --no-cache --no-progress py3-gevent py3-pip tor
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/run.sh", "/usr/local/bin/" ]
+
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
 RUN apk add --no-cache --no-progress tar \
   && mkdir /app \

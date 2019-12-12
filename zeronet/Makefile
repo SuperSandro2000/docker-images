@@ -1,5 +1,4 @@
 .DEFAULT_GOAL := all
-.RECIPEPREFIX +=
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
@@ -9,7 +8,4 @@ Z_VER := $(shell curl -Ls https://github.com/HelloZeroNet/ZeroNet/raw/py3/src/Co
 Z_REV := $(shell curl -Ls https://github.com/HelloZeroNet/ZeroNet/raw/py3/src/Config.py | grep -oP "(?<= self.rev = )[0-9]+")
 VERSIONS := $(Z_VER)-r$(Z_REV)
 
-%.Dockerfile: Dockerfile.j2 files/pip.conf
-  (export arch=$* && j2 $< -o $@)
-
-include ../lib/Makefile
+include ../buildx/Makefile
