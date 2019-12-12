@@ -1,4 +1,4 @@
-FROM {% if arch is defined %}{{arch}}/{% endif %}alpine:3.10 as source
+FROM alpine:3.10 as source
 
 RUN apk add --no-cache --no-progress git
 
@@ -8,7 +8,7 @@ RUN git clone https://github.com/niccokunzmann/open-web-calendar.git /app/
 
 #------------------#
 
-FROM {% if arch is defined %}{{arch}}/{% endif %}python:3-alpine3.10
+FROM python:3-alpine3.10
 
 ARG BUILD_DATE
 ARG VERSION
