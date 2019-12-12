@@ -2,6 +2,7 @@
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
+BUILD_ARGS ?=
 CI ?=
 COMMA :=,
 HOOK ?=
