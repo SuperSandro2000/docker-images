@@ -14,7 +14,7 @@ TRIVY := ${BIN_DIR}/trivy
 ARCHS ?= amd64 arm64 armhf
 DOCKERFILES ?= archisteamfarm/amd64.Dockerfile code-server-extra/amd64.Dockerfile $(foreach DIR,$(SUBDIRS),$(foreach ARCH,$(ARCHS),$(DIR)/$(ARCH).Dockerfile))
                             # syntax: -path A -prune -or -path B -prune
-SUBDIRS ?= $(shell find * -maxdepth 0 -path archisteamfarm -prune -or -path code-server-extra -prune -or -path lib -prune -o -type d -print)
+SUBDIRS ?= $(shell find * -maxdepth 0 -path archisteamfarm -prune -or -path buildx -prune -or -path code-server-extra -prune -or -path lib -prune -o -type d -print)
 
 EXECUTABLES = curl git jq
 K := $(foreach exec,$(EXECUTABLES),$(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
