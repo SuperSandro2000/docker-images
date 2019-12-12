@@ -1,5 +1,4 @@
 .DEFAULT_GOAL := all
-.RECIPEPREFIX +=
 MAKEFLAGS=--warn-undefined-variables
 SHELL := /bin/bash
 
@@ -9,7 +8,4 @@ VARIANTS ?= amd64,arm64
 VERSIONS := $(shell curl -s https://api.github.com/repos/healthchecks/healthchecks/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.tag_name' | grep -Eo '([0-9]+\.){2}[0-9]+')
 BUILD_ARGS := SHA=$(shell curl -s https://api.github.com/repos/healthchecks/healthchecks/commits/master?access_token="${GITHUB_TOKEN}" | jq -r '.sha')
 
-%.Dockerfile: Dockerfile.j2 files/pip.conf
-  (export arch=$(DOCKER_ARCH_$*) && j2 $< -o $@)
-
-include ../lib/Makefile
+include ../buildx/Makefile
