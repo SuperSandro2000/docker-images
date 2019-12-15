@@ -1,6 +1,7 @@
 #!/bin/ash
+# shellcheck shell=dash
 set -eu
-set -x
+
 CMD=iodined
 USER=iodine
 
