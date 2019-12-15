@@ -14,9 +14,9 @@ yaml=libyaml\n\
 " >/uwsgi/buildconf/default.ini
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+WORKDIR /uwsgi
 
-# RUN sh -c 'cd /uwsgi && python3 uwsgiconfig.py --build'
-RUN cd /uwsgi && python3 uwsgiconfig.py --build
+RUN python3 uwsgiconfig.py --build
 
 ARG SHA
 
