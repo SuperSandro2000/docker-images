@@ -1,7 +1,3 @@
 .vscode/
-pip.conf
 Lavalink.jar
 libconnector.so
-amd64*.Dockerfile
-arm64*.Dockerfile
-armhf*.Dockerfile
