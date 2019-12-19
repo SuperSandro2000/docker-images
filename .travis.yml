@@ -13,6 +13,8 @@ addons:
 
 install:
   - pip install --user j2cli
+  - echo '{"experimental": true}' >/etc/docker/daemon.json
+  - systemctl restart docker
 
 env:
   global:

@@ -19,7 +19,6 @@ TAGS_ARG := $(foreach TAG,$(subst $(COMMA), ,$(TAGS)),-t $(REGISTRY)/$(IMAGE)/$(
 
 .PHONY: setup
 setup:
-	$(if ${CI},echo '{"experimental": true}' >/etc/docker/daemon.json,,)
 	$(SUDO) docker buildx create --use --name build --node build --driver-opt network=host
 
 .PHONY: build
