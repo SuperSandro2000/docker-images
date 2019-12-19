@@ -16,7 +16,7 @@ install:
   - mkdir -p /etc/docker/
   - |
     echo -e '{"experimental": true}' | sudo tee /etc/docker/daemon.json
-  - systemctl restart docker
+  - sudo systemctl restart docker
 
 env:
   global:
