@@ -11,11 +11,12 @@ PLATFORMS ?= amd64,arm/v7,arm64
 REGISTRY ?= $(if ${CI},docker.io,localhost:5000)
 SUDO ?= $(shell if ! groups | grep -q docker; then echo sudo; fi)
 TAGS ?= test
+USER ?= $(if ${CI},supersandro2000,sandro)
 VERSIONS ?=
 
 BUILD_ARG := $(foreach PLATFORM,$(subst $(COMMA), ,$(BUILD_ARGS)),--build-args $(PLATFORM))
 PLATFORMS_ARG := $(foreach PLATFORM,$(subst $(COMMA), ,$(PLATFORMS)),--platform linux/$(PLATFORM))
-TAGS_ARG := $(foreach TAG,$(subst $(COMMA), ,$(TAGS)),-t $(REGISTRY)/$(IMAGE)/$(TAG))
+TAGS_ARG := $(foreach TAG,$(subst $(COMMA), ,$(TAGS)),-t $(REGISTRY)/$(USER)/$(IMAGE):$(TAG))
 
 .PHONY: setup
 setup:
