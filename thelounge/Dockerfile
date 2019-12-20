@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:13-alpine
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \
@@ -19,13 +19,11 @@ RUN export user=thelounge \
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 RUN apk add --no-cache --no-progress su-exec \
-  && if [ "$(uname -m)" = "x86_64" ]; then \
-    apk add --no-cache --no-progress g++ make python \
-    && npm install -g --unsafe-perm sqlite3 \
-    && apk del g++ make python ; \
-  fi
-
-RUN yarn global add thelounge
+  && ([ "$(uname -m)" = "x86_64" ] \
+    && apk add --no-cache --no-progress --virtual .build make g++ python \
+    && npm install -g --unsafe-perm sqlite3) \
+  && yarn global add thelounge \
+  && apk del .build
 
 ENV THELOUNGE_HOME=/app
 EXPOSE 9000
