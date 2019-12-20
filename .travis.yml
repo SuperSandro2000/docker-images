@@ -16,7 +16,9 @@ install:
   - mkdir -p /etc/docker/
   - |
     echo -e '{"experimental": true}' | sudo tee /etc/docker/daemon.json
-  - sudo systemctl restart docker
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt install -qy docker-ce
 
 env:
   global:
