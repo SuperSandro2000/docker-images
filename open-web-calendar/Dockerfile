@@ -17,7 +17,7 @@ ARG REVISION
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \
   org.opencontainers.image.authors="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
-  org.opencontainers.image.url="https://github.com/SuperSandro2000/docker-images/tree/master/" \
+  org.opencontainers.image.url="https://github.com/SuperSandro2000/docker-images/tree/master/open-web-calendar" \
   org.opencontainers.image.documentation="https://github.com/healthchecks/open-web-calendar/" \
   org.opencontainers.image.source="https://github.com/SuperSandro2000/docker-images" \
   org.opencontainers.image.version=$VERSION \
