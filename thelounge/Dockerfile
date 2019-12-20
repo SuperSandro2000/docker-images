@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:13-alpine
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \
