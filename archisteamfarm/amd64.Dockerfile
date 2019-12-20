@@ -1,4 +1,4 @@
-FROM alpine:3.10 as git
+FROM alpine:3.11 as git
 RUN apk add --no-cache --no-progress git
 WORKDIR /src
 ARG VERSION
