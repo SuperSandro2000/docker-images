@@ -73,7 +73,7 @@ shfmt: $(SHFMT)
 .PHONY: format
 format: shfmt
 
-%/files/pip.conf: lib/templates/pip.conf
+%/files/pip.conf: templates/pip.conf
 	cp $< $@
 
 .PHONY: $(SUBDIRS)
