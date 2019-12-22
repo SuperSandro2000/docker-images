@@ -5,12 +5,13 @@ SHELL := /bin/bash
 BUILD_ARGS ?=
 CI ?=
 COMMA :=,
+DEFAULT_BUILD_ARGS ?= BUILD_DATE=$(shell date -u +"%Y-%m-%d"),REVISION=$(shell git rev-parse --short HEAD),VERSION=$(VERSION)
 HOOK ?=
 IMAGE ?= test
 PLATFORMS ?= amd64,arm/v7,arm64
 REGISTRY ?= $(if ${CI},docker.io,localhost:5000)
 SUDO ?= $(shell if ! groups | grep -q docker; then echo sudo; fi)
-TAGS ?= test
+TAGS ?= latest
 USER ?= $(if ${CI},supersandro2000,sandro)
 VERSIONS ?=
 
