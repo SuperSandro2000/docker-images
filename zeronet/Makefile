@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-MAKEFLAGS=--warn-undefined-variables
+MAKEFLAGS += --warn-undefined-variables --no-print-directory
 SHELL := /bin/bash
 
 HOOK := https://hooks.microbadger.com/images/supersandro2000/zeronet/B9vzdMxCP5RYwUuPtaP61aOsM8E=

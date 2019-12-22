@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-MAKEFLAGS=--warn-undefined-variables
+MAKEFLAGS += --warn-undefined-variables
 SHELL := /bin/bash
 
 BUILD_ARGS ?=

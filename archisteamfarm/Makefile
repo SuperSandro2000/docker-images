@@ -1,6 +1,5 @@
 .DEFAULT_GOAL := all
-.RECIPEPREFIX +=
-MAKEFLAGS=--warn-undefined-variables
+MAKEFLAGS += --warn-undefined-variables --no-print-directory
 SHELL := /bin/bash
 
 LATEST ?= $(shell curl -s https://api.github.com/repos/justarchinet/archisteamfarm/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.tag_name')
