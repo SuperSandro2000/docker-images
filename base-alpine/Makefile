@@ -6,4 +6,8 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/base-alpine/bwqaLj_
 IMAGE := base-alpine
 VERSION := 3.11
 
+.PHONY: edge
+edge:
+	$(MAKE) -$(MAKEFLAGS) -e build VERSION=edge
+
 include ../buildx/Makefile
