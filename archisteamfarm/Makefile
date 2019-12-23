@@ -2,13 +2,12 @@
 MAKEFLAGS += --warn-undefined-variables --no-print-directory
 SHELL := /bin/bash
 
-RELEASED ?= $(shell curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases?access_token="${GITHUB_TOKEN}" | jq -r '.[0].tag_name')
+LATEST ?= $(shell curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases?access_token="${GITHUB_TOKEN}" | jq -r '.[0].tag_name')
 
 HOOK := https://hooks.microbadger.com/images/supersandro2000/archisteamfarm/uFaZZ9Eb73O7_EOTXqHxPQls45E=
 IMAGE := archisteamfarm
-VARIANTS := amd64
-VERSIONS := $(LATEST)
-TAG_SUFFIX := alpine-
-BUILD_ARGS := VERSION=$(LATEST)
+PLATFORMS := amd64
+TAGS := alpine alpine-$(LATEST)
+VERSION := $(LATEST)
 
-include ../lib/Makefile
+include ../buildx/Makefile
