@@ -23,6 +23,10 @@ ifndef HOOK
 	$(error HOOK is not set)
 endif
 
+ifndef VERSION
+	$(error VERSION is not set)
+endif
+
 .PHONY: setup
 setup:
 	$(SUDO) docker buildx create --use --name build --node build --driver-opt network=host
