@@ -11,13 +11,13 @@ IMAGE ?= test
 PLATFORMS ?= amd64,arm/v7,arm64
 REGISTRY ?= $(if ${CI},docker.io,localhost:5000)
 SUDO ?= $(shell if ! groups | grep -q docker; then echo sudo; fi)
-TAGS ?= latest
+TAGS ?= latest $(VERSION)
 USER := $(if ${CI},supersandro2000,sandro)
 VERSION ?=
 
 BUILD_ARG := $(foreach BUILD,$(subst $(COMMA), ,$(BUILD_ARGS) $(DEFAULT_BUILD_ARGS)),--build-arg $(BUILD))
 PLATFORMS_ARG := $(foreach PLATFORM,$(subst $(COMMA), ,$(PLATFORMS)),--platform linux/$(PLATFORM))
-TAGS_ARG := $(foreach TAG,$(subst $(COMMA), ,$(TAGS) $(VERSION)),-t $(REGISTRY)/$(USER)/$(IMAGE):$(TAG))
+TAGS_ARG := $(foreach TAG,$(subst $(COMMA), ,$(TAGS)),-t $(REGISTRY)/$(USER)/$(IMAGE):$(TAG))
 
 ifndef HOOK
 	$(error HOOK is not set)
