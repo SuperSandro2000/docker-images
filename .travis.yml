@@ -24,6 +24,8 @@ install:
   - sudo apt install -qy docker-ce
   # create builder for buildx
   - docker buildx create --use --name build --node build --driver-opt network=host
+  # log into Docker HUB
+  - echo ${DOCKER_PASSWORD} | sudo docker login -u ${DOCKER_USERNAME} --password-stdin
 
 env:
   global:
