@@ -22,10 +22,12 @@ install:
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - sudo add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   - sudo apt install -qy docker-ce
+  # log into Docker HUB
+  - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+  # enable multiarch
+  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
   # create builder for buildx
   - docker buildx create --use --name build --node build --driver-opt network=host
-  # log into Docker HUB
-  - echo ${DOCKER_PASSWORD} | sudo docker login -u ${DOCKER_USERNAME} --password-stdin
 
 env:
   global:
