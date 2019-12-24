@@ -4,5 +4,6 @@ SHELL := /bin/bash
 
 HOOK := https://hooks.microbadger.com/images/supersandro2000/aports/sLt3eq2bpOG71uETWB-zRvB52fM=
 IMAGE := aports
+VERSION := 3.11
 
 include ../buildx/Makefile
