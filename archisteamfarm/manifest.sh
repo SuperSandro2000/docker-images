@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -eou pipefail
 set -x
+
 # shellcheck source=functions.sh source=lib/functions.sh disable=SC1091
-source "$(dirname "$(realpath -s "$0")")/../lib/functions.sh"
+source "$(dirname "$(realpath -s "$0")")/functions.sh"
 
 sudo=$(docker_sudo)
 export DOCKER_CLI_EXPERIMENTAL=enabled
