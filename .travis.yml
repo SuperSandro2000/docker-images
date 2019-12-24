@@ -2,13 +2,10 @@ os: linux
 dist: bionic
 language: shell
 group: travis_latest
-services:
-  - docker
 
 addons:
   apt:
     packages:
-      # - docker-ce
       - jq
 
 install:
@@ -32,44 +29,25 @@ install:
 env:
   global:
     - DOCKER_CLI_EXPERIMENTAL=enabled
-    # - DOCKER_BUILDKIT=1
+    - DOCKER_BUILDKIT=1
 
 stages:
   - lint
   - Build base
   - build
-  - manifest
   - scan
 
 .template:
   - &build
     stage: build
     script:
-      - if [[ $TRAVIS_CPU_ARCH == amd64 ]]; then docker run --rm --privileged multiarch/qemu-user-static --reset -p yes; fi
       - cd "$IMAGE"
-      - make build;
+      - make
       - docker images
-    after_script:
-      - if [[ $TRAVIS_BRANCH == master ]]; then
-          make push;
-          if [[ ${MANIFEST:-true} == true ]]; then
-           make manifest;
-          fi;
-        fi
-
-  - &manifest
-    stage: manifest
-    script:
-      - cd "$IMAGE"
-      - if [[ $TRAVIS_BRANCH == master ]]; then
-          make manifest;
-        fi
 
 jobs:
   allow_failures:
     - stage: scan
-    # remove when builds with .NET 3.1 hit stable
-    - env: IMAGE=archisteamfarm VARIANT=alpine
 
   include:
     - stage: lint
@@ -89,16 +67,18 @@ jobs:
     - <<: *build
       env: IMAGE=aports
     - <<: *build
-      env: IMAGE=archisteamfarm VARIANT=alpine
+      env: IMAGE=archisteamfarm
+    - <<: *build
+      env: IMAGE=archisteamfarm
+      script:
+        - cd archisteamfarm
+        - ./manifest.sh
     - <<: *build
       env: IMAGE=code-server-extra
     - <<: *build
       env: IMAGE=halcyon
     - <<: *build
-      env: IMAGE=healthchecks VARIANTS=amd64 MANIFEST=false
-    - <<: *build
-      arch: arm64
-      env: IMAGE=healthchecks VARIANTS=arm64 MANIFEST=false
+      env: IMAGE=healthchecks
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
@@ -106,14 +86,7 @@ jobs:
     - <<: *build
       env: IMAGE=prerenderer
     - <<: *build
-      env: IMAGE=reddiscord VARIANTS=amd64,armhf MANIFEST=false
-    - <<: *build
-      env: IMAGE=reddiscord TAGS=source VARIANTS=amd64,armhf VERSIONS=source MANIFEST=false
-    - <<: *build
-      arch: arm64
-      env: IMAGE=reddiscord VARIANTS=arm64 MANIFEST=false
-      before_script:
-        - sudo apt install zip
+      env: IMAGE=reddiscord
     - <<: *build
       env: IMAGE=thelounge
     - <<: *build
@@ -121,18 +94,6 @@ jobs:
     - <<: *build
       env: IMAGE=zeronet
 
-    - <<: *manifest
-      env: IMAGE=archisteamfarm
-      script:
-        - if [[ $TRAVIS_BRANCH == master ]]; then
-            cd archisteamfarm;
-            make login;
-            ./manifest.sh;
-          fi
-    - <<: *manifest
-      env: IMAGE=healthchecks
-    - <<: *manifest
-      env: IMAGE=reddiscord
 
     - stage: scan
       cache:
