@@ -8,7 +8,7 @@ RUN git clone https://github.com/niccokunzmann/open-web-calendar.git /app/
 
 #------------------#
 
-FROM python:3-alpine3.10
+FROM python:3-alpine3.11
 
 ARG BUILD_DATE
 ARG VERSION
