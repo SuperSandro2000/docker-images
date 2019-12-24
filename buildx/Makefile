@@ -20,11 +20,11 @@ PLATFORMS_ARG := $(foreach PLATFORM,$(subst $(COMMA), ,$(PLATFORMS)),--platform 
 TAGS_ARG := $(foreach TAG,$(subst $(COMMA), ,$(TAGS)),-t $(REGISTRY)/$(USER)/$(IMAGE):$(TAG))
 
 ifndef HOOK
-	$(error HOOK is not set)
+$(error HOOK is not set)
 endif
 
 ifndef VERSION
-	$(error VERSION is not set)
+$(error VERSION is not set)
 endif
 
 .PHONY: setup
