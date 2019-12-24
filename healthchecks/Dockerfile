@@ -16,7 +16,7 @@ yaml=libyaml\n\
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /uwsgi
 
-RUN python3 uwsgiconfig.py --build
+RUN python3 uwsgiconfig.py --build -v
 
 ARG SHA
 
