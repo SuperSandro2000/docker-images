@@ -7,7 +7,7 @@ LATEST ?= $(shell curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFa
 HOOK := https://hooks.microbadger.com/images/supersandro2000/archisteamfarm/uFaZZ9Eb73O7_EOTXqHxPQls45E=
 IMAGE := archisteamfarm
 PLATFORMS := amd64
-TAGS := alpine alpine-$(LATEST)
+TAGS := alpine alpine-released alpine-$(LATEST)
 VERSION := $(LATEST)
 
 include ../buildx/Makefile

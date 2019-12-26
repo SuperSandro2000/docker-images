@@ -68,11 +68,11 @@ jobs:
       env: IMAGE=aports
     - <<: *build
       env: IMAGE=archisteamfarm
-    - <<: *build
-      env: IMAGE=archisteamfarm
       script:
-        - cd archisteamfarm
+        - cd "$IMAGE"
+        - make
         - ./manifest.sh
+        - docker images
     - <<: *build
       env: IMAGE=code-server-extra
     - <<: *build
