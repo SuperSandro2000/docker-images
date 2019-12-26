@@ -36,6 +36,6 @@ function retry() {
 
 function docker_sudo() {
   if ! groups | grep -q docker; then
-    echo "sudo --preserve-env=DOCKER_CLI_EXPERIMENTAL"
+    echo "sudo --preserve-env=HOME,DOCKER_CLI_EXPERIMENTAL,DOCKER_BUILDKIT"
   fi
 }
