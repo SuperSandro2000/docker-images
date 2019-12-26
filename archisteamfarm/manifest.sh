@@ -14,7 +14,7 @@ release_version=$(curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFa
 latest_version=$(curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.tag_name')
 version=$(echo "$release_version" "$latest_version" | xargs -n1 | sort -u | xargs)
 
-for variant in master latest released $version; do
+for variant in latest released $version; do
   $sudo docker manifest create supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm
   $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant" --os linux --arch amd64
   $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm --os linux --arch arm --variant v7
