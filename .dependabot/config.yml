@@ -1,0 +1,86 @@
+version: 1
+
+update_configs:
+  - package_manager: "docker"
+    directory: "/aports"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/archisteamfarm"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/base-alpine"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/code-server-extra"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/halcyon"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/healthchecks"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/iodine"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/kibitzr"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/open-web-calendar"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/prerenderer"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/reddiscord"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/thelounge"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/unbound"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/zeronet"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
