@@ -78,6 +78,14 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 
+### Mastodon Nginx
+
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/mastodon-nginx/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/mastodon-nginx/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/mastodon-nginx.svg)](https://microbadger.com/images/supersandro2000/iodine)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/mastodon-nginx.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/iodine/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/mastodon-nginx.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/iodine/)
+
 ### Open Web Calendar
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/open-web-calendar/)

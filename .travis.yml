@@ -82,6 +82,8 @@ jobs:
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
+      env: IMAGE=mastodon-nginx
+    - <<: *build
       env: IMAGE=open-web-calendar
     - <<: *build
       env: IMAGE=prerenderer
