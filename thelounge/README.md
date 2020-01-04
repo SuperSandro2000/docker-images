@@ -21,5 +21,7 @@ services:
     image: supersandro2000/thelounge
     ports:
       - 3000:3000
+    volumes:
+      - $PWD/thelounge:/app
     restart: unless-stopped
 ````

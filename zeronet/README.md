@@ -28,5 +28,7 @@ services:
       - ENABLE_TOR=true
       - UI_HOST=zeronet.example.com
       - UI_PASSWORD=secret
+    volumes:
+      - $PWD/zeronet:/app/data
     restart: unless-stopped
 ````
