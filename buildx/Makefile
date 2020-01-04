@@ -34,7 +34,7 @@ setup:
 
 .PHONY: login
 login:
-	$(SUDO) docker --config $(CONFIG) login
+	$(SUDO) docker --config $(CONFIG) login $(REGISTRY)
 
 .PHONY: build
 build:
