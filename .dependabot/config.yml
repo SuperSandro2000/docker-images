@@ -50,6 +50,24 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
+    directory: "/mastodon-nginx"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/musicbrainz"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/musicbrainz-docker
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
     directory: "/open-web-calendar"
     update_schedule: "daily"
     default_reviewers:
