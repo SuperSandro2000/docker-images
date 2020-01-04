@@ -30,7 +30,7 @@ endif
 
 .PHONY: setup
 setup:
-	$(SUDO) docker buildx create --use --name build --node build --driver-opt network=host
+	$(SUDO) docker --config $(CONFIG) buildx create --use --name build --node build --driver-opt network=host
 
 .PHONY: login
 login:
