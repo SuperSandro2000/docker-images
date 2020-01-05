@@ -36,8 +36,11 @@ if [[ -z ${SMTP_SECRET_CHECKSUM:-} ]]; then
   exit 1
 fi
 
-if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
-  #find . \! -user $USER -exec chown $USER '{}' +
+if [[ $1 = "$CMD" && $(id -u) = "0" ]]; then
+  if ! sha1sum -c /app/data/DBDefs.sha1; then
+    /app/script/compile_resources.sh
+    sha1sum /app/lib/DBDefs.pm >/app/data/DBDefs.pm
+  fi
 
   exec gosu $USER "$0" "$@"
 fi

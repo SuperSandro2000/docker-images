@@ -1,22 +1,22 @@
-FROM node:buster-slim as node
+FROM node:buster-slim as builder
 
 ENV NODE_ENV=production
 
 RUN apt-get update \
-  && apt-get install --no-install-recommends -qy ca-certificates git \
-    libaliased-perl libjson-perl libmoose-perl libreadonly-perl libstring-random-perl libstring-shellquote-perl \
+  && apt-get install --no-install-recommends -qy git \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=v-2019-12-10-hotfix
 
-RUN git clone --depth=100 https://github.com/metabrainz/musicbrainz-server.git /musicbrainz
+RUN git clone --depth=100 https://github.com/metabrainz/musicbrainz-server.git /app
 
-WORKDIR /musicbrainz
+WORKDIR /app
 
-COPY [ "files/DBDefs.pm", "/musicbrainz/lib/DBDefs.pm" ]
+RUN git checkout $VERSION
 
-RUN git checkout $VERSION \
-  && script/compile_resources.sh
+COPY [ "files/DBDefs.pm", "/app/lib/DBDefs.pm" ]
+
+RUN yarn
 
 #------------------#
 
@@ -47,7 +47,7 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 RUN apt-get update \
   # runtime
-  && apt-get install --no-install-recommends -qy gosu perl \
+  && apt-get install --no-install-recommends -qy git gosu perl \
   # import tools
   bzip2 libpq-dev postgresql-client-11 \
   # perl modules
@@ -62,12 +62,14 @@ RUN export dev_apt="cpanminus gcc libicu-dev make pkg-config" \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
-COPY --from=node [ "/musicbrainz/", "/app/" ]
-
-RUN npm install \
-  && mkdir -p /app/.nyc_output \
-  && chown musicbrainz:musicbrainz /app/.nyc_output
+COPY --from=builder [ "/app", "/app" ]
 
 WORKDIR /app
+
+RUN mkdir -p /app/.nyc_output /app/data \
+  && chown musicbrainz:musicbrainz /app/.nyc_output \
+  && script/compile_resources.sh
+
+VOLUME /app/data
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "plackup", "-Ilib", "-r" ]
