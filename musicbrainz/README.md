@@ -13,8 +13,8 @@ MusicBrainz Docker Image
 
 ## Setup instructions
 
-* Basically follow https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md#creating-the-database
-* More mirrors are available here https://musicbrainz.org/doc/MusicBrainz_Database/Download#Download
+* Basically follow [install instructions](https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md#creating-the-database)
+* More mirrors are available at the [download page](https://musicbrainz.org/doc/MusicBrainz_Database/Download#Download)
 * You need to drop the default database before importing the dump.
 
 ```shell
