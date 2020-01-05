@@ -1,3 +1,13 @@
+FROM alpine:latest as git
+
+RUN apk add --no-cache git
+
+ARG SHA
+
+RUN git clone https://github.com/prerender/prerender.git /app
+
+#------------------#
+
 FROM node:alpine
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
@@ -18,9 +28,9 @@ RUN export user=prerenderer \
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apk add --no-cache --no-progress chromium git su-exec \
-  && git clone https://github.com/prerender/prerender.git /app \
-  && apk del git
+RUN apk add --no-cache --no-progress chromium su-exec
+
+COPY --from=git [ "/app", "/app" ]
 
 RUN npm install /app
 
