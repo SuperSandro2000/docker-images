@@ -11,6 +11,11 @@
 
 MusicBrainz Docker Image
 
+## Setup instructions
+
+1. Basically follow https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md#creating-the-database
+2. More mirrors are available here https://musicbrainz.org/doc/MusicBrainz_Database/Download#Download
+
 ## Docker compose
 
 ````yaml
@@ -20,10 +25,11 @@ services:
   musicbrainz:
     image: supersandro2000/musicbrainz
     ports:
-      - 80:80
+      - 5000:5000
     environment:
       - DB_STAGING_SERVER=0
       - MUSICBRAINZ_USE_PROXY=1
+      - REDIS_SERVER=redis:6379
       - REPLICATION_ACCESS_TOKEN=YOUR_TOKEN
       - REPLICATION_TYPE=RT_SLAVE
       - SSL_REDIRECTS_ENABLED=1

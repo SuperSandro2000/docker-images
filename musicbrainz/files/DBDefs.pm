@@ -55,13 +55,13 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         username        => $ENV{'DB_USER'} || 'musicbrainz',
         password        => $ENV{'DB_PASS'} || 'musicbrainz',
         host            => $ENV{'DB_HOST'} || 'db_musicbrainz',
-#       port            => "",
+        port            => "5432",
     },
     # How to connect to a test database
     TEST => {
-        database        => "musicbrainz_test",
-        username        => "musicbrainz",
-        password        => "musicbrainz",
+#        database        => "musicbrainz_test",
+#        username        => "musicbrainz",
+#        password        => "musicbrainz",
 #       host            => "",
 #       port            => "",
     },
@@ -69,27 +69,27 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # (and dropped) automatically by t/selenium.js, and uses the TEST
     # database above as a template.
     SELENIUM => {
-        database        => 'musicbrainz_selenium',
-        schema          => 'musicbrainz',
-        username        => 'musicbrainz',
+#        database        => 'musicbrainz_selenium',
+#        schema          => 'musicbrainz',
+#        username        => 'musicbrainz',
 #       host            => "",
 #       port            => "",
     },
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     READONLY => {
-        database        => "musicbrainz_db",
-        username        => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
+        database        => $ENV{'DB'} || 'musicbrainz_db',
+        username        => $ENV{'DB_USER'} || 'musicbrainz',
+        password        => $ENV{'DB_PASS'} || 'musicbrainz',
+        host            => $ENV{'DB_HOST'} || 'db_musicbrainz',
+        port            => "5432",
     },
     # How to connect for administrative access
     SYSTEM    => {
-        database        => "template1",
-        username        => "postgres",
-#       password        => "",
-#       host            => "",
-#       port            => "",
+        database        => 'template1',
+        username        => $ENV{'DB_USER'} || 'musicbrainz',
+        password        => $ENV{'DB_PASS'} || 'musicbrainz',
+        host            => $ENV{'DB_HOST'} || 'db_musicbrainz',
+        port            => "5432",
     },
     # How to connect when running maintenance scripts located under admin/.
     # This defaults to READWRITE if left undefined, but should be configured if
@@ -125,7 +125,7 @@ sub DB_SCHEMA_SEQUENCE { 25 }
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 # sub REPLICATION_TYPE { RT_STANDALONE }
-sub REPLICATION_TYPE { $ENV{'REPLICATION_TYPE'} || RT_MASTER }
+sub REPLICATION_TYPE { RT_SLAVE }
 
 # If you plan to use the RT_SLAVE setting (replicated data from MusicBrainz' Live Data Feed)
 # you must sign in at https://metabrainz.org and generate an access token to access

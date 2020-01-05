@@ -14,12 +14,11 @@ WORKDIR /musicbrainz
 COPY [ "files/DBDefs.pm", "/musicbrainz/lib/DBDefs.pm" ]
 
 RUN git checkout $VERSION \
-  && script/compile_resources.sh \ 
-  && rm -r /musicbrainz/node_modules
+  && script/compile_resources.sh
 
 #------------------#
 
-FROM debian:buster-slim
+FROM node:buster-slim
 
 ARG BUILD_DATE
 ARG REVISION
@@ -44,18 +43,28 @@ RUN export user=musicbrainz \
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
+RUN apt-get update \
+  # runtime
+  && apt-get install --no-install-recommends -qy gosu perl \
+  # import tools
+  && bzip2 libpq-dev postgresql-client-11 \
+  # perl modules
+  libaliased-perl libauthen-passphrase-perl libdbd-pg-perl libdbix-connector-perl libcaptcha-recaptcha-perl libcatalyst-action-renderview-perl libcatalyst-authentication-credential-http-perl libcatalyst-plugin-cache-perl libcatalyst-plugin-session-state-cookie-perl libcatalyst-view-tt-perl libcgi-expand-perl libdata-compare-perl libdata-page-perl libdate-calc-perl libdatetime-format-iso8601-perl libdatetime-format-natural-perl libdatetime-format-pg-perl libdigest-md5-file-perl libemail-address-perl libemail-mime-perl libemail-sender-perl libhash-merge-perl libhtml-formhandler-perl libhtml-treebuilder-xpath-perl libfile-slurp-perl libintl-perl libio-all-perl libio-string-perl libjson-perl libjson-xs-perl liblist-allutils-perl liblog-dispatch-perl liblist-moreutils-perl libmath-random-mt-perl libmath-random-secure-perl libmoosex-clone-perl libmoosex-role-parameterized-perl libmoosex-singleton-perl libmoosex-types-structured-perl libmoosex-types-uri-perl libobject-insideout-perl libplack-middleware-debug-perl libreadonly-perl libredis-perl libset-scalar-perl libstatistics-basic-perl libstring-camelcase-perl libstring-random-perl libstring-shellquote-perl libstring-tt-perl libtemplate-plugin-javascript-perl libtest-fatal-perl libtest-www-mechanize-catalyst-perl libtext-markdown-perl libtext-trim-perl libtext-unaccent-perl libtext-wikiformat-perl libthrowable-perl libxml-parser-lite-perl libxml-simple-perl libxml-xpath-perl \
+  && rm -rf /var/lib/apt/lists/*
+
 # hadolint ignore=SC2086
 RUN export dev_apt="cpanminus gcc libicu-dev make pkg-config" \
   && apt-get update \
-  # runtime and tools
-  && apt-get install --no-install-recommends -qy $dev_apt gosu perl \
-  # perl modules
-  libauthen-passphrase-perl libcatalyst-authentication-credential-http-perl libcatalyst-plugin-cache-perl libcatalyst-plugin-session-state-cookie-perl libclone-perl libdata-compare-perl libdatetime-format-pg-perl libfile-slurp-perl libintl-perl libjson-perl libjson-xs-perl liblist-allutils-perl liblog-dispatch-perl liblist-moreutils-perl libmath-random-mt-perl libmath-random-secure-perl libmoosex-role-parameterized-perl libmoosex-singleton-perl libobject-insideout-perl libplack-middleware-debug-perl libreadonly-perl libredis-perl libstatistics-basic-perl libtemplate-perl libtest-www-mechanize-catalyst-perl libtext-trim-perl libtext-unaccent-perl libtext-wikiformat-perl \
-  && cpanm --installdeps --notest Catalyst::Plugin::Cache::HTTP Data::UUID::MT Unicode::ICU::Collator \
+  && apt-get install -qy --no-install-recommends $dev_apt libicu63 \
+  && cpanm --notest Catalyst::Plugin::Cache::HTTP Data::UUID::MT MooseX::ABC REST::Utils Net::Amazon::AWSSign Unicode::ICU::Collator XML::RSS::Parser::Lite \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=node [ "/musicbrainz/", "/app/" ]
+
+RUN npm install \
+  && mkdir -p /app/.nyc_output \
+  && chown musicbrainz:musicbrainz /app/.nyc_output
 
 WORKDIR /app
 ENTRYPOINT [ "entrypoint.sh" ]
