@@ -67,8 +67,7 @@ COPY --from=builder [ "/app", "/app" ]
 WORKDIR /app
 
 RUN mkdir -p /app/.nyc_output /app/data \
-  && chown musicbrainz:musicbrainz /app/.nyc_output \
-  && script/compile_resources.sh
+  && chown musicbrainz:musicbrainz /app/.nyc_output
 
 VOLUME /app/data
 ENTRYPOINT [ "entrypoint.sh" ]
