@@ -45,16 +45,14 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="MusicBrainz Postgres Server" \
   org.opencontainers.image.description="PostgreSQL with MusicBrainz collation and MusicBrainz unaccenting routines"
 
-COPY --from=collate [ "/postgresql-musicbrainz-collate/musicbrainz_collate.so", "/usr/lib/postgresql/musicbrainz_collate.so" ]
-COPY --from=collate [ "/postgresql-musicbrainz-collate/musicbrainz_collate.control", "/usr/share/doc/postgresql/extension/" ]
-COPY --from=collate [ "/postgresql-musicbrainz-collate/sql/musicbrainz_collate.sql", "/postgresql-musicbrainz-collate/sql/musicbrainz_collate--1.0.0.sql", "/usr/share/postgresql/extension/" ]
-COPY --from=collate [ "/postgresql-musicbrainz-collate/README.musicbrainz_collate.md", "/usr/share/doc/postgresql/extension/" ]
+COPY --from=collate [ "/postgresql-musicbrainz-collate/musicbrainz_collate.so", "/usr/local/lib/postgresql/musicbrainz_collate.so" ]
+COPY --from=collate [ "/postgresql-musicbrainz-collate/musicbrainz_collate.control", "/postgresql-musicbrainz-collate/sql/musicbrainz_collate.sql", "/postgresql-musicbrainz-collate/sql/musicbrainz_collate--1.0.0.sql", "/usr/local/share/postgresql/extension/" ]
+COPY --from=collate [ "/postgresql-musicbrainz-collate/README.musicbrainz_collate.md", "/usr/local/share/doc/postgresql/extension/" ]
 
-COPY --from=unaccent [ "/postgresql-musicbrainz-unaccent/musicbrainz_unaccent.so", "/usr/lib/postgresql/musicbrainz_unaccent.so" ]
-COPY --from=unaccent [ "/postgresql-musicbrainz-unaccent/musicbrainz_unaccent.control", "/usr/share/doc/postgresql/extension/" ]
-COPY --from=unaccent [ "/postgresql-musicbrainz-unaccent/sql/musicbrainz_unaccent.sql", "/postgresql-musicbrainz-unaccent/sql/uninstall_musicbrainz_unaccent.sql", "/postgresql-musicbrainz-unaccent/sql/musicbrainz_unaccent--1.0.0.sql", "/usr/share/postgresql/extension/" ]
-COPY --from=unaccent [ "/postgresql-musicbrainz-unaccent/README.musicbrainz_unaccent.md", "/usr/share/doc/postgresql/extension/" ]
+COPY --from=unaccent [ "/postgresql-musicbrainz-unaccent/musicbrainz_unaccent.so", "/usr/local/lib/postgresql/musicbrainz_unaccent.so" ]
+COPY --from=unaccent [ "/postgresql-musicbrainz-unaccent/musicbrainz_unaccent.control", "/postgresql-musicbrainz-unaccent/sql/musicbrainz_unaccent.sql", "/postgresql-musicbrainz-unaccent/sql/uninstall_musicbrainz_unaccent.sql", "/postgresql-musicbrainz-unaccent/sql/musicbrainz_unaccent--1.0.0.sql", "/usr/local/share/postgresql/extension/" ]
+COPY --from=unaccent [ "/postgresql-musicbrainz-unaccent/README.musicbrainz_unaccent.md", "/usr/local/share/doc/postgresql/extension/" ]
 
-RUN chmod 755 /usr/lib/postgresql/*.so \
-  && chmod 644 /usr/share/postgresql/extension/* \
-  && chmod 644 /usr/share/doc/postgresql/extension/*
+RUN chmod 755 /usr/local/lib/postgresql/*.so \
+  && chmod 644 /usr/local/share/postgresql/extension/* \
+  && chmod 644 /usr/local/share/doc/postgresql/extension/*
