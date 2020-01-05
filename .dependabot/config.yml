@@ -62,7 +62,7 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
-    directory: "/musicbrainz-docker
+    directory: "/musicbrainz-postgres"
     update_schedule: "daily"
     default_reviewers:
       - "supersandro2000"
