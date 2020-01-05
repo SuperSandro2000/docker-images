@@ -3,7 +3,9 @@ FROM node:buster-slim as node
 ENV NODE_ENV=production
 
 RUN apt-get update \
-  && apt-get install --no-install-recommends -qy ca-certificates git libaliased-perl libjson-perl libmoose-perl libreadonly-perl libstring-random-perl libstring-shellquote-perl
+  && apt-get install --no-install-recommends -qy ca-certificates git \
+    libaliased-perl libjson-perl libmoose-perl libreadonly-perl libstring-random-perl libstring-shellquote-perl \
+  && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=v-2019-12-10-hotfix
 
