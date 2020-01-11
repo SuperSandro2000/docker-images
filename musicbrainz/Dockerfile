@@ -3,7 +3,7 @@ FROM node:buster-slim as builder
 ENV NODE_ENV=production
 
 RUN apt-get update \
-  && apt-get install --no-install-recommends -qy git \
+  && apt-get install --no-install-recommends -qy ca-certificates git \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=v-2019-12-10-hotfix
