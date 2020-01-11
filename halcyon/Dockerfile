@@ -1,3 +1,19 @@
+FROM debian:buster as git
+
+RUN apt-get update -q \
+  && apt-get install -qy --no-install-recommends ca-certificates git \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www/html
+
+ARG VERSION
+
+RUN git clone --depth=1 https://notabug.org/halcyon-suite/halcyon.git /var/www/html/ \
+  && git checkout $VERSION \
+  && chmod 755 /var/www/html/ -R
+
+#--------------#
+
 FROM php:apache-buster
 
 ARG BUILD_DATE
@@ -27,17 +43,11 @@ RUN export dev_apt="libicu-dev" \
   && apt-get install -qy --no-install-recommends "$dev_apt" gettext gosu libicu63 \
   && docker-php-ext-install -j4 gettext intl \
   && a2enmod rewrite \
-  && apt-get autoremove --purge -qy "$dev_apt" \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN export dev_apt="git" \
-  && apt-get update -q \
-  && apt-get install -qy --no-install-recommends "$dev_apt" \
-  && git clone --depth=1 https://notabug.org/halcyon-suite/halcyon.git /var/www/html/ \
-  && bash -c 'chmod 755 /var/www/html/ -R' \
   && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
   && apt-get autoremove --purge -qy "$dev_apt" \
   && rm -rf /var/lib/apt/lists/*
+
+COPY --from=git [ "/var/www/html", "/var/www/html" ]
 
 EXPOSE 4430 8000
 WORKDIR /var/www/html/
