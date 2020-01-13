@@ -90,6 +90,8 @@ jobs:
     - <<: *build
       env: IMAGE=open-web-calendar
     - <<: *build
+      env: IMAGE=privatebin
+    - <<: *build
       env: IMAGE=prerenderer
     - <<: *build
       env: IMAGE=reddiscord
