@@ -12,6 +12,7 @@ fi
 if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
   find . \! -user $USER -exec chown $USER '{}' +
 
+  # shellcheck disable=SC2016
   envsubst '${NAME},${DB_HOST},${DB_NAME},${DB_PASSWORD},${DB_USER}' < /var/www/html/cfg/conf.sample.php > /var/www/html/cfg/conf.php
 
   exec gosu $USER "$0" "$@"
