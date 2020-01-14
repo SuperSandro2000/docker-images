@@ -14,8 +14,6 @@ if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
 
   # shellcheck disable=SC2016
   envsubst '${NAME},${DB_HOST},${DB_NAME},${DB_PASSWORD},${DB_USER}' < /var/www/html/cfg/conf.sample.php > /var/www/html/cfg/conf.php
-
-  exec gosu $USER "$0" "$@"
 fi
 
 exec "$@"
