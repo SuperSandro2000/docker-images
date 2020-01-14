@@ -37,14 +37,17 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="A minimalist, open source online pastebin where the server has zero knowledge of pasted data. Data is encrypted/decrypted in the browser using 256 bits AES."
 
 RUN usermod -aG tty www-data \
-  && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+  && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+  && a2enmod rewrite
 
 COPY [ "files/ports.conf", "/etc/apache2/ports.conf" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apt-get update -q \
-  && apt-get install -qy --no-install-recommends gettext-base gosu \
-  && apt-get autoremove --purge -qy \
+RUN export dev_apt="libpq-dev" \
+  && apt-get update -q \
+  && apt-get install -qy --no-install-recommends "$dev_apt" gettext-base gosu libpq5 \
+  && docker-php-ext-install -j4 pdo_pgsql \
+  && apt-get autoremove --purge -qy "$dev_apt" \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=git [ "/var/www/html", "/var/www/html" ]

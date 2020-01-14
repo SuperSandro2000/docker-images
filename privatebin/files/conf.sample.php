@@ -174,10 +174,11 @@ dir = PATH "data"
 ;pwd = null
 ;opt[12] = true	; PDO::ATTR_PERSISTENT
 
-;[model]
+[model]
 class = Database
-;[model_options]
-dsn = "mysql:host=${DB_HOST};dbname=${DB_NAME};charset=UTF8"
+[model_options]
+dsn = "pgsql:host=${DB_HOST};dbname=${DB_NAME}"
+tbl = "privatebin_"	; table prefix
 usr = "${DB_USER}"
 pwd = "${DB_PASSWORD}"
 opt[12] = true	  ; PDO::ATTR_PERSISTENT
