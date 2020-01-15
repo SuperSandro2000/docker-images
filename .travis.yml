@@ -80,6 +80,8 @@ jobs:
     - <<: *build
       env: IMAGE=healthchecks
     - <<: *build
+      env: IMAGE=iodine
+    - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
       env: IMAGE=mastodon-nginx
@@ -90,15 +92,17 @@ jobs:
     - <<: *build
       env: IMAGE=open-web-calendar
     - <<: *build
-      env: IMAGE=privatebin
-    - <<: *build
       env: IMAGE=prerenderer
+    - <<: *build
+      env: IMAGE=privatebin
     - <<: *build
       env: IMAGE=reddiscord
     - <<: *build
       env: IMAGE=thelounge
     - <<: *build
       env: IMAGE=unbound
+    - <<: *build
+      env: IMAGE=yourls
     - <<: *build
       env: IMAGE=zeronet
 
