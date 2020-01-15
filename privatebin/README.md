@@ -25,7 +25,5 @@ services:
       - DB_NAME=privatebin
       - DB_PASSWORD=secret_password
       - DB_USER=privatebin
-    volumes:
-      - $PWD/privatebin/:/var/www/html/data/
     restart: unless-stopped
 ````

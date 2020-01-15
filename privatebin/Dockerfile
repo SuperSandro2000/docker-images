@@ -11,7 +11,6 @@ ARG VERSION=1.3.2
 RUN git clone --depth=50 https://github.com/PrivateBin/PrivateBin.git /var/www/html/ \
   && git checkout $VERSION \
   && mv /var/www/html/.htaccess.disabled /var/www/html/.htaccess
-#  && chmod 755 /var/www/html/ -R
 
 COPY [ "files/conf.sample.php", "/var/www/html/cfg/conf.sample.php" ]
 
@@ -38,6 +37,9 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 
 RUN usermod -aG tty www-data \
   && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+  # we don't want any access logs
+  && ln -sfT /dev/null "$APACHE_LOG_DIR/access.log" \
+  && ln -sfT /dev/null "$APACHE_LOG_DIR/other_vhosts_access.log" \
   && a2enmod rewrite
 
 COPY [ "files/ports.conf", "/etc/apache2/ports.conf" ]
