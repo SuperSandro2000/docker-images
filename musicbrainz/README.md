@@ -21,6 +21,9 @@ MusicBrainz Docker Image
 docker exec user_db_musicbrainz_1 psql -U musicbrainz -d template1 -c "drop database musicbrainz;"
 ```
 
+* Make sure to turn on [replication](https://musicbrainz.supersandro.de/doc/MusicBrainz_Server/Setup#Running_Replication)
+** The article is not the most up to date one and currently the replication script is located at ``/app/admin/replication/LoadReplicationChanges``.
+
 ## Docker compose
 
 ````yaml
