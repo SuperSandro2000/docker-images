@@ -27,7 +27,7 @@ RUN make \
 
 #------------------#
 
-FROM postgres:11-alpine
+FROM postgres:12-alpine
 
 ARG BUILD_DATE
 ARG REVISION
