@@ -1,5 +1,5 @@
 # build with alpine 3.10 to still have postgres 11 available
-FROM alpine:3.10 as builder
+FROM alpine:3.11.3 as builder
 
 RUN apk add --no-cache ca-certificates gcc git icu-dev make musl-dev postgresql-dev
 
