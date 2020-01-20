@@ -1,5 +1,6 @@
-# build with alpine 3.10 to still have postgres 11 available
-FROM alpine:3.10 as builder
+ARG VERSION=12
+
+FROM alpine:3.11 as builder
 
 RUN apk add --no-cache ca-certificates gcc git icu-dev make musl-dev postgresql-dev
 
@@ -27,7 +28,7 @@ RUN make \
 
 #------------------#
 
-FROM postgres:11-alpine
+FROM postgres:${VERSION}-alpine as postgres
 
 ARG BUILD_DATE
 ARG REVISION
