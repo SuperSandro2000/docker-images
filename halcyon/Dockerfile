@@ -6,7 +6,7 @@ RUN apt-get update -q \
 
 WORKDIR /var/www/html
 
-ARG VERSION
+ARG VERSION=2.4.6
 
 RUN git clone --depth=1 --branch $VERSION -- https://notabug.org/halcyon-suite/halcyon.git /var/www/html/ \
   && chmod 755 /var/www/html/ -R
