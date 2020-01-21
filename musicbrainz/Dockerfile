@@ -6,13 +6,11 @@ RUN apt-get update \
   && apt-get install --no-install-recommends -qy ca-certificates git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=v-2019-12-10-hotfix
+ARG VERSION=v-2020-01-06
 
-RUN git clone --depth=100 https://github.com/metabrainz/musicbrainz-server.git /app
+RUN git clone --depth=1 --branch $VERSION -- https://github.com/metabrainz/musicbrainz-server.git /app
 
 WORKDIR /app
-
-RUN git checkout $VERSION
 
 COPY [ "files/DBDefs.pm", "/app/lib/DBDefs.pm" ]
 

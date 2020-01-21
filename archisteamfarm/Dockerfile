@@ -2,8 +2,7 @@ FROM alpine:3.11 as git
 RUN apk add --no-cache --no-progress git
 WORKDIR /src
 ARG VERSION
-RUN git clone --recurse-submodules -j2 https://github.com/JustArchiNET/ArchiSteamFarm.git /src \
-  && git checkout $VERSION
+RUN git clone --recurse-submodules -j2 --depth=1 --branch $VERSION -- https://github.com/JustArchiNET/ArchiSteamFarm.git /src
 
 FROM node:lts-alpine AS build-node
 WORKDIR /app
