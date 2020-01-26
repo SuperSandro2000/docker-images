@@ -1,4 +1,4 @@
-FROM supersandro2000/base-alpine:3.11
+FROM python:3.8-alpine
 
 ARG BUILD_DATE
 ARG VERSION
@@ -22,7 +22,7 @@ ENV HOME=/app ENABLE_TOR=false
 RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
-RUN apk add --no-cache --no-progress py3-pip tor
+RUN apk add --no-cache --no-progress bash su-exec tor
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
