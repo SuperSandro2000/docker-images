@@ -34,7 +34,7 @@ RUN apk add --no-cache --no-progress grep tar \
   && mkdir /app \
   && wget -O- -- https://github.com/HelloZeroNet/ZeroNet/tarball/py3 | tar xz -f - -C /app --strip-components=1 \
   && pip3 install --no-cache-dir --progress-bar off --pre gevent \
-  && grep -P '^((?!gevent).)*$' /app/requirements.txt | xargs -n 1 pip3 install --no-cache-dir --progress-bar off \
+  && grep -P '^((?!gevent(?!-)).)*$' /app/requirements.txt | xargs -n 1 pip3 install --no-cache-dir --progress-bar off \
   && apk del grep tar \
 \
   && mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
