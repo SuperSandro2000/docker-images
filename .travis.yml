@@ -98,6 +98,8 @@ jobs:
     - <<: *build
       env: IMAGE=reddiscord
     - <<: *build
+      env: IMAGE=screeenly
+    - <<: *build
       env: IMAGE=thelounge
     - <<: *build
       env: IMAGE=unbound
