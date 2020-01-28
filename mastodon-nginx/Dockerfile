@@ -20,7 +20,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="ZeroNet - Decentralized websites using Bitcoin crypto and BitTorrent network"
 
 COPY --from=mastodon [ "/mastodon/public", "/mastodon/public" ]
-COPY [ "default.template", "/etc/nginx/conf.d/default.template" ]
+COPY [ "files/default.template", "/etc/nginx/conf.d/default.template" ]
 
 WORKDIR /etc/nginx/
 CMD [ "ash", "-c", "envsubst '${MASTODON_SERVER},${MASTODON_STREAMING},${NGINX_DOMAIN}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && exec nginx-debug -g 'daemon off;'" ]
