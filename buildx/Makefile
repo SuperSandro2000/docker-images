@@ -11,7 +11,7 @@ HOOK ?=
 IMAGE ?= test
 PLATFORMS ?= amd64,arm/v7,arm64
 REGISTRY ?= $(if ${CI},docker.io,localhost:5000)
-SUDO ?= $(shell if ! groups | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,HOME,PWD; fi)
+SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,COMPOSE_DOCKER_CLI_BUILD,HOME,PWD; fi)
 TAGS ?= latest $(VERSION)
 USER := $(if ${CI},supersandro2000,sandro)
 VERSION ?=
