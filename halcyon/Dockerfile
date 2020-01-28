@@ -46,7 +46,7 @@ RUN export dev_apt="libicu-dev" \
   && apt-get autoremove --purge -qy "$dev_apt" \
   && rm -rf /var/lib/apt/lists/*
 
-COPY --from=git [ "/var/www/html", "/var/www/html" ]
+COPY --from=git [ "/var/www/html/", "/var/www/html/" ]
 
 EXPOSE 4430 8000
 WORKDIR /var/www/html/
