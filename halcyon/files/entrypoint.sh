@@ -9,8 +9,4 @@ if [ "${1#-}" != "$1" ]; then
   set -- "$CMD" "$@"
 fi
 
-if [ "$1" = "$CMD" ] && [ "$(id -u)" = "0" ]; then
-  find . \! -user $USER -exec chown $USER '{}' +
-fi
-
 exec "$@"
