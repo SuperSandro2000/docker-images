@@ -6,6 +6,5 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/screeenly/u9JrncIml
 IMAGE := screeenly
 TAGS := latest
 VERSION := $(shell curl -s -- https://api.github.com/repos/stefanzweifel/screeenly/commits/master?access_token="${GITHUB_TOKEN}" | jq -r '.sha')
-BUILD_ARGS := VERSION=$(VERSION)
 
 include ../buildx/Makefile
