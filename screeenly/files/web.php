@@ -8,7 +8,7 @@ Route::get('/', function () {
     return redirect('dashboard');
 });
 
-Auth::routes(['register' => env('DISABLE_REGISTER', false)]);
+Auth::routes(['register' => env('ENABLE_REGISTER', false)]);
 
 // Looking for Route specific to Screeenly?
 // They moved here:
