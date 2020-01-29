@@ -59,11 +59,9 @@ RUN usermod -aG tty www-data \
 COPY [ "files/ports.conf", "/etc/apache2/ports.conf" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN export dev_apt="" \
-  && apt-get update -q \
-  && apt-get install -qy --no-install-recommends "$dev_apt" gettext-base gosu \
+RUN apt-get update -q \
+  && apt-get install -qy --no-install-recommends gettext-base gosu \
   && docker-php-ext-install -j4 pdo_mysql \
-  && apt-get autoremove --purge -qy \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=git [ "/var/www/html", "/var/www/html" ]
