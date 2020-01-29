@@ -44,25 +44,43 @@ RUN usermod -aG tty www-data \
   && sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
   && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
+# Chrome dependencies
+RUN apt-get update \
+  && apt-get install --no-install-recommends -qy libasound2 libgtk-3-0 libnss3 libx11-xcb1 libxss1 libxtst6 \
+  && rm -rf /var/lib/apt/lists/*
+
+# Nodejs
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update \
+  && apt-get install --no-install-recommends -qy gnupg \
+  && curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+  && echo 'deb https://deb.nodesource.com/node_13.x buster main' > /etc/apt/sources.list.d/nodesource.list \
+  && apt-get update \
+  && apt-get install --no-install-recommends -qy nodejs \
+  && apt-get autoremove --purge -qy gnupg \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
 
+# php exts, composer prestissimo
 RUN export dev_apt="libpq-dev" \
   && apt-get update -q \
-  && apt-get install -qy --no-install-recommends "$dev_apt" gettext-base libpq5 unzip \
+  && apt-get install --no-install-recommends -qy "$dev_apt" gettext-base libpq5 unzip \
   && docker-php-ext-install -j4 exif pdo_pgsql pgsql \
   && composer global require hirak/prestissimo \
   && apt-get autoremove --purge -qy "$dev_apt" \
   && rm -rf /var/lib/apt/lists/*
 
+COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY --chown=www-data [ "files/env", "/var/www/html/.env" ]
 COPY --from=git --chown=www-data [ "/var/www/html/", "/var/www/html/" ]
 COPY --chown=www-data [ "files/web.php", "/var/www/html/routes/web.php" ]
 
 WORKDIR /var/www/html/
-RUN composer install --classmap-authoritative --no-dev --optimize-autoloader --prefer-dist --working-dir=/var/www/html/
+RUN npm i puppeteer@2.0.0 --only=production \
+  && composer install --classmap-authoritative --no-dev --optimize-autoloader --prefer-dist --working-dir=/var/www/html/
 
 ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite
 EXPOSE 443 80
