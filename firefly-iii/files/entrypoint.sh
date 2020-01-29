@@ -22,7 +22,10 @@ if [ "$DB_CONNECTION" = "sqlite" ]; then
   su -s /bin/bash www-data -c "touch $DB_DATABASE"
 fi
 
-php artisan firefly-iii:create-database
+if [ "$DB_CONNECTION" = "mysql" ]; then
+  php artisan firefly-iii:create-database
+fi
+
 php artisan migrate --seed --no-interaction --force
 php artisan firefly-iii:upgrade-database
 
