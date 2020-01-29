@@ -81,7 +81,7 @@ COPY --chown=www-data [ "files/web.php", "/var/www/html/routes/web.php" ]
 
 WORKDIR /var/www/html/
 RUN npm i puppeteer@2.0.0 --only=production \
-  && composer install --classmap-authoritative --no-dev --optimize-autoloader --prefer-dist --working-dir=/var/www/html/
+  && composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist
 
 ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite
 EXPOSE 443 80
