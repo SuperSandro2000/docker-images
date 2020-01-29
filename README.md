@@ -47,6 +47,14 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/code-server-extra.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/code-server-extra/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/code-server-extra.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/code-server-extra/)
 
+### Firefly III
+
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/firefly-iii/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/firefly-iii/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/firefly-iii.svg)](https://microbadger.com/images/supersandro2000/firefly-iii)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/firefly-iii.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/firefly-iii/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/firefly-iii.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/firefly-iii/)
+
 ### Halcyon
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/halcyon/)

@@ -76,6 +76,8 @@ jobs:
     - <<: *build
       env: IMAGE=code-server-extra
     - <<: *build
+      env: IMAGE=firefly-iii
+    - <<: *build
       env: IMAGE=halcyon
     - <<: *build
       env: IMAGE=healthchecks

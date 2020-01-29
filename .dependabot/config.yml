@@ -26,6 +26,12 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
+    directory: "/firefly-iii"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
     directory: "/halcyon"
     update_schedule: "daily"
     default_reviewers:
@@ -87,6 +93,12 @@ update_configs:
 
   - package_manager: "docker"
     directory: "/reddiscord"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/screeenly"
     update_schedule: "daily"
     default_reviewers:
       - "supersandro2000"
