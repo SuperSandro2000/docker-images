@@ -49,10 +49,12 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
 
-RUN apt-get update -q \
-  && apt-get install -qy --no-install-recommends unzip \
-  && docker-php-ext-install -j4 exif \
+RUN export dev_apt="libpq-dev" \
+  && apt-get update -q \
+  && apt-get install -qy --no-install-recommends "$dev_apt" gettext-base libpq5 unzip \
+  && docker-php-ext-install -j4 exif pdo_pgsql pgsql \
   && composer global require hirak/prestissimo \
+  && apt-get autoremove --purge -qy "$dev_apt" \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --chown=www-data [ "files/env", "/var/www/html/.env" ]
