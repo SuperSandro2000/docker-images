@@ -39,11 +39,12 @@ RUN usermod -aG tty www-data \
 COPY [ "files/ports.conf", "/etc/apache2/ports.conf" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
+# hadolint ignore=SC2086
 RUN export dev_apt="libicu-dev" \
   && apt-get update -q \
-  && apt-get install -qy --no-install-recommends "$dev_apt" gettext gosu libicu63 \
+  && apt-get install -qy --no-install-recommends $dev_apt gettext gosu libicu63 \
   && docker-php-ext-install -j4 gettext intl \
-  && apt-get autoremove --purge -qy "$dev_apt" \
+  && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=git [ "/var/www/html/", "/var/www/html/" ]

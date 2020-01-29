@@ -65,12 +65,13 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
 
 # php exts, composer prestissimo
+# hadolint ignore=SC2086
 RUN export dev_apt="libpq-dev" \
   && apt-get update -q \
-  && apt-get install --no-install-recommends -qy "$dev_apt" gettext-base libpq5 unzip \
+  && apt-get install --no-install-recommends -qy $dev_apt gettext-base libpq5 unzip \
   && docker-php-ext-install -j4 exif pdo_pgsql pgsql \
   && composer global require hirak/prestissimo \
-  && apt-get autoremove --purge -qy "$dev_apt" \
+  && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
