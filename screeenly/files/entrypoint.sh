@@ -1,6 +1,5 @@
 #!/bin/sh
 set -eu
-set -x
 
 CMD=apache2-foreground
 USER=www-data
