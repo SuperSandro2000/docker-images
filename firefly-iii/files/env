@@ -32,13 +32,13 @@ TRUSTED_PROXIES=${TRUSTED_PROXIES}
 
 # Several other options exist. You can use 'single' for one big fat error log (not recommended).
 # Also available are 'syslog', 'errorlog' and 'stdout' which will log to the system itself.
-LOG_CHANNEL=docker_out
+LOG_CHANNEL=${LOG_CHANNEL}
 
 # Log level. You can set this from least severe to most severe:
 # debug, info, notice, warning, error, critical, alert, emergency
 # If you set it to debug your logs will grow large, and fast. If you set it to emergency probably
 # nothing will get logged, ever.
-APP_LOG_LEVEL=notice
+APP_LOG_LEVEL=${APP_LOG_LEVEL}
 
 # Database credentials. Make sure the database exists. I recommend a dedicated user for Firefly III
 # For other database types, please see the FAQ: https://docs.firefly-iii.org/support/faq
