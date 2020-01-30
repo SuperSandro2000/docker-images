@@ -19,14 +19,17 @@ if [ -z "${APP_KEY:-}" ]; then
 fi
 
 if [ "$DB_CONNECTION" = "sqlite" ]; then
-  su -s /bin/bash www-data -c "touch $DB_DATABASE"
+  su -s /bin/bash $USER -c "touch $DB_DATABASE"
 fi
 
 if [ "$DB_CONNECTION" = "mysql" ]; then
-  php artisan firefly-iii:create-database
+  su -s /bin/bash $USER -c php artisan firefly-iii:create-database
 fi
 
-php artisan migrate --seed --no-interaction --force
-php artisan firefly-iii:upgrade-database
+if [ "$DB_INIT" = "true" ]; then
+  su -s /bin/bash $USER -c 'php artisan migrate --seed --no-interaction --force'
+fi
+
+su -s /bin/bash $USER -c php artisan firefly-iii:upgrade-database
 
 exec "$@"
