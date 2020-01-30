@@ -43,7 +43,7 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 RUN export dev_apt="libicu-dev" \
   && apt-get update -q \
   && apt-get install -qy --no-install-recommends $dev_apt gettext gosu libicu63 \
-  && docker-php-ext-install -j4 gettext intl >/dev/null \
+  && docker-php-ext-install -j4 gettext intl \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 
