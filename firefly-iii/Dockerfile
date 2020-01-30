@@ -72,7 +72,10 @@ COPY --from=git --chown=www-data [ "/var/www/html/", "/var/www/html/" ]
 ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite TZ=Europe/Berlin LOGIN_PROVIDER=eloquent
 
 WORKDIR /var/www/html/
-RUN composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist
+
+RUN composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist \
+  && chown -R www-data:www-data /var/www/html/storage \
+  && chmod -R 775 /var/www/html/storage
 
 EXPOSE 80
 ENTRYPOINT [ "entrypoint.sh" ]
