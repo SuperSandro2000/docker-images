@@ -69,7 +69,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
 RUN export dev_apt="libpq-dev" \
   && apt-get update -q \
   && apt-get install --no-install-recommends -qy $dev_apt gettext-base libpq5 unzip \
-  && docker-php-ext-install -j4 exif pdo_pgsql pgsql \
+  && docker-php-ext-install -j4 exif pdo_pgsql pgsql >/dev/null \
   && composer global require hirak/prestissimo \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
