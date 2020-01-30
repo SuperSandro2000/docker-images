@@ -15,7 +15,7 @@ APP_KEY=${APP_KEY}
 
 # Change this value to your preferred time zone.
 # Example: Europe/Amsterdam
-TZ={TZ}
+TZ=${TZ}
 
 # This variable must match your installation's external address but keep in mind that
 # it's only used on the command line as a fallback value.
@@ -69,7 +69,7 @@ REDIS_CACHE_DB="1"
 
 # Cookie settings. Should not be necessary to change these.
 COOKIE_PATH="/"
-COOKIE_DOMAIN={APP_URL}
+COOKIE_DOMAIN=${COOKIE_DOMAIN}
 COOKIE_SECURE=true
 
 # If you want Firefly III to mail you, update these settings
