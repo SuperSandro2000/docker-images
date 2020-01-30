@@ -69,7 +69,8 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY --chown=www-data [ "files/env", "/var/www/html/.env" ]
 COPY --from=git --chown=www-data [ "/var/www/html/", "/var/www/html/" ]
 
-ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite TZ=Europe/Berlin
+ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite TZ=Europe/Berlin LOGIN_PROVIDER=eloquent
+
 WORKDIR /var/www/html/
 RUN composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist
 
