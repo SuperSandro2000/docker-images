@@ -10,7 +10,7 @@ RUN apt-get update -q \
 
 WORKDIR /var/www/html
 
-ARG VERSION=5.0.1
+ARG VERSION=5.0.3
 
 RUN git clone --depth=1 --branch=$VERSION -- https://github.com/firefly-iii/firefly-iii.git /var/www/html/
 
