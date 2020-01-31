@@ -19,14 +19,36 @@ COPY [ "files/htaccess", "/var/www/html/.htaccess" ]
 
 WORKDIR /var/www/html/user/plugins
 
-RUN git clone https://github.com/timcrockford/302-instead.git \
-  && git clone https://github.com/luixxiul/dont-log-crawlers.git \
-  && git clone https://github.com/YOURLS/force-lowercase.git \
-  && git clone https://github.com/YOURLS/mass-remove-links.git \
-  && git clone https://github.com/tomslominski/yourls-redirect-index.git \
+RUN git clone --depth=1 https://github.com/timcrockford/302-instead.git \
+  && git clone --depth=1 https://github.com/joshp23/YOURLS-doTLS.git \
+  && mv YOURLS-doTLS/doTLS/ . \
+  && git clone --depth=1 https://github.com/luixxiul/dont-log-crawlers.git \
+  && git clone --depth=1 https://github.com/YOURLS/force-lowercase.git \
+  && git clone --depth=1 https://github.com/YOURLS/mass-remove-links.git \
+  && git clone --depth=1 https://github.com/tomslominski/yourls-redirect-index.git \
   && mv yourls-redirect-index redirect-index \
   && mv redirect-index/index.php /var/www/html/index.php \
-  && git clone https://github.com/Diftraku/yourls_reverseproxy.git
+  && git clone --depth=1 https://github.com/Diftraku/yourls_reverseproxy.git \
+  && mkdir -p hideversion \
+  && printf "\
+<?php\n\
+/*\n\
+Plugin Name: Hide Version String\n\
+Plugin URI: https://github.com/YOURLS/YOURLS/issues/1878\n\
+Description: Plugin to hide the version string in the footer.\n\
+Version: 0.1\n\
+Author: chtaube\n\
+Author URI: http://github.com/chtaube\n\
+*/\n\
+\n\
+if( !defined( 'YOURLS_ABSPATH' ) ) die();\n\
+\n\
+yourls_add_filter( 'html_footer_text', 'hide_version_string' );\n\
+\n\
+function hide_version_string( $value ) {\n\
+    return preg_filter( '/ v .* \&ndash; /', ' &ndash; ', $value );\n\
+}\n\
+" >hideversion/plugin.php
 
 #--------------#
 
