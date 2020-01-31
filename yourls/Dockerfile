@@ -25,6 +25,7 @@ RUN git clone --depth=1 https://github.com/timcrockford/302-instead.git \
   && git clone --depth=1 https://github.com/luixxiul/dont-log-crawlers.git \
   && git clone --depth=1 https://github.com/YOURLS/force-lowercase.git \
   && git clone --depth=1 https://github.com/YOURLS/mass-remove-links.git \
+  && git clone --depth=1 https://github.com/GautamGupta/YOURLS-Import-Export.git \
   && git clone --depth=1 https://github.com/tomslominski/yourls-redirect-index.git \
   && mv yourls-redirect-index redirect-index \
   && mv redirect-index/index.php /var/www/html/index.php \
