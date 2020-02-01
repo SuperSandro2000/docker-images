@@ -35,7 +35,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="firefly-iii" \
   org.opencontainers.image.description="Firefly III: a personal finances manager"
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public/
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public/
 
 # hadolint ignore=SC2016
 RUN usermod -aG tty www-data \
@@ -57,6 +57,7 @@ RUN export dev_apt="libicu-dev libldap2-dev libpng-dev libpq-dev zlib1g-dev" \
   && apt-get install --no-install-recommends -qy $dev_apt gettext-base libicu63 libldap-2.4-2 libpng16-16 libpq5 locales unzip zlib1g \
   && docker-php-ext-install -j4 bcmath gd intl ldap pdo_pgsql pgsql \
   && composer global require hirak/prestissimo \
+  && rm -rf $COMPOSER_HOME/cache \
   && printf "\
 de_DE.UTF-8 UTF-8 \n\
 en_US.UTF-8 UTF-8 \n\
@@ -74,6 +75,7 @@ ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite TZ=E
 WORKDIR /var/www/html/
 
 RUN composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist \
+  && rm -rf $COMPOSER_HOME/cache \
   && chown -R www-data:www-data /var/www/html/storage \
   && chmod -R 775 /var/www/html/storage
 
