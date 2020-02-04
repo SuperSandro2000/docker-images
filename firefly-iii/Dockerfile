@@ -70,7 +70,13 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY --chown=www-data [ "files/env", "/var/www/html/.env" ]
 COPY --from=git --chown=www-data [ "/var/www/html/", "/var/www/html/" ]
 
-ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite TZ=Europe/Berlin LOGIN_PROVIDER=eloquent
+ENV DB_CONNECTION=sqlite \
+    DB_DATABASE=/var/www/html/database/database.sqlite \
+    LOGIN_PROVIDER=eloquent \
+    MAP_DEFAULT_LAT=48.3957948 \
+    MAP_DEFAULT_LONG=10.711514 \
+    MAP_DEFAULT_ZOOM=5 \
+    TZ=Europe/Berlin
 
 WORKDIR /var/www/html/
 
