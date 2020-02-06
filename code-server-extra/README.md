@@ -12,3 +12,9 @@
 Code-Server Docker Image with some extras installed.
 
 See [github.com/cdr/code-server](https://github.com/cdr/code-server/) for usage.
+
+Locations you might want to volume:
+
+``/home/coder/.local/share/code-server``: VSCode settings, extensions, etc.
+``/home/coder/go/bin``: Downloaded go binaries
+``/home/coder/project``: Work directory
