@@ -1,4 +1,4 @@
-FROM debian:buster as git
+FROM debian:testing as git
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 

@@ -1,4 +1,4 @@
-FROM debian:buster as git
+FROM debian:testing as git
 
 RUN apt-get update -q \
   && apt-get install -qy --no-install-recommends \

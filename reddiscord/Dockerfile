@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:testing
 
 ARG BUILD_DATE
 ARG VERSION
