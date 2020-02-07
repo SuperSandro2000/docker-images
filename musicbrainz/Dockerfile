@@ -122,10 +122,18 @@ RUN apt-get update \
     libxml-xpath-perl \
   && rm -rf /var/lib/apt/lists/*
 
-# hadolint ignore=SC2086
-RUN export dev_apt="cpanminus gcc libicu-dev make pkg-config" \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+RUN export dev_apt=(\
+    "cpanminus" \
+    "gcc" \
+    "libicu-dev" \
+    "make" \
+    "pkg-config" \
+  ) \
   && apt-get update \
-  && apt-get install -qy --no-install-recommends $dev_apt libicu63 \
+  && apt-get install -qy --no-install-recommends "${dev_apt[@]}" \
+    libicu63 \
   && cpanm --notest \
     Catalyst::Plugin::Cache::HTTP \
     Data::UUID::MT MooseX::ABC \
@@ -134,7 +142,7 @@ RUN export dev_apt="cpanminus gcc libicu-dev make pkg-config" \
     Text::Diff3 \
     Unicode::ICU::Collator \
     XML::RSS::Parser::Lite \
-  && apt-get autoremove --purge -qy $dev_apt \
+  && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder [ "/app", "/app" ]

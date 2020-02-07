@@ -20,10 +20,14 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN export user=reddiscord \
   && groupadd -r $user && useradd -r -g $user $user
 
-# hadolint ignore=SC2086
-RUN export dev_apt="libffi-dev libssl-dev" \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+RUN export dev_apt=( \
+    "libffi-dev" \
+    "libssl-dev" \
+  ) \
   && apt-get update -q \
-  && apt-get install --no-install-recommends -qy $dev_apt \
+  && apt-get install --no-install-recommends -qy "${dev_apt[@]}" \
     default-jre-headless \
     git \
     gosu \
@@ -35,7 +39,7 @@ RUN export dev_apt="libffi-dev libssl-dev" \
     python3-setuptools \
     python3-yarl \
     wget \
-  && apt-get autoremove --purge -qy $dev_apt \
+  && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
 COPY [ "files/pip.conf", "/etc/" ]

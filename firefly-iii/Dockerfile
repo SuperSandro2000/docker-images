@@ -51,12 +51,17 @@ RUN usermod -aG tty www-data \
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# php exts, composer prestissimo
-# hadolint ignore=SC2086
-RUN export dev_apt="libicu-dev libldap2-dev libpng-dev libpq-dev zlib1g-dev" \
+RUN export dev_apt=( \
+    "libicu-dev" \
+    "libldap2-dev" \
+    "libpng-dev" \
+    "libpq-dev" \
+    "zlib1g-dev" \
+  ) \
   && apt-get update -q \
-  && apt-get install --no-install-recommends -qy $dev_apt \
+  && apt-get install --no-install-recommends -qy "${dev_apt[@]}" \
     gettext-base \
     libicu63 \
     libldap-2.4-2 \
@@ -79,7 +84,7 @@ de_DE.UTF-8 UTF-8 \n\
 en_US.UTF-8 UTF-8 \n\
 " > /etc/locale.gen \
   && locale-gen \
-  && apt-get autoremove --purge -qy $dev_apt \
+  && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
