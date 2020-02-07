@@ -5,7 +5,9 @@ FROM composer:1.9 as composer
 FROM debian:buster as git
 
 RUN apt-get update -q \
-  && apt-get install -qy --no-install-recommends ca-certificates git \
+  && apt-get install -qy --no-install-recommends \
+    ca-certificates \
+    git \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
@@ -54,8 +56,22 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
 # hadolint ignore=SC2086
 RUN export dev_apt="libicu-dev libldap2-dev libpng-dev libpq-dev zlib1g-dev" \
   && apt-get update -q \
-  && apt-get install --no-install-recommends -qy $dev_apt gettext-base libicu63 libldap-2.4-2 libpng16-16 libpq5 locales unzip zlib1g \
-  && docker-php-ext-install -j4 bcmath gd intl ldap pdo_pgsql pgsql \
+  && apt-get install --no-install-recommends -qy $dev_apt \
+    gettext-base \
+    libicu63 \
+    libldap-2.4-2 \
+    libpng16-16 \
+    libpq5 \
+    locales \
+    unzip \
+    zlib1g \
+  && docker-php-ext-install -j4 \
+    bcmath \
+    gd \
+    intl \
+    ldap \
+    pdo_pgsql \
+    pgsql \
   && composer global require hirak/prestissimo \
   && rm -rf $COMPOSER_HOME/cache \
   && printf "\

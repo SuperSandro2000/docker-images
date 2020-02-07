@@ -1,6 +1,7 @@
 FROM alpine:3 as git
 
-RUN apk add --no-cache git
+RUN apk add --no-cache \
+    git
 
 ARG SHA
 
@@ -28,7 +29,9 @@ RUN export user=prerenderer \
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
-RUN apk add --no-cache --no-progress chromium su-exec
+RUN apk add --no-cache --no-progress \
+    chromium \
+    su-exec
 
 COPY --from=git [ "/app", "/app" ]
 

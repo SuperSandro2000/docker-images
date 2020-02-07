@@ -22,7 +22,10 @@ ENV HOME=/app ENABLE_TOR=false
 RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
-RUN apk add --no-cache --no-progress bash su-exec tor
+RUN apk add --no-cache --no-progress \
+    bash \
+    su-exec \
+    tor
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
@@ -30,13 +33,17 @@ COPY [ "files/run.sh", "/usr/local/bin/" ]
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
-RUN apk add --no-cache --no-progress grep tar \
+RUN apk add --no-cache --no-progress \
+    grep \
+    tar \
   && mkdir /app \
   && wget -O- -- https://github.com/HelloZeroNet/ZeroNet/tarball/py3 | tar xz -f - -C /app --strip-components=1 \
-  && pip3 install --no-cache-dir --progress-bar off --pre gevent \
+  && pip3 install --no-cache-dir --progress-bar off --pre \
+    gevent \
   && grep -P '^((?!gevent(?!-)).)*$' /app/requirements.txt | xargs -n 1 pip3 install --no-cache-dir --progress-bar off \
-  && apk del grep tar \
-\
+  && apk del \
+    grep \
+    tar \
   && mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc

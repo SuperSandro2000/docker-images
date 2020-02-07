@@ -24,7 +24,10 @@ COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 
-RUN apk add --no-cache --no-progress ca-certificates git jq
+RUN apk add --no-cache --no-progress \
+    ca-certificates \
+    git \
+    jq
 
 RUN pip3 install --no-cache-dir --progress-bar off kibitzr
 

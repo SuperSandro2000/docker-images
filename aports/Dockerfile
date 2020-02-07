@@ -1,6 +1,11 @@
 FROM supersandro2000/base-alpine:3.11
 
-RUN apk add --no-cache --no-progress abuild g++ git make nano
+RUN apk add --no-cache --no-progress \
+    abuild \
+    g++ \
+    git \
+    make \
+    vim
 
 RUN adduser root abuild \
   && abuild-keygen -ain

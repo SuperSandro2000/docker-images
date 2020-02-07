@@ -23,8 +23,18 @@ RUN export user=reddiscord \
 # hadolint ignore=SC2086
 RUN export dev_apt="libffi-dev libssl-dev" \
   && apt-get update -q \
-  && apt-get install --no-install-recommends -qy $dev_apt default-jre-headless git gosu libffi6 libssl1.1 \
-    python3-dev python3-levenshtein python3-multidict python3-pip python3-setuptools python3-yarl wget \
+  && apt-get install --no-install-recommends -qy $dev_apt \
+    default-jre-headless \
+    git \
+    gosu \
+    libffi6 libssl1.1 \
+    python3-dev \
+    python3-levenshtein \
+    python3-multidict \
+    python3-pip \
+    python3-setuptools \
+    python3-yarl \
+    wget \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 

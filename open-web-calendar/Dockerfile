@@ -1,6 +1,7 @@
 FROM alpine:3.11 as source
 
-RUN apk add --no-cache --no-progress git
+RUN apk add --no-cache --no-progress \
+    git
 
 ARG SHA
 
@@ -34,7 +35,9 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 COPY --from=source [ "/app/requirements.txt", "/app/requirements.txt" ]
 
-RUN apk add --no-cache --no-progress bash su-exec \
+RUN apk add --no-cache --no-progress \
+    bash \
+    su-exec \
   && pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt
 
 COPY --from=source [ "/app/", "/app/" ]

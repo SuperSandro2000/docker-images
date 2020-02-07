@@ -20,14 +20,21 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
-RUN apk add --no-cache --no-progress su-exec \
-  && apk add --no-cache --no-progress --virtual .build make python \
+RUN apk add --no-cache --no-progress \
+    su-exec \
+  && apk add --no-cache --no-progress --virtual .build \
+    make \
+    python \
   && if [ "$(uname -m)" = "x86_64" ]; then \
-    apk add --no-cache --no-progress --virtual g++ \
-    && npm install -g --unsafe-perm sqlite3 \
-    && apk del g++; \
+    apk add --no-cache --no-progress --virtual \
+      g++ \
+    && npm install -g --unsafe-perm \
+      sqlite3 \
+    && apk del \
+      g++; \
   fi \
   && yarn global add thelounge \
+  && yarn cache clean \
   && apk del .build
 
 ENV THELOUNGE_HOME=/app

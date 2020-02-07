@@ -23,7 +23,9 @@ RUN export user=unbound \
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/unbound.conf", "/etc/unbound/unbound.conf" ]
 
-RUN apk add --no-cache --no-progress openssl unbound \
+RUN apk add --no-cache --no-progress \
+    openssl \
+    unbound \
   && wget https://www.internic.net/domain/named.cache -O /etc/unbound/root.hints
 
 EXPOSE 53/udp

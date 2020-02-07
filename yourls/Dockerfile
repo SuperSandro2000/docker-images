@@ -3,7 +3,10 @@ FROM debian:buster as git
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get update -q \
-  && apt-get install -qy --no-install-recommends ca-certificates git wget \
+  && apt-get install -qy --no-install-recommends \
+    ca-certificates \
+    git \
+    wget \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
@@ -83,8 +86,11 @@ COPY [ "files/ports.conf", "/etc/apache2/ports.conf" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 RUN apt-get update -q \
-  && apt-get install -qy --no-install-recommends gettext-base gosu \
-  && docker-php-ext-install -j4 pdo_mysql \
+  && apt-get install -qy --no-install-recommends \
+    gettext-base \
+    gosu \
+  && docker-php-ext-install -j4 \
+    pdo_mysql \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=git [ "/var/www/html", "/var/www/html" ]

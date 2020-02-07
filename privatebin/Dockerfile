@@ -1,7 +1,9 @@
 FROM debian:buster as git
 
 RUN apt-get update -q \
-  && apt-get install -qy --no-install-recommends ca-certificates git \
+  && apt-get install -qy --no-install-recommends \
+    ca-certificates \
+    git \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
@@ -47,8 +49,12 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 # hadolint ignore=SC2086
 RUN export dev_apt="libpq-dev" \
   && apt-get update -q \
-  && apt-get install -qy --no-install-recommends $dev_apt gettext-base gosu libpq5 \
-  && docker-php-ext-install -j4 pdo_pgsql \
+  && apt-get install -qy --no-install-recommends $dev_apt \
+    gettext-base \
+    gosu \
+    libpq5 \
+  && docker-php-ext-install -j4 \
+    pdo_pgsql \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 

@@ -1,7 +1,9 @@
 FROM debian:buster as git
 
 RUN apt-get update -q \
-  && apt-get install -qy --no-install-recommends ca-certificates git \
+  && apt-get install -qy --no-install-recommends \
+    ca-certificates \
+    git \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
@@ -42,8 +44,13 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 # hadolint ignore=SC2086
 RUN export dev_apt="libicu-dev" \
   && apt-get update -q \
-  && apt-get install -qy --no-install-recommends $dev_apt gettext gosu libicu63 \
-  && docker-php-ext-install -j4 gettext intl \
+  && apt-get install -qy --no-install-recommends $dev_apt \
+    gettext \
+    gosu \
+    libicu63 \
+  && docker-php-ext-install -j4 \
+    gettext \
+    intl \
   && apt-get autoremove --purge -qy $dev_apt \
   && rm -rf /var/lib/apt/lists/*
 

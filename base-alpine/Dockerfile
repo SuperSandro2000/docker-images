@@ -18,6 +18,9 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="Alpine Base Image" \
   org.opencontainers.image.description="Base Image with very common things and fixes"
 
-RUN apk add --no-cache --no-progress bash su-exec tzdata
+RUN apk add --no-cache --no-progress \
+    bash \
+    su-exec \
+    tzdata
 
 CMD [ "bash" ]

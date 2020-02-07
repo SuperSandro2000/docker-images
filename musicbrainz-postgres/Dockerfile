@@ -2,7 +2,14 @@ ARG VERSION=12
 
 FROM alpine:3.11 as builder
 
-RUN apk add --no-cache ca-certificates gcc git icu-dev make musl-dev postgresql-dev
+RUN apk add --no-cache \
+    ca-certificates \
+    gcc \
+    git \
+    icu-dev \
+    make \
+    musl-dev \
+    postgresql-dev
 
 #------------------#
 
