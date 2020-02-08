@@ -9,7 +9,7 @@ VERSION := $(shell curl -Ls https://github.com/Cog-Creators/Red-DiscordBot/raw/V
 .ONESHELL: files/Lavalink.jar
 files/Lavalink.jar:
 	cd files
-	curl -Lso Lavalink.jar "$$(curl -s https://api.github.com/repos/Frederikam/Lavalink/releases?access_token="${GITHUB_TOKEN}" | jq '[.[] | select(.assets[].name=="Lavalink.jar")][1] | .assets | .[0].browser_download_url' | tr -d \'\")"
+	curl -Lso Lavalink.jar "$$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/Frederikam/Lavalink/releases | jq '[.[] | select(.assets[].name=="Lavalink.jar")][1] | .assets | .[0].browser_download_url' | tr -d \'\")"
 	mkdir -p natives/linux-arm/
 	cp libconnector.so natives/linux-arm/
 	zip Lavalink.jar natives/linux-arm/libconnector.so

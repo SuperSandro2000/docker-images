@@ -11,9 +11,9 @@ export DOCKER_CLI_EXPERIMENTAL=enabled
 $sudo rm ~/.docker/manifests/docker.io_supersandro2000_archisteamfarm-* -rf
 
 # latest pre-release or release
-release_version=$(curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases?access_token="$GITHUB_TOKEN" | jq -r '.[0] | .tag_name')
+release_version=$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases | jq -r '.[0] | .tag_name')
 # latest stable release
-latest_version=$(curl -s https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.tag_name')
+latest_version=$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/JustArchiNET/ArchiSteamFarm/releases/latest | jq -r '.tag_name')
 version=$(echo "$release_version" "$latest_version" | xargs -n1 | sort -u | xargs)
 
 for variant in latest released $version; do

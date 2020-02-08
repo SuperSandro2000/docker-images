@@ -22,7 +22,7 @@ export PATH := ${PATH}:${BIN_DIR}
 
 $(HADOLINT):
 	mkdir -p $$(dirname $(HADOLINT))
-	curl -sLo "$(HADOLINT)" $$(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
+	curl -sLo "$(HADOLINT)" $$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
 	chmod 700 "$(HADOLINT)"
 
 $(MDL):
@@ -33,13 +33,13 @@ $(SHELLCHECK):
 	mv shellcheck $(SHELLCHECK)
 
 $(SHFMT):
-	curl -sLo "$(SHFMT)" $$(curl -s https://api.github.com/repos/mvdan/sh/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
+	curl -sLo "$(SHFMT)" $$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/mvdan/sh/releases/latest | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
 
 $(TRAVIS):
 	gem install --user travis
 
 $(TRIVY):
-	curl -sL $$(curl -s https://api.github.com/repos/aquasecurity/trivy/releases/latest?access_token="${GITHUB_TOKEN}" | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
+	curl -sL $$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/aquasecurity/trivy/releases/latest | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
 .PHONY: hadolint
 hadolint: $(HADOLINT)
