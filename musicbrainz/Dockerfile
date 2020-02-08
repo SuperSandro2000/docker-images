@@ -16,7 +16,8 @@ WORKDIR /app
 
 COPY [ "files/DBDefs.pm", "/app/lib/DBDefs.pm" ]
 
-RUN yarn
+RUN yarn \
+  && yarn cache clean
 
 #------------------#
 
