@@ -12,7 +12,7 @@ RUN wget -q -O JMusicBot-Linux.jar -- https://github.com/jagrosh/MusicBot/releas
 
 #--------------#
 
-FROM openjdk:15-slim
+FROM openjdk:11-jre-slim
 
 ARG BUILD_DATE
 ARG VERSION
