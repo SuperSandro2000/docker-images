@@ -2,7 +2,7 @@ FROM composer:1 as composer
 
 #--------------#
 
-FROM debian:testing as git
+FROM debian:testing-slim as git
 
 RUN apt-get update -q \
   && apt-get install -qy --no-install-recommends \

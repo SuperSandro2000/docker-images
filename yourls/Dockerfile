@@ -1,4 +1,4 @@
-FROM debian:testing as git
+FROM debian:testing-slim as git
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
