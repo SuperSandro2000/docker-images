@@ -1,24 +1,33 @@
 FROM alpine:3.11 as git
-RUN apk add --no-cache --no-progress git
-WORKDIR /src
+
+RUN apk add --no-cache --no-progress \
+    git
+
 ARG VERSION
 RUN git clone --recurse-submodules -j2 --depth=1 --branch $VERSION -- https://github.com/JustArchiNET/ArchiSteamFarm.git /src
 
+#-------------------#
+
 FROM node:lts-alpine AS build-node
+
+COPY --from=git [ "/src/ASF-ui", "/app" ]
+
 WORKDIR /app
-COPY --from=git /src/ASF-ui .
-RUN echo "node: $(node --version)" \
-  && echo "npm: $(npm --version)" \
-  && npm ci \
-  && npm run-script deploy
+RUN npm ci \
+  && npm run deploy
+
+#-------------------#
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-dotnet
-ENV CONFIGURATION Release
-ENV NET_CORE_VERSION netcoreapp3.1
+
+ENV CONFIGURATION=Release \
+  NET_CORE_VERSION=netcoreapp3.1
+
+COPY --from=build-node [ "/app/dist", "ASF-ui/dist" ]
+COPY --from=git [ "/src/ArchiSteamFarm", "ArchiSteamFarm" ]
+COPY --from=git [ "/src/ArchiSteamFarm.Tests", "ArchiSteamFarm.Tests" ]
+
 WORKDIR /app
-COPY --from=build-node /app/dist ASF-ui/dist
-COPY --from=git /src/ArchiSteamFarm ArchiSteamFarm
-COPY --from=git /src/ArchiSteamFarm.Tests ArchiSteamFarm.Tests
 RUN dotnet --info \
   # TODO: Remove workaround for https://github.com/microsoft/msbuild/issues/3897 when it's no longer needed
   && if [ -f "ArchiSteamFarm/Localization/Strings.zh-CN.resx" ]; then ln -s "Strings.zh-CN.resx" "ArchiSteamFarm/Localization/Strings.zh-Hans.resx"; fi \
@@ -28,11 +37,31 @@ RUN dotnet --info \
   && dotnet publish ArchiSteamFarm -c "$CONFIGURATION" -f "$NET_CORE_VERSION" -o 'out' /nologo /p:ASFVariant=docker /p:PublishTrimmed=false /p:UseAppHost=false \
   && cp "ArchiSteamFarm/overlay/generic/ArchiSteamFarm.sh" "out/ArchiSteamFarm.sh"
 
+#-------------------#
+
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
+
+ARG BUILD_DATE
+ARG VERSION
+ARG REVISION
+
+LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+  org.opencontainers.image.created=$BUILD_DATE \
+  org.opencontainers.image.authors="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+  org.opencontainers.image.url="https://github.com/SuperSandro2000/docker-images/tree/master/archisteamfarm/" \
+  org.opencontainers.image.documentation="https://github.com/JustArchiNET/ArchiSteamFarm/wiki" \
+  org.opencontainers.image.source="https://github.com/SuperSandro2000/docker-images" \
+  org.opencontainers.image.version=$VERSION \
+  org.opencontainers.image.revision=$REVISION \
+  org.opencontainers.image.vendor="SuperSandro2000" \
+  org.opencontainers.image.licenses="Apache-2.0" \
+  org.opencontainers.image.title="ArchiSteamFarm" \
+  org.opencontainers.image.description="C# application with primary purpose of idling Steam cards from multiple accounts simultaneously."
+
 ENV ASPNETCORE_URLS=""
-LABEL maintainer="JustArchi <JustArchi@JustArchi.net>"
-EXPOSE 1242
+
+COPY --from=build-dotnet [ "/app/out", "/app" ]
+
 WORKDIR /app
-RUN apk add --no-cache --no-progress bash
-COPY --from=build-dotnet /app/out .
+EXPOSE 1242
 ENTRYPOINT ["./ArchiSteamFarm.sh", "--no-restart", "--process-required", "--system-required"]
