@@ -2,7 +2,7 @@ ARG BUILD_DATE
 ARG VERSION=v3.0.1
 ARG REVISION
 
-FROM tootsuite/mastodon:$VERSION as mastodon
+FROM quay.io/mastodon/mastodon:$VERSION as mastodon
 
 FROM nginx:alpine
 
