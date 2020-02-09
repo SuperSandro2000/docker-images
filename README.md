@@ -95,6 +95,14 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/mastodon-nginx.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/mastodon-nginx/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/mastodon-nginx.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/mastodon-nginx/)
 
+### MusicBot
+
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/musicbot/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/musicbot/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/musicbot.svg)](https://microbadger.com/images/supersandro2000/musicbot)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/musicbot.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/musicbot/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/musicbot.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/musicbot/)
+
 ### Open Web Calendar
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/open-web-calendar/)

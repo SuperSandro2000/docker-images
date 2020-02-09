@@ -88,6 +88,8 @@ jobs:
     - <<: *build
       env: IMAGE=mastodon-nginx
     - <<: *build
+      env: IMAGE=musicbot
+    - <<: *build
       env: IMAGE=musicbrainz
     - <<: *build
       env: IMAGE=musicbrainz-postgres
