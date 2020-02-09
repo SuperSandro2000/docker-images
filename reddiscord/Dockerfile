@@ -1,4 +1,20 @@
-FROM debian:testing
+FROM debian:testing-slim as git
+
+RUN apt-get update -q \
+  && apt-get install -qy --no-install-recommends \
+    ca-certificates \
+    git \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+ARG VERSION=3.3.1
+
+RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red-DiscordBot.git /app
+
+#-------------------#
+
+FROM python:3.8.1-slim
 
 ARG BUILD_DATE
 ARG VERSION
@@ -18,43 +34,30 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="A multifunction Discord bot"
 
 RUN export user=reddiscord \
-  && groupadd -r $user && useradd -r -g $user $user
+  && groupadd -r $user && useradd -r -g $user $user \
+  # deal with slim variants not having man page directories (which causes "update-alternatives" to fail)
+  # https://github.com/docker-library/openjdk/blob/0584b2804ed12dca7c5e264b5fc55fc07a3ac148/8-jre/slim/Dockerfile#L51-L54
+  && mkdir -p /usr/share/man/man1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN export dev_apt=( \
-    "libffi-dev" \
-    "libssl-dev" \
-  ) \
-  && apt-get update -q \
-  && apt-get install --no-install-recommends -qy "${dev_apt[@]}" \
+RUN apt-get update -q \
+  && apt-get install --no-install-recommends -qy \
     default-jre-headless \
-    git \
     gosu \
-    libffi6 libssl1.1 \
-    python3-dev \
-    python3-levenshtein \
-    python3-multidict \
-    python3-pip \
-    python3-setuptools \
-    python3-yarl \
-    wget \
-  && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
-COPY [ "files/config.json", "/usr/local/share/Red-DiscordBot/" ]
-COPY [ "files/run.sh", "files/Lavalink.jar", "/files/" ]
+COPY [ "files/config.json", "/usr/local/share/Red-DiscordBot/config.json" ]
+COPY --from=git [ "/app/", "/app/" ]
 
-# hadolint ignore=SC2086
-RUN export dev_apt="build-essential unzip zip" \
-  && apt-get update -q \
-  && apt-get install --no-install-recommends -qy $dev_apt \
-  && pip3 install --no-cache-dir --progress-bar off Red-DiscordBot \
-  && apt-get autoremove --purge -qy $dev_apt \
+RUN apt-get update -q \
+  && apt-get install --no-install-recommends -qy \
+  && pip3 install --no-cache-dir --progress-bar off /app/ \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /data
+
 ENTRYPOINT [ "entrypoint.sh" ]
-CMD [ "/files/run.sh" ]
+CMD [ "redbot", "docker" ]
