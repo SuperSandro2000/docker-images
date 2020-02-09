@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-CMD="redbot"
+CMD=redbot
 USER=reddiscord
 
 # if the first arg starts with "-" pass it to program
