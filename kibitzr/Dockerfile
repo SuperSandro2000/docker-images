@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM supersandro2000/base-alpine:3.11
 
 ARG BUILD_DATE
 ARG VERSION
@@ -27,7 +27,8 @@ COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 RUN apk add --no-cache --no-progress \
     ca-certificates \
     git \
-    jq
+    jq \
+    python3
 
 RUN pip3 install --no-cache-dir --progress-bar off kibitzr
 
