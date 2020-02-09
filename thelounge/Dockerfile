@@ -30,7 +30,7 @@ RUN apk add --no-cache --no-progress \
       g++ \
     && npm install -g --unsafe-perm \
       sqlite3 \
-    && apk del .build2 \
+    && apk del .build2 ; \
   fi \
   && yarn global add thelounge \
   && yarn cache clean \
