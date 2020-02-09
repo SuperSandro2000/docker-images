@@ -61,10 +61,8 @@ COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY --from=builder [ "/hc/requirements.txt", "/app/" ]
 
-# hadolint ignore=SC2086
 RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy \
-    #git \
     gosu \
     libcap2 \
     libjansson4 \
@@ -76,8 +74,6 @@ RUN apt-get update -q \
   && sed -Ei 's/psycopg2==([0-9]+\.){2}[0-9]+/psycopg2-binary==2.8.4/g' /app/requirements.txt \
   && pip3 install --no-cache-dir --progress-bar off \
     -r /app/requirements.txt \
-    --no-binary psycopg2 \
-  && apt-get autoremove --purge -qy \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder [ "/uwsgi/uwsgi", "/usr/bin/" ]
