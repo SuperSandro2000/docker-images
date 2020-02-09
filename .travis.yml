@@ -74,6 +74,8 @@ jobs:
         - ./manifest.sh
         - docker images
     - <<: *build
+      env: IMAGE=code-server
+    - <<: *build
       env: IMAGE=code-server-extra
     - <<: *build
       env: IMAGE=firefly-iii

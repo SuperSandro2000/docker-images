@@ -39,6 +39,14 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/base-alpine.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/base-alpine/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/base-alpine.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/base-alpine/)
 
+### Code-Server
+
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/code-server/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/code-server/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/code-server.svg)](https://microbadger.com/images/supersandro2000/code-server)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/code-server.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/code-server/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/code-server.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/code-server/)
+
 ### Code-Server-Extra
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/code-server-extra/)
