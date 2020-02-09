@@ -62,6 +62,12 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
+    directory: "/musicbot"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
     directory: "/musicbrainz"
     update_schedule: "daily"
     default_reviewers:
