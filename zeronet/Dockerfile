@@ -1,4 +1,15 @@
-FROM python:3.8-alpine
+FROM alpine:3.11 as source
+
+RUN apk add --no-cache --no-progress \
+    git
+
+ARG SHA
+
+RUN git clone --branch py3 --depth=1 https://github.com/HelloZeroNet/ZeroNet.git /app/
+
+#------------------#
+
+FROM supersandro2000/base-alpine:3.11
 
 ARG BUILD_DATE
 ARG VERSION
@@ -23,27 +34,22 @@ RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
 RUN apk add --no-cache --no-progress \
-    bash \
-    su-exec \
+    python3 \
     tor
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/run.sh", "/usr/local/bin/" ]
+COPY --from=source [ "/app", "/app" ]
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
-RUN apk add --no-cache --no-progress \
+RUN apk add --no-cache --no-progress --virtual .build \
     grep \
-    tar \
-  && mkdir /app \
-  && wget -O- -- https://github.com/HelloZeroNet/ZeroNet/tarball/py3 | tar xz -f - -C /app --strip-components=1 \
   && pip3 install --no-cache-dir --progress-bar off --pre \
     gevent \
   && grep -P '^((?!gevent(?!-)).)*$' /app/requirements.txt | xargs -n 1 pip3 install --no-cache-dir --progress-bar off \
-  && apk del \
-    grep \
-    tar \
+  && apk del .build \
   && mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc
