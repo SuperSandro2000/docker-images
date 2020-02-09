@@ -34,13 +34,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN export user=MusicBot \
   && groupadd -r $user && useradd -m -r -g $user $user
 
-#RUN apt-get update -q \
-#  && apt-get install -qy --no-install-recommends \
-#    ca-certificates \
-#    dumb-init \
-#    git \
-#  && rm -rf /var/lib/apt/lists/*
-
 COPY --from=git /JMusicBot-Linux.jar /JMusicBot-Linux.jar
 
 WORKDIR /data
