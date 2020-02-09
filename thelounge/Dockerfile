@@ -26,12 +26,11 @@ RUN apk add --no-cache --no-progress \
     make \
     python \
   && if [ "$(uname -m)" = "x86_64" ]; then \
-    apk add --no-cache --no-progress --virtual \
+    apk add --no-cache --no-progress --virtual .build2 \
       g++ \
     && npm install -g --unsafe-perm \
       sqlite3 \
-    && apk del \
-      g++; \
+    && apk del .build2 \
   fi \
   && yarn global add thelounge \
   && yarn cache clean \
