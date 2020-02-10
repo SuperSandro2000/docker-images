@@ -45,7 +45,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="Run VS Code on a remote server."
 
 RUN export user=coder \
-  && groupadd -r $user && useradd -m -r -g $user $user
+  && groupadd -g 1000 -r $user && useradd -m -r -g 1000 -u 1000 $user
 
 RUN apt-get update -q \
   && apt-get install -qy --no-install-recommends \
