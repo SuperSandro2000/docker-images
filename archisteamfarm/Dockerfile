@@ -23,9 +23,9 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-dotnet
 ENV CONFIGURATION=Release \
   NET_CORE_VERSION=netcoreapp3.1
 
-COPY --from=build-node [ "/app/dist", "ASF-ui/dist" ]
-COPY --from=git [ "/src/ArchiSteamFarm", "ArchiSteamFarm" ]
-COPY --from=git [ "/src/ArchiSteamFarm.Tests", "ArchiSteamFarm.Tests" ]
+COPY --from=git [ "/src/ArchiSteamFarm", "/app/ArchiSteamFarm" ]
+COPY --from=git [ "/src/ArchiSteamFarm.Tests", "/app/ArchiSteamFarm.Tests" ]
+COPY --from=build-node [ "/app/dist", "/app/ASF-ui/dist" ]
 
 WORKDIR /app
 RUN dotnet --info \
