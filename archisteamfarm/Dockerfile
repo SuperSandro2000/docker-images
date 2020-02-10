@@ -3,7 +3,7 @@ FROM alpine:3.11 as git
 RUN apk add --no-cache --no-progress \
     git
 
-ARG VERSION
+ARG VERSION=4.1.2.0
 RUN git clone --recurse-submodules -j2 --depth=1 --branch $VERSION -- https://github.com/JustArchiNET/ArchiSteamFarm.git /src
 
 #-------------------#
