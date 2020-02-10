@@ -42,7 +42,11 @@ stages:
     stage: build
     script:
       - cd "$IMAGE"
-      - make
+      - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then \
+          make ; \
+        else \
+          sudo docker build . ; \
+        fi
       - docker images
 
 jobs:
