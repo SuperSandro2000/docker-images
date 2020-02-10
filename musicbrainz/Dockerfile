@@ -42,7 +42,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 ENV NODE_ENV=production
 
 RUN export user=musicbrainz \
-  && groupadd -r $user && useradd -mr -g $user $user
+  && groupadd -r $user && useradd -r -g $user $user
 
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
