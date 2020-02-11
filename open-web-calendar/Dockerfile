@@ -34,7 +34,7 @@ RUN export user=owc \
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 RUN apk add --no-cache --no-progress \
-    python3 \
+    python3
 
 COPY --from=source [ "/app/requirements.txt", "/app/requirements.txt" ]
 
