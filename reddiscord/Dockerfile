@@ -52,10 +52,9 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/config.json", "/usr/local/share/Red-DiscordBot/config.json" ]
 COPY --from=git [ "/app/", "/app/" ]
 
-RUN apt-get update -q \
-  && apt-get install --no-install-recommends -qy \
-  && pip3 install --no-cache-dir --progress-bar off /app/ \
-  && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --no-cache-dir --progress-bar off /app/ \
+  && mkdir /data \
+  && chown -R reddiscord:reddiscord /app
 
 WORKDIR /data
 
