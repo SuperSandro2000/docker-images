@@ -42,10 +42,10 @@ stages:
     stage: build
     script:
       - cd "$IMAGE"
-      - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then \
-          make ; \
-        else \
-          sudo docker build . ; \
+      - if [[ $TRAVIS_PULL_REQUEST != false && $TRAVIS_BRANCH == master ]]; then
+          make;
+        else
+          sudo docker build .;
         fi
       - docker images
 
