@@ -11,9 +11,9 @@
 
 Red-Discord Bot Docker Image with multi-arch support.
 
-To configure the bot you need to run the image once interactively.
+To configure the bot you need to run the image once interactively. This needs to be done as the reddiscord user or the preconfigured config is not used.
 
-You can do that with docker-compose like this ``docker-compose run reddiscord``.
+You can do that with docker-compose like this ``docker-compose run --user reddiscord reddiscord``.
 
 ## Docker compose
 
