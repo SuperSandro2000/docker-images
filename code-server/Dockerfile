@@ -11,12 +11,10 @@ RUN apt-get update \
     python \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /src
-
 ARG VERSION=2.1698
-
 RUN git clone --depth=1 --branch=$VERSION -- https://github.com/cdr/code-server.git /src
 
+WORKDIR /src
 RUN yarn \
   && yarn cache clean \
   && MINIFY=true BINARY=true ./scripts/ci.bash \

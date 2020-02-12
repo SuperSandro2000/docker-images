@@ -1,7 +1,5 @@
 FROM debian:testing-slim as git
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 RUN apt-get update -q \
   && apt-get install -qy --no-install-recommends \
     ca-certificates \
@@ -9,10 +7,7 @@ RUN apt-get update -q \
     wget \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/html
-
 ARG VERSION=1.7.4
-
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/YOURLS/YOURLS.git /var/www/html/ \
   && mv /var/www/html/sample-robots.txt /var/www/html/robots.txt \
   && rm -rf /var/www/html/.git
@@ -21,7 +16,6 @@ COPY [ "files/config-sample.php", "/var/www/html/user/config-sample.php" ]
 COPY [ "files/htaccess", "/var/www/html/.htaccess" ]
 
 WORKDIR /var/www/html/user/plugins
-
 RUN git clone --depth=1 https://github.com/timcrockford/302-instead.git \
   && git clone --depth=1 https://github.com/joshp23/YOURLS-doTLS.git \
   && mv YOURLS-doTLS/doTLS/ . \

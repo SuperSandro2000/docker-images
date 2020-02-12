@@ -26,11 +26,9 @@ yaml=libyaml\n\
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /uwsgi
-
 RUN python3 uwsgiconfig.py --build -v
 
 ARG SHA
-
 RUN git clone --depth=1 https://github.com/healthchecks/healthchecks.git /hc
 
 #------------------#

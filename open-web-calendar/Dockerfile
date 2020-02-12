@@ -4,7 +4,6 @@ RUN apk add --no-cache --no-progress \
     git
 
 ARG SHA
-
 RUN git clone https://github.com/niccokunzmann/open-web-calendar.git /app/
 
 #------------------#
@@ -37,7 +36,6 @@ RUN apk add --no-cache --no-progress \
     python3
 
 COPY --from=source [ "/app/requirements.txt", "/app/requirements.txt" ]
-
 RUN pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt
 
 COPY --from=source [ "/app/", "/app/" ]

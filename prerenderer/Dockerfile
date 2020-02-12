@@ -4,7 +4,6 @@ RUN apk add --no-cache \
     git
 
 ARG SHA
-
 RUN git clone https://github.com/prerender/prerender.git /app
 
 #------------------#

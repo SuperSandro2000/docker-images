@@ -4,6 +4,8 @@ ARG REVISION
 
 FROM quay.io/mastodon/mastodon:$VERSION as mastodon
 
+#--------------#
+
 FROM nginx:alpine
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \

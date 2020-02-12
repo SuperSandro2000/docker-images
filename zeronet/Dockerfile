@@ -4,7 +4,6 @@ RUN apk add --no-cache --no-progress \
     git
 
 ARG SHA
-
 RUN git clone --branch py3 --depth=1 https://github.com/HelloZeroNet/ZeroNet.git /app/
 
 #------------------#
@@ -28,8 +27,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.title="ZeroNet" \
   org.opencontainers.image.description="ZeroNet - Decentralized websites using Bitcoin crypto and BitTorrent network"
 
-ENV HOME=/app ENABLE_TOR=false
-
 RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
@@ -43,7 +40,6 @@ COPY [ "files/run.sh", "/usr/local/bin/" ]
 COPY --from=source [ "/app", "/app" ]
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-
 RUN apk add --no-cache --no-progress --virtual .build \
     grep \
   && pip3 install --no-cache-dir --progress-bar off --pre \
@@ -54,8 +50,10 @@ RUN apk add --no-cache --no-progress --virtual .build \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc
 
-EXPOSE 43110 26552
 VOLUME /app/data
 WORKDIR /app
+EXPOSE 43110 26552
+ENV HOME=/app \
+  ENABLE_TOR=false
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "run.sh" ]

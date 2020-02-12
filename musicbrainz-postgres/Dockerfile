@@ -18,7 +18,6 @@ FROM builder as collate
 RUN git clone --depth=1 https://github.com/metabrainz/postgresql-musicbrainz-collate.git /postgresql-musicbrainz-collate
 
 WORKDIR /postgresql-musicbrainz-collate
-
 RUN make \
   && strip musicbrainz_collate.so
 
@@ -29,7 +28,6 @@ FROM builder as unaccent
 RUN git clone --depth=1 https://github.com/metabrainz/postgresql-musicbrainz-unaccent.git /postgresql-musicbrainz-unaccent
 
 WORKDIR /postgresql-musicbrainz-unaccent
-
 RUN make \
   && strip musicbrainz_unaccent.so
 

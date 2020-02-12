@@ -7,7 +7,6 @@ RUN apt-get update -q \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=0.2.7
-
 RUN wget -q -O JMusicBot-Linux.jar -- https://github.com/jagrosh/MusicBot/releases/download/$VERSION/JMusicBot-$VERSION-Linux.jar
 
 #--------------#
@@ -36,9 +35,8 @@ RUN export user=MusicBot \
 
 COPY --from=git /JMusicBot-Linux.jar /JMusicBot-Linux.jar
 
-WORKDIR /data
-
 RUN ln -rs /data/config.txt /config.txt \
   && ln -rs /data/Playlists /Playlists
 
+WORKDIR /data
 CMD [ "java", "-Dnogui=true", "-jar", "/JMusicBot-Linux.jar" ]

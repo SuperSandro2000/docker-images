@@ -10,10 +10,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/html
-
 ARG VERSION=master
-
 RUN git clone --depth=1 -- https://github.com/stefanzweifel/screeenly.git /var/www/html/
 
 #--------------#
@@ -38,7 +35,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.description="📸 Screenshot as a Service"
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public/
-
 # hadolint ignore=SC2016
 RUN usermod -aG tty www-data \
   && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
@@ -58,7 +54,6 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 # Nodejs
 RUN apt-get update \
   && apt-get install --no-install-recommends -qy \
@@ -75,7 +70,6 @@ RUN apt-get update \
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
-
 # php exts, composer prestissimo
 RUN export dev_apt=( \
     "libpq-dev" \

@@ -47,7 +47,6 @@ COPY [ "files/ports.conf", "/etc/apache2/ports.conf" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 RUN export dev_apt=( \
     "libpq-dev" \
   ) \

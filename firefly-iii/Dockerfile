@@ -10,10 +10,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/html
-
 ARG VERSION=5.0.3
-
 RUN git clone --depth=1 --branch=$VERSION -- https://github.com/firefly-iii/firefly-iii.git /var/www/html/
 
 #--------------#
@@ -100,7 +97,6 @@ ENV DB_CONNECTION=sqlite \
     TZ=Europe/Berlin
 
 WORKDIR /var/www/html/
-
 RUN composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist \
   && rm -rf $COMPOSER_HOME/cache \
   && chown -R www-data:www-data /var/www/html/storage \

@@ -1,7 +1,5 @@
 FROM node:buster-slim as builder
 
-ENV NODE_ENV=production
-
 RUN apt-get update \
   && apt-get install --no-install-recommends -qy \
     ca-certificates \
@@ -9,13 +7,12 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=v-2020-01-06
-
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/metabrainz/musicbrainz-server.git /app
-
-WORKDIR /app
 
 COPY [ "files/DBDefs.pm", "/app/lib/DBDefs.pm" ]
 
+WORKDIR /app
+ENV NODE_ENV=production
 RUN yarn \
   && yarn cache clean
 
@@ -38,8 +35,6 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.licenses="GPL-2.0,BSD-2" \
   org.opencontainers.image.title="MusicBrainz Server" \
   org.opencontainers.image.description="The official musicbrainz-server codebase"
-
-ENV NODE_ENV=production
 
 RUN export user=musicbrainz \
   && groupadd -r $user && useradd -r -g $user $user
@@ -124,7 +119,6 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 RUN export dev_apt=(\
     "cpanminus" \
     "gcc" \
@@ -149,10 +143,10 @@ RUN export dev_apt=(\
 COPY --from=builder [ "/app", "/app" ]
 
 WORKDIR /app
-
 RUN mkdir -p /app/.nyc_output /app/data \
   && chown musicbrainz:musicbrainz /app/.nyc_output
 
+ENV NODE_ENV=production
 VOLUME /app/data
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "plackup", "-Ilib", "-r" ]

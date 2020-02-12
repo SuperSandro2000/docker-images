@@ -6,10 +6,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-
 ARG VERSION=3.3.1
-
 RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red-DiscordBot.git /app
 
 #-------------------#
@@ -39,8 +36,6 @@ RUN export user=reddiscord \
   # https://github.com/docker-library/openjdk/blob/0584b2804ed12dca7c5e264b5fc55fc07a3ac148/8-jre/slim/Dockerfile#L51-L54
   && mkdir -p /usr/share/man/man1
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy \
     default-jre-headless \
@@ -57,6 +52,5 @@ RUN pip3 install --no-cache-dir --progress-bar off /app/ \
   && chown -R reddiscord:reddiscord /app
 
 WORKDIR /data
-
 ENTRYPOINT [ "entrypoint.sh" ]
 CMD [ "redbot", "docker" ]

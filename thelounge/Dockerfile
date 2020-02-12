@@ -19,7 +19,6 @@ RUN export user=thelounge \
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-
 RUN apk add --no-cache --no-progress \
     su-exec \
   && apk add --no-cache --no-progress --virtual .build \
