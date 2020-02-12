@@ -88,6 +88,8 @@ jobs:
     - <<: *build
       env: IMAGE=healthchecks
     - <<: *build
+      env: IMAGE=images-weserv
+    - <<: *build
       env: IMAGE=iodine
     - <<: *build
       env: IMAGE=kibitzr

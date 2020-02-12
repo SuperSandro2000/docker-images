@@ -79,6 +79,14 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/healthchecks.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/healthchecks/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/healthchecks.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/healthchecks/)
 
+### Images Weserv
+
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/images-weserv/)
+[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/images-weserv/README.md)
+[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/images-weserv.svg)](https://microbadger.com/images/supersandro2000/images-weserv)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/images-weserv.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/images-weserv/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/images-weserv.svg?maxAge=3600)](https://hub.docker.com/r/supersandro2000/images-weserv/)
+
 ### Iodine
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/iodine/)
