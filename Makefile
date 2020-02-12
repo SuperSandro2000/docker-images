@@ -43,7 +43,7 @@ $(TRIVY):
 
 .PHONY: hadolint
 hadolint: $(HADOLINT)
-	$(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | grep -v ".j2" | xargs --max-lines=1 $(HADOLINT)
+	$(if ${CI},,-)git ls-files --exclude='*Dockerfile*' --ignored | \grep -Ev "(.j2|images-weserv)" | xargs --max-lines=1 $(HADOLINT)
 
 .PHONY: mdl
 mdl: $(MDL)
