@@ -30,7 +30,8 @@ RUN apk add --no-cache --no-progress \
     jq \
     python3
 
-RUN pip3 install --no-cache-dir --progress-bar off kibitzr
+ARG VERSION=6.0.0
+RUN pip3 install --no-cache-dir --progress-bar off kibitzr==$VERSION
 
 WORKDIR /usr/src/app
 ENTRYPOINT [ "entrypoint.sh" ]
