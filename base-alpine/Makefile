@@ -8,6 +8,6 @@ VERSION := 3.11
 
 .PHONY: edge
 edge:
-	$(MAKE) -$(MAKEFLAGS) -e build VERSION=edge
+	$(MAKE) -$(MAKEFLAGS) TAGS=edge VERSION=edge all
 
 include ../buildx/Makefile
