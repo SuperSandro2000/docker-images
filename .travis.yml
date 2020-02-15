@@ -40,10 +40,13 @@ stages:
 .template:
   - &build
     stage: build
+    env: TARGETS=all
     script:
       - cd "$IMAGE"
       - if [[ $TRAVIS_PULL_REQUEST != false && $TRAVIS_BRANCH == master ]]; then
-          make;
+          for target in $TARGETS; do
+            make $target;
+          done;
         else
           sudo docker build .;
         fi
@@ -66,7 +69,7 @@ jobs:
 
     - <<: *build
       stage: Build base
-      env: IMAGE=base-alpine
+      env: IMAGE=base-alpine TARGETS=all,edge
 
     - <<: *build
       env: IMAGE=aports
