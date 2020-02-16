@@ -193,6 +193,7 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 
 ## Credits
 
+Thanks to tianon for doing such an awesome job with the offical library and providing very good examples with them.
 Thanks to napnap75 for inspiring me to do this with his [rpi-docker-images](https://github.com/napnap75/rpi-docker-images/) repo.
 
 ## License
