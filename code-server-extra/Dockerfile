@@ -10,6 +10,7 @@ RUN apt-get update \
     golang \
     libc6-dev \
     # misc
+    make \
     wget \
   && wget https://github.com/SuperSandro2000/install-scripts/raw/master/programs/shellcheck.sh -O- | bash \
   && rm -rf /var/lib/apt/lists/*
