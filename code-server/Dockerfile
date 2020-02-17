@@ -15,7 +15,11 @@ ARG VERSION=2.1698
 RUN git clone --depth=1 --branch=$VERSION -- https://github.com/cdr/code-server.git /src
 
 WORKDIR /src
-RUN yarn \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=SC2034
+RUN for i in {1..3}; do \
+    yarn && break || sleep 15; \
+  done \
   && yarn cache clean \
   && MINIFY=true BINARY=true ./scripts/ci.bash \
 	&& rm -r /src/build \
