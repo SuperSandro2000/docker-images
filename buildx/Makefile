@@ -30,6 +30,7 @@ endif
 
 .PHONY: setup
 setup:
+	$(SUDO) docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 	$(SUDO) docker --config $(CONFIG) buildx create --use --name build --node build --driver-opt network=host
 
 .PHONY: login
