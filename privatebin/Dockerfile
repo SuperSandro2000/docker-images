@@ -8,7 +8,7 @@ RUN apt-get update -q \
 
 WORKDIR /var/www/html
 
-ARG VERSION=1.3.2
+ARG VERSION=1.3.3
 
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/PrivateBin/PrivateBin.git /var/www/html/ \
   && mv /var/www/html/.htaccess.disabled /var/www/html/.htaccess
