@@ -26,7 +26,7 @@ $(HADOLINT):
 	chmod 700 "$(HADOLINT)"
 
 $(MDL):
-	gem install --user mdl
+	GEM_HOME=${HOME}/.gem gem install mdl
 
 $(SHELLCHECK):
 	curl -s https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz | tar Jx shellcheck-stable/shellcheck --strip=1
