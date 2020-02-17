@@ -11,7 +11,7 @@
 
 MusicBot Docker Image
 
-For configuration see https://github.com/jagrosh/MusicBot/wiki/Setup
+For configuration see [github.com/jagrosh/MusicBot/wiki/Setup](https://github.com/jagrosh/MusicBot/wiki/Setup).
 
 ## Docker compose
 

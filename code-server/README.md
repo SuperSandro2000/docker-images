@@ -11,7 +11,7 @@
 
 code-server Docker Image based on Debian Testing
 
-For configuration see https://github.com/cdr/code-server
+For configuration see [github.com/cdr/code-server](https://github.com/cdr/code-server)
 
 ## Docker compose
 

@@ -11,9 +11,10 @@
 
 Screeenly Docker Image
 
-For configuration see https://github.com/stefanzweifel/screeenly/blob/master/.env.example
+For configuration see [github.com/stefanzweifel/screeenly/blob/master/.env.example](https://github.com/stefanzweifel/screeenly/blob/master/.env.example)
 
 Additional options:
+
 - ENABLE_REGISTER: Disables the registration function
 
 ## Docker compose

@@ -11,7 +11,7 @@
 
 Firefly III Docker Image
 
-For configuration see https://github.com/firefly-iii/firefly-iii/blob/master/.env.example
+For configuration see [github.com/firefly-iii/firefly-iii/blob/master/.env.example](https://github.com/firefly-iii/firefly-iii/blob/master/.env.example)
 
 Additonally DB_INIT is used to seed the Database once.
 

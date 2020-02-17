@@ -11,6 +11,6 @@
 
 Images Weserv Docker Image auto build
 
-Dockerfile is taken from https://github.com/weserv/images/blob/5.x/Dockerfile
+Dockerfile is taken from [github.com/weserv/images/blob/5.x/Dockerfile](https://github.com/weserv/images/blob/5.x/Dockerfile)
 
-For Documentation please look at https://github.com/weserv/images/blob/5.x/DOCKER.md
+For Documentation please look at [github.com/weserv/images/blob/5.x/DOCKER.md](https://github.com/weserv/images/blob/5.x/DOCKER.md)
