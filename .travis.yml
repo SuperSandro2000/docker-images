@@ -8,24 +8,6 @@ addons:
     packages:
       - jq
 
-install:
-  # needed for templating, currently not in use
-  # - pip install --user j2cli
-
-  # update docker for buildx
-  - mkdir -p /etc/docker/
-  - |
-    echo -e '{"experimental": true}' | sudo tee /etc/docker/daemon.json
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get install -qy docker-ce
-  # log into Docker HUB
-  - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
-  # enable multiarch
-  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-  # create builder for buildx
-  - docker buildx create --use --name build --node build --driver-opt network=host
-
 env:
   global:
     - DOCKER_CLI_EXPERIMENTAL=enabled
@@ -42,6 +24,19 @@ stages:
     stage: build
     env: TARGETS=all
     script:
+      # update docker for buildx
+      - mkdir -p /etc/docker/
+      - |
+        echo -e '{"experimental": true}' | sudo tee /etc/docker/daemon.json
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get install -qy docker-ce
+      # log into Docker HUB
+      - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      # enable multiarch
+      - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+      # create builder for buildx
+      - docker buildx create --use --name build --node build --driver-opt network=host
       - cd "$IMAGE"
       - if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_BRANCH == master ]]; then
           for target in $TARGETS; do
