@@ -69,7 +69,7 @@ jobs:
 
     - <<: *build
       stage: Build base
-      env: IMAGE=base-alpine TARGETS=all,edge
+      env: IMAGE=base-alpine TARGETS="all edge"
 
     - <<: *build
       env: IMAGE=aports
