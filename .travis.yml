@@ -18,7 +18,7 @@ install:
     echo -e '{"experimental": true}' | sudo tee /etc/docker/daemon.json
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - sudo add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt install -qy docker-ce
+  - sudo apt-get install -qy docker-ce
   # log into Docker HUB
   - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
   # enable multiarch
