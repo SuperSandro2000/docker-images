@@ -76,6 +76,8 @@ jobs:
         - ./manifest.sh
         - docker images
     - <<: *build
+      env: IMAGE=base-travis
+    - <<: *build
       env: IMAGE=code-server
     - <<: *build
       env: IMAGE=code-server-extra

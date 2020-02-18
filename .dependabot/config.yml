@@ -20,6 +20,12 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
+    directory: "/base-travis"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
     directory: "/code-server"
     update_schedule: "daily"
     default_reviewers:
