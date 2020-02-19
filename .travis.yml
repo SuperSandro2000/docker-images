@@ -39,9 +39,13 @@ stages:
       - docker buildx create --use --name build --node build --driver-opt network=host
       - cd "$IMAGE"
       - if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_BRANCH == master ]]; then
-          for target in $TARGETS; do
-            make $target;
-          done;
+          if [[ -z ${TARGETS:-} ]]
+            make;
+          else
+            for target in $TARGETS; do
+              make $target;
+            done;
+          fi;
         else
           sudo docker build .;
         fi
