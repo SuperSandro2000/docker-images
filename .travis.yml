@@ -76,6 +76,7 @@ jobs:
       env: IMAGE=archisteamfarm
       script:
         - cd "$IMAGE"
+        - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
         - ./manifest.sh
         - docker images
     - <<: *build
