@@ -62,6 +62,12 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
+    directory: "/i-hate-regex"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
     directory: "/iodine"
     update_schedule: "daily"
     default_reviewers:

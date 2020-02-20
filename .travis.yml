@@ -96,6 +96,8 @@ jobs:
     - <<: *build
       env: IMAGE=images-weserv
     - <<: *build
+      env: IMAGE=i-hate-regex
+    - <<: *build
       env: IMAGE=iodine
     - <<: *build
       env: IMAGE=kibitzr
