@@ -39,7 +39,7 @@ stages:
       - docker buildx create --use --name build --node build --driver-opt network=host
       - cd "$IMAGE"
       - if [[ $TRAVIS_PULL_REQUEST == false && $TRAVIS_BRANCH == master ]]; then
-          if [[ -z ${TARGETS:-} ]]
+          if [[ -z ${TARGETS:-} ]]; then
             make;
           else
             for target in $TARGETS; do
