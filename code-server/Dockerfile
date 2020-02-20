@@ -1,4 +1,4 @@
-FROM node:12-slim as builder
+FROM node:13-slim as builder
 
 RUN apt-get update \
   && apt-get install -qy --no-install-recommends \
