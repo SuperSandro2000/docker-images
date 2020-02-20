@@ -74,6 +74,7 @@ jobs:
       env: IMAGE=aports
     - <<: *build
       env: IMAGE=archisteamfarm
+      script:
         - cd "$IMAGE"
         - ./manifest.sh
         - docker images
