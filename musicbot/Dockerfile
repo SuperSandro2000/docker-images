@@ -33,7 +33,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN export user=MusicBot \
   && groupadd -r $user && useradd -r -g $user $user
 
-COPY --from=git /JMusicBot-Linux.jar /JMusicBot-Linux.jar
+COPY --from=git [ "/JMusicBot-Linux.jar", "/JMusicBot-Linux.jar" ]
 
 RUN ln -rs /data/config.txt /config.txt \
   && ln -rs /data/Playlists /Playlists
