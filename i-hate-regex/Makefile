@@ -2,7 +2,7 @@
 MAKEFLAGS += --warn-undefined-variables --no-print-directory
 SHELL := /bin/bash
 
-HOOK := 1
+HOOK := https://hooks.microbadger.com/images/supersandro2000/i-hate-regex/G1UiLMXCEY2U5GnShGtqvWHHK64=
 IMAGE := i-hate-regex
 PLATFORMS := amd64
 TAGS := latest
