@@ -102,6 +102,10 @@ jobs:
     - <<: *build
       env: IMAGE=kibitzr
     - <<: *build
+      env: IMAGE=magic-wormhole-mailbox-server
+    - <<: *build
+      env: IMAGE=magic-wormhole-transit-relay
+    - <<: *build
       env: IMAGE=mastodon-nginx
     - <<: *build
       env: IMAGE=musicbot

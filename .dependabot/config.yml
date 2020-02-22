@@ -80,6 +80,18 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
+    directory: "/magic-wormhole-mailbox-server"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
+    directory: "/magic-wormhole-transit-relay"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
     directory: "/mastodon-nginx"
     update_schedule: "daily"
     default_reviewers:
