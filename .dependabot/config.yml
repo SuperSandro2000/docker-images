@@ -26,6 +26,12 @@ update_configs:
       - "supersandro2000"
 
   - package_manager: "docker"
+    directory: "/c3d2-bullshit-bingo"
+    update_schedule: "daily"
+    default_reviewers:
+      - "supersandro2000"
+
+  - package_manager: "docker"
     directory: "/code-server"
     update_schedule: "daily"
     default_reviewers:

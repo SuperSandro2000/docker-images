@@ -84,6 +84,8 @@ jobs:
     - <<: *build
       env: IMAGE=base-travis
     - <<: *build
+      env: IMAGE=c3d2-bullshit-bingo
+    - <<: *build
       env: IMAGE=code-server
     - <<: *build
       env: IMAGE=code-server-extra
