@@ -7,7 +7,7 @@ RUN apt-get update -q \
   && rm -rf /var/lib/apt/lists/*
 
 ARG SHA
-RUN git clone --depth=1 --branch=patch-1 -- https://github.com/SuperSandro2000/c3d2-bullshit-bingo.git /src
+RUN git clone --depth=1 -- https://github.com/c3d2/c3d2-bullshit-bingo.git /src
 
 #---------------#
 
