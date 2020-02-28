@@ -82,7 +82,7 @@ jobs:
     - <<: *build
       env: IMAGE=archisteamfarm
     - <<: *build
-      env: IMAGE=base-travis
+      env: IMAGE=base-travis TARGETS="xenial bionic"
     - <<: *build
       env: IMAGE=c3d2-bullshit-bingo
     - <<: *build
