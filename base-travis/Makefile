@@ -11,6 +11,6 @@ TAGS := $(VERSION)
 
 .PHONY: bionic
 bionic:
-	$(MAKE) -$(MAKEFLAGS) -e all VERSION=bionic
+	$(MAKE) -$(MAKEFLAGS) all VERSION=bionic
 
 include ../buildx/Makefile
