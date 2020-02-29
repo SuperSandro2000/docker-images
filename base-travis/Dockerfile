@@ -19,6 +19,7 @@ RUN apt-get update \
     ca-certificates \
     cmake \
     curl \
+    docker.io \
     gcc \
     git \
     libssl-dev \
