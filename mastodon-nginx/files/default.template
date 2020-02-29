@@ -75,6 +75,7 @@ server {
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header Proxy "";
 
+    resolver 127.0.0.11;
     set $backend http://${MASTODON_STREAMING}:4000;
     proxy_pass $backend;
     proxy_buffering off;
