@@ -37,8 +37,7 @@ RUN export user=travis \
   && printf "#!/bin/bash\n\
 set -eoux pipefail\n\
 apt-get update -qy\n\
-echo \"\$@\"\n\
-sudo -Hu travis \"\$@\"\n\
+sudo \"\$@\"\n\
 " > /usr/local/bin/entrypoint.sh \
   && chmod +x /usr/local/bin/entrypoint.sh
 
