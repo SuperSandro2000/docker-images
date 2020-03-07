@@ -35,7 +35,7 @@ RUN export user=regex \
 
 COPY --from=git [ "/src/package.json", "/src/yarn.lock", "/app/" ]
 WORKDIR /app/
-RUN yarn install \
+RUN yarn install --frozen-lockfile \
   && yarn cache clean
 
 COPY --from=git [ "/src/", "/app/" ]
