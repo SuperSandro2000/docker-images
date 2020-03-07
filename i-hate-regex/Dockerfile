@@ -11,7 +11,7 @@ RUN git clone --depth=1 -- https://github.com/geongeorge/i-hate-regex.git /src
 
 #--------------#
 
-FROM node:13.8-slim
+FROM node:13.10.1-slim
 
 ARG BUILD_DATE
 ARG VERSION
