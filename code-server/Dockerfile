@@ -11,19 +11,32 @@ RUN apt-get update \
     python \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=2.1698
-RUN git clone --depth=1 --branch=$VERSION -- https://github.com/cdr/code-server.git /src
+ARG VERSION=3.0.1
+RUN git clone --branch=$VERSION --depth=1 --recurse-submodules --shallow-submodules -- https://github.com/cdr/code-server.git /src
 
-WORKDIR /src
+WORKDIR /src/
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN yarn install --frozen-lockfile \
+  && yarn vscode:patch &>/dev/null
+
+WORKDIR /src/lib/vscode/
 # hadolint ignore=SC2034
 RUN for i in {1..3}; do \
-    yarn && break || sleep 15; \
+    yarn install --frozen-lockfile && break || sleep 15; \
   done \
-  && yarn cache clean \
-  && MINIFY=true BINARY=true ./scripts/ci.bash \
-	&& rm -r /src/build \
-	&& rm -r /src/source
+  && npm rebuild \
+  && yarn gulp compile-build \
+  && yarn gulp compile-extensions-build
+
+WORKDIR /src/
+ENV MINIFY=true \
+  NODE_ENV=production
+RUN ./ci/release.sh \
+  && cp "$(command -v node)" ./build \
+  && cp README.md ./build \
+  && cp LICENSE.txt ./build \
+  && cp ./lib/vscode/ThirdPartyNotices.txt ./build \
+  && cp ./ci/code-server.sh ./build/code-server
 
 #--------------#
 
@@ -56,12 +69,13 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-USER coder
+COPY --from=builder /src/build/ /usr/local/lib/code-server
 
+RUN ln -s /usr/local/lib/code-server/code-server /usr/local/bin/code-server
+
+USER coder
 RUN mkdir -p /home/coder/project \
   && mkdir -p /home/coder/.local/share/code-server
-
-COPY --from=builder /src/binaries/code-server /usr/local/bin/code-server
 
 EXPOSE 8080
 WORKDIR /home/coder/project
