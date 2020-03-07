@@ -4,7 +4,7 @@ RUN apk add --no-cache --no-progress \
     git
 
 ARG VERSION=4.1.2.0
-RUN git clone --recurse-submodules -j2 --depth=1 --branch $VERSION -- https://github.com/JustArchiNET/ArchiSteamFarm.git /src
+RUN git clone --branch $VERSION --depth=1 --recurse-submodules -j2 --shallow-submodules -- https://github.com/JustArchiNET/ArchiSteamFarm.git /src
 
 #-------------------#
 
