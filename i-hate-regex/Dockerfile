@@ -6,7 +6,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=2405403
+ARG VERSION=2c36269a2a9b21a5de9fc71e0da99eebb43931fd
 RUN git clone --depth=1 -- https://github.com/geongeorge/i-hate-regex.git /src
 
 #--------------#
