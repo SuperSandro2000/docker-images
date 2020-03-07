@@ -1,4 +1,4 @@
-FROM supersandro2000/code-server:2
+FROM supersandro2000/code-server:3
 
 USER root
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
