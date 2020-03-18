@@ -6,7 +6,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=3.3.1
+ARG VERSION=3.3.2
 RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red-DiscordBot.git /app
 
 #-------------------#
