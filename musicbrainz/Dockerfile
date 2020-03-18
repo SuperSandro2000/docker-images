@@ -6,7 +6,7 @@ RUN apt-get update \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=v-2020-01-06
+ARG VERSION=v-2020-03-16
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/metabrainz/musicbrainz-server.git /app
 
 COPY [ "files/DBDefs.pm", "/app/lib/DBDefs.pm" ]
