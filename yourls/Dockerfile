@@ -7,7 +7,7 @@ RUN apt-get update -q \
     wget \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=1.7.4
+ARG VERSION=1.7.6
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/YOURLS/YOURLS.git /var/www/html/ \
   && mv /var/www/html/sample-robots.txt /var/www/html/robots.txt \
   && rm -rf /var/www/html/.git
