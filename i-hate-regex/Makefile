@@ -5,7 +5,8 @@ SHELL := /bin/bash
 HOOK := https://hooks.microbadger.com/images/supersandro2000/i-hate-regex/G1UiLMXCEY2U5GnShGtqvWHHK64=
 IMAGE := i-hate-regex
 PLATFORMS := amd64
-TAGS := latest
-VERSION := $(shell curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/geongeorge/i-hate-regex/commits/master | jq -r '.sha')
+VERSION := master
+
+BUILD_ARGS := SHA=$(shell curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/geongeorge/i-hate-regex/commits/master | jq -r '.sha')
 
 include ../buildx/Makefile
