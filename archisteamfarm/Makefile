@@ -6,7 +6,7 @@ LATEST ?= $(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/
 
 HOOK := https://hooks.microbadger.com/images/supersandro2000/archisteamfarm/uFaZZ9Eb73O7_EOTXqHxPQls45E=
 IMAGE := archisteamfarm
-PLATFORMS := amd64
+PLATFORMS ?= amd64
 VERSION := $(LATEST)
 
 TAGS := alpine alpine-released alpine-$(LATEST)
