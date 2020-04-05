@@ -6,5 +6,6 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/musicbrainz-postgre
 IMAGE := musicbrainz-postgres
 PLATFORMS ?= amd64
 VERSION := 12
+TAGS := $(VERSION)
 
 include ../buildx/Makefile
