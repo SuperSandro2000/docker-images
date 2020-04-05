@@ -4,6 +4,6 @@ SHELL := /bin/bash
 
 HOOK := https://hooks.microbadger.com/images/supersandro2000/reddiscord/CtjLg5fT78hv5M6mbobg3_1aqeE=
 IMAGE := reddiscord
-VERSION := $(shell curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/Cog-Creators/Red-DiscordBot/tags | jq -r '.[0].name')
+VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/Cog-Creators/Red-DiscordBot/tags | jq -r '.[0].name')
 
 include ../buildx/Makefile

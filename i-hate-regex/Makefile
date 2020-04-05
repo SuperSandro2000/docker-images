@@ -7,6 +7,6 @@ IMAGE := i-hate-regex
 PLATFORMS := amd64
 VERSION := master
 
-BUILD_ARGS := SHA=$(shell curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/geongeorge/i-hate-regex/commits/master | jq -r '.sha')
+BUILD_ARGS := SHA=$(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/geongeorge/i-hate-regex/commits/master | jq -r '.sha')
 
 include ../buildx/Makefile

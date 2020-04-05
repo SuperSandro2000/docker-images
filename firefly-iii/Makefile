@@ -6,6 +6,6 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/firefly-iii/WUaJORh
 IMAGE := firefly-iii
 PLATFORMS := amd64
 # take the third tag cause the first and second start with letters
-VERSION := $(shell curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/firefly-iii/firefly-iii/tags | jq -r '.[2].name')
+VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/firefly-iii/firefly-iii/tags | jq -r '.[2].name')
 
 include ../buildx/Makefile

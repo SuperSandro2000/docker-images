@@ -4,16 +4,16 @@ SHELL := /bin/bash
 
 BUILD_ARGS ?=
 CI ?=
-CONFIG ?= $(if ${CI},~/.docker,~/.docker-local)
+CONFIG ?= $(if $(CI),~/.docker,~/.docker-local)
 COMMA :=,
 DEFAULT_BUILD_ARGS ?= BUILD_DATE=$(shell date -u +"%Y-%m-%d"),REVISION=$(shell git rev-parse --short HEAD),VERSION=$(VERSION)
 HOOK ?=
 IMAGE ?= test
 PLATFORMS ?= amd64,arm/v7,arm64
-REGISTRY ?= $(if ${CI},docker.io,localhost:5000)
+REGISTRY ?= $(if $(CI),docker.io,localhost:5000)
 SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,COMPOSE_DOCKER_CLI_BUILD,HOME,PWD; fi)
 TAGS ?= latest $(VERSION)
-USER := $(if ${CI},supersandro2000,sandro)
+USER := $(if $(CI),supersandro2000,sandro)
 VERSION ?=
 
 BUILD_ARG := $(foreach BUILD,$(subst $(COMMA), ,$(BUILD_ARGS) $(DEFAULT_BUILD_ARGS)),--build-arg $(BUILD))

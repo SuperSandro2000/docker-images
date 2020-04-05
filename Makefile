@@ -4,11 +4,11 @@ SHELL := /bin/bash
 
 CI ?=
 BIN_DIR := $(HOME)/.local/bin
-HADOLINT := ${BIN_DIR}/hadolint
-MDL := ${GEM_HOME}/bin/mdl
-SHELLCHECK := ${BIN_DIR}/shellcheck
-TRAVIS := ${GEM_HOME}/bin/travis
-TRIVY := ${BIN_DIR}/trivy
+HADOLINT := $(BIN_DIR)/hadolint
+MDL := $(GEM_HOME)/bin/mdl
+SHELLCHECK := $(BIN_DIR)/shellcheck
+TRAVIS := $(GEM_HOME)/bin/travis
+TRIVY := $(BIN_DIR)/trivy
 
 ARCHS ?= amd64 arm64 armhf
 DOCKERFILES ?= archisteamfarm/amd64.Dockerfile code-server-extra/amd64.Dockerfile $(foreach DIR,$(SUBDIRS),$(foreach ARCH,$(ARCHS),$(DIR)/$(ARCH).Dockerfile))
@@ -18,11 +18,11 @@ SUBDIRS ?= $(shell find * -maxdepth 0 -path archisteamfarm -prune -or -path buil
 EXECUTABLES = curl git jq
 K := $(foreach exec,$(EXECUTABLES),$(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
 
-export PATH := ${PATH}:${BIN_DIR}
+export PATH := $(PATH):$(BIN_DIR)
 
 $(HADOLINT):
 	mkdir -p $$(dirname $(HADOLINT))
-	curl -sLo "$(HADOLINT)" $$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
+	curl -sLo "$(HADOLINT)" $$(curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url')
 	chmod 700 "$(HADOLINT)"
 
 $(MDL):
@@ -33,13 +33,13 @@ $(SHELLCHECK):
 	mv shellcheck $(SHELLCHECK)
 
 $(SHFMT):
-	curl -sLo "$(SHFMT)" $$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/mvdan/sh/releases/latest | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
+	curl -sLo "$(SHFMT)" $$(curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/mvdan/sh/releases/latest | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
 
 $(TRAVIS):
 	gem install --user travis
 
 $(TRIVY):
-	curl -sL $$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/aquasecurity/trivy/releases/latest | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
+	curl -sL $$(curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/aquasecurity/trivy/releases/latest | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
 .PHONY: hadolint
 hadolint: $(HADOLINT)

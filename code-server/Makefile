@@ -6,6 +6,6 @@ HOOK := https://hooks.microbadger.com/images/supersandro2000/code-server/uppjdcu
 IMAGE := code-server
 PLATFORMS := amd64
 TAGS := latest 3
-VERSION := $(shell curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/cdr/code-server/tags | jq -r '.[0].name')
+VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/cdr/code-server/tags | jq -r '.[0].name')
 
 include ../buildx/Makefile
