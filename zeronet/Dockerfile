@@ -4,10 +4,11 @@ RUN apk add --no-cache --no-progress \
     git
 
 ARG SHA
-RUN git clone --branch py3 --depth=1 https://github.com/HelloZeroNet/ZeroNet.git /app/ \
+RUN git clone --branch py3 --depth=1 https://github.com/HelloZeroNet/ZeroNet.git /app/
+
+WORKDIR /app
 # manually apply https://github.com/HelloZeroNet/ZeroNet/pull/2509 until merged
-  && cd /app/ \
-  && git remote add pr-2509 https://github.com/SuperSandro2000/ZeroNet.git \
+RUN git remote add pr-2509 https://github.com/SuperSandro2000/ZeroNet.git \
   && git fetch pr-2509 \
   && git config --global user.email "docker@example.com" \
   && git cherry-pick 53188ea4fa346f8b8e1a8b36d14b2eff331d676f
