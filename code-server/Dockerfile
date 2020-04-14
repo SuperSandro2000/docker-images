@@ -11,7 +11,7 @@ RUN apt-get update \
     python \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=3.0.0
+ARG VERSION=3.1.0
 RUN git clone --branch=$VERSION --depth=1 --recurse-submodules --shallow-submodules -- https://github.com/cdr/code-server.git /src
 
 WORKDIR /src/
