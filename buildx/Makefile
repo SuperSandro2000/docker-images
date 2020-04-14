@@ -14,7 +14,7 @@ REGISTRY ?= $(if $(CI),docker.io,localhost:5000)
 SUDO ?= $(shell if ! groups 2&>/dev/null | grep -q docker; then echo sudo --preserve-env=DOCKER_BUILDKIT,DOCKER_CLI_EXPERIMENTAL,COMPOSE_DOCKER_CLI_BUILD,HOME,PWD; fi)
 # tag latest, major, minor, version by default
 # eg latest, 3, 3.0, 3.0.2
-TAGS ?= latest $(shell echo $(VERSION) | cut -f1 -d".") $(shell echo $(VERSION) | rev | cut -f2,3 -d"." | rev) $(VERSION)
+TAGS ?= latest $(shell echo $(VERSION) | cut -f1 -d".") $(shell echo $(VERSION) | awk -F '[.-]' '{print $$1"."$$2}') $(shell echo $(VERSION) | awk -F '[.-]' '{print $$1"."$$2"."$$3}') $(VERSION)
 USER := $(if $(CI),supersandro2000,sandro)
 VERSION ?=
 
