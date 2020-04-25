@@ -10,16 +10,15 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/base-travis.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-travis/)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/base-travis.svg)](https://microbadger.com/images/supersandro2000/base-travis)
 
-
 Travis Image to reproduce builds locally.
 
-# Prerequisites
+## Prerequisites
 
 * Docker
 * travis-cli with compile support. You can install that with [this script](https://github.com/SuperSandro2000/install-scripts/blob/master/programs/travis.sh).
 * A repository which uses travis
 
-# Usage
+## Usage
 
 * Clone the repo for which you want to reproduce a build and change in it directory
 * Generate the script with ``travis`` cli and some duct tape. Replace ``master`` with the branch or tag you want to build. Optionally you can replace ``XXX`` with the build number and further optionally ``.X`` with the job number. ``travis compile XXX.X | \grep -Ev '^travis_run_setup_ca[cs]he' | sed -r "s/branch\\\\=\\\\'()/\0master/" >run.sh``
