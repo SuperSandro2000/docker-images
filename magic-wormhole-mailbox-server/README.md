@@ -1,13 +1,14 @@
-[![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=43200)](https://travis-ci.org/SuperSandro2000/docker-images)
-[![Github Stars](https://img.shields.io/github/stars/supersandro2000/docker-images.svg?maxAge=43200&label=Stars)](https://github.com/SuperSandro2000/docker-images)
-
 # magic-wormhole-mailbox-server
 
-[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
+[![Github Stars](https://img.shields.io/github/stars/supersandro2000/docker-images.svg?maxAge=43200&label=Github%20Stars)](https://github.com/SuperSandro2000/docker-images)
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/magic-wormhole-mailbox-server/README.md)
+[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/magic-wormhole-mailbox-server.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
+[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
+
+[![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=43200)](https://travis-ci.org/SuperSandro2000/docker-images)
+[![Version](https://img.shields.io/docker/v/supersandro2000/magic-wormhole-mailbox-server.svg?label=Version&sort=date&maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/magic-wormhole-mailbox-server.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/magic-wormhole-mailbox-server.svg)](https://microbadger.com/images/supersandro2000/magic-wormhole-mailbox-server)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/magic-wormhole-mailbox-server.svg?maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/magic-wormhole-mailbox-server.svg?maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
 
 magic-wormhole-mailbox-server Docker Image
 
