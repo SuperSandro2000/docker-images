@@ -20,6 +20,7 @@ for variant in latest released $version; do
   $sudo docker manifest create supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm
   $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant" --os linux --arch amd64
   $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm --os linux --arch arm --variant v7
+  $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm64 --os linux --arch arm64 --variant v8
 
   retry "$sudo docker manifest push supersandro2000/archisteamfarm:$variant"
   sleep 3
