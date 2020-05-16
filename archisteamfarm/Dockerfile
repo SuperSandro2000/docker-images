@@ -21,21 +21,26 @@ RUN npm ci \
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-dotnet
 
 ENV CONFIGURATION=Release \
-  NET_CORE_VERSION=netcoreapp3.1
+  NET_CORE_VERSION=netcoreapp3.1 \
+  DOTNET_CLI_TELEMETRY_OPTOUT=1 \
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 
+COPY --from=build-node [ "/app/dist", "/app/ASF-ui/dist" ]
 COPY --from=git [ "/src/ArchiSteamFarm", "/app/ArchiSteamFarm" ]
 COPY --from=git [ "/src/ArchiSteamFarm.Tests", "/app/ArchiSteamFarm.Tests" ]
-COPY --from=build-node [ "/app/dist", "/app/ASF-ui/dist" ]
+COPY --from=git [ "/src/resources", "/app/resources" ]
 
 WORKDIR /app
 RUN dotnet --info \
   # TODO: Remove workaround for https://github.com/microsoft/msbuild/issues/3897 when it's no longer needed
   && if [ -f "ArchiSteamFarm/Localization/Strings.zh-CN.resx" ]; then ln -s "Strings.zh-CN.resx" "ArchiSteamFarm/Localization/Strings.zh-Hans.resx"; fi \
   && if [ -f "ArchiSteamFarm/Localization/Strings.zh-TW.resx" ]; then ln -s "Strings.zh-TW.resx" "ArchiSteamFarm/Localization/Strings.zh-Hant.resx"; fi \
-  && dotnet build ArchiSteamFarm -c "$CONFIGURATION" -f "$NET_CORE_VERSION" /nologo \
-  && dotnet test ArchiSteamFarm.Tests -c "$CONFIGURATION" -f "$NET_CORE_VERSION" /nologo \
-  && dotnet publish ArchiSteamFarm -c "$CONFIGURATION" -f "$NET_CORE_VERSION" -o 'out' /nologo /p:ASFVariant=docker /p:PublishTrimmed=false /p:UseAppHost=false \
-  && cp "ArchiSteamFarm/overlay/generic/ArchiSteamFarm.sh" "out/ArchiSteamFarm.sh"
+  && dotnet build ArchiSteamFarm -c "$CONFIGURATION" -f "$NET_CORE_VERSION" -p:SelfContained=false -p:UseAppHost=false -r linux-x64 --nologo \
+  && dotnet test ArchiSteamFarm.Tests -c "$CONFIGURATION" -f "$NET_CORE_VERSION" -p:SelfContained=false -p:UseAppHost=false -r linux-x64 --nologo \
+  && dotnet clean ArchiSteamFarm -c "$CONFIGURATION" -f "$NET_CORE_VERSION" -p:SelfContained=false -p:UseAppHost=false -r linux-x64 --nologo \
+  && dotnet publish ArchiSteamFarm -c "$CONFIGURATION" -f "$NET_CORE_VERSION" -o out -p:ASFVariant=docker -p:SelfContained=false -p:UseAppHost=false -r linux-x64 --nologo \
+  && if [ -d "ArchiSteamFarm/overlay/generic" ]; then cp "ArchiSteamFarm/overlay/generic/"* "out"; fi
+
 
 #-------------------#
 
