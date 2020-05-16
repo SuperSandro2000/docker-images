@@ -223,6 +223,10 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/zeronet.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/zeronet/)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/zeronet.svg)](https://microbadger.com/images/supersandro2000/zeronet)
 
+## Old lib
+
+The old ``lib`` directory is succeeded by buildx. It mostly replicated buildx functionality in Make and bash. The removal commit is [6c274c2142f4775e00b412b9d995df421b26eb07](https://github.com/SuperSandro2000/docker-images/commit/6c274c2142f4775e00b412b9d995df421b26eb07)
+
 ## Credits
 
 Thanks to tianon for doing such an awesome job with the offical library and providing very good examples with them.
