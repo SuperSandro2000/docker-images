@@ -47,12 +47,7 @@ COPY [ "files/run.sh", "/usr/local/bin/" ]
 COPY --from=source [ "/app", "/app" ]
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-RUN apk add --no-cache --no-progress --virtual .build \
-    grep \
-  && pip3 install --no-cache-dir --progress-bar off --pre \
-    gevent \
-  && grep -P '^((?!gevent(?!-)).)*$' /app/requirements.txt | xargs -n 1 pip3 install --no-cache-dir --progress-bar off \
-  && apk del .build \
+RUN pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt \
   && mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
   && echo "CookieAuthentication 1" >>/etc/tor/torrc
