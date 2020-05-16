@@ -10,5 +10,4 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/base-alpine.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-alpine/)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/base-alpine.svg)](https://microbadger.com/images/supersandro2000/base-alpine)
 
-
 Alpine Base Image used for all my Images.
