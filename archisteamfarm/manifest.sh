@@ -17,7 +17,7 @@ latest_version=$(curl -s -u ":${GITHUB_TOKEN}" -- https://api.github.com/repos/J
 version=$(echo "$release_version" "$latest_version" | xargs -n1 | sort -u | xargs)
 
 for variant in latest released $version; do
-  $sudo docker manifest create supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm
+  $sudo docker manifest create supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm justarchi/archisteamfarm:"$variant"-arm64
   $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant" --os linux --arch amd64
   $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm --os linux --arch arm --variant v7
   $sudo docker manifest annotate supersandro2000/archisteamfarm:"$variant" justarchi/archisteamfarm:"$variant"-arm64 --os linux --arch arm64 --variant v8
