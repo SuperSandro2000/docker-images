@@ -8,7 +8,7 @@ upstream backend {
 }
 
 upstream streaming {
-    server ${MASTODON_SERVER}:4000 fail_timeout=0;
+    server ${MASTODON_STREAMING}:4000 fail_timeout=0;
 }
 
 proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=CACHE:10m inactive=7d max_size=1g;
