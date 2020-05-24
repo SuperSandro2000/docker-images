@@ -29,6 +29,7 @@ COPY --from=build-node [ "/app/dist", "/app/ASF-ui/dist" ]
 COPY --from=git [ "/src/ArchiSteamFarm", "/app/ArchiSteamFarm" ]
 COPY --from=git [ "/src/ArchiSteamFarm.Tests", "/app/ArchiSteamFarm.Tests" ]
 COPY --from=git [ "/src/resources", "/app/resources" ]
+COPY --from=git [ "/src/Directory.Build.props", "/app/Directory.Build.props" ]
 
 WORKDIR /app
 RUN dotnet --info \
