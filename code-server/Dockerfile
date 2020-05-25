@@ -1,45 +1,3 @@
-FROM node:12-slim as builder
-
-RUN apt-get update \
-  && apt-get install -qy --no-install-recommends \
-    ca-certificates \
-    g++ \
-    git \
-    libsecret-1-dev \
-    libxkbfile-dev \
-    make \
-    python \
-  && rm -rf /var/lib/apt/lists/*
-
-ARG VERSION=3.1.0
-RUN git clone --branch=$VERSION --depth=1 --recurse-submodules --shallow-submodules -- https://github.com/cdr/code-server.git /src
-
-WORKDIR /src/
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN yarn install --frozen-lockfile \
-  && yarn vscode:patch &>/dev/null
-
-WORKDIR /src/lib/vscode/
-# hadolint ignore=SC2034
-RUN for i in {1..3}; do \
-    yarn install --frozen-lockfile && break || sleep 15; \
-  done \
-  && npm rebuild \
-  && yarn gulp compile-build \
-  && yarn gulp compile-extensions-build
-
-WORKDIR /src/
-ENV MINIFY=true \
-  NODE_ENV=production
-RUN ./ci/release.sh \
-  && cp "$(command -v node)" ./build \
-  && cp README.md ./build \
-  && cp LICENSE.txt ./build \
-  && cp ./lib/vscode/ThirdPartyNotices.txt ./build \
-  && cp ./ci/code-server.sh ./build/code-server
-
-#--------------#
-
 FROM debian:testing-slim
 
 ARG BUILD_DATE
@@ -67,16 +25,19 @@ RUN apt-get update -q \
     ca-certificates \
     dumb-init \
     git \
+    wget \
   && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /src/build/ /usr/local/lib/code-server
-
-RUN ln -s /usr/local/lib/code-server/code-server /usr/local/bin/code-server
+ARG VERSION=3.3.1
+RUN wget -q https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_amd64.deb -O /code-server_${VERSION}_amd64.deb \
+  && apt-get install -qy --no-install-recommends /code-server_${VERSION}_amd64.deb \
+  && rm /code-server_${VERSION}_amd64.deb
 
 USER coder
 RUN mkdir -p /home/coder/project \
   && mkdir -p /home/coder/.local/share/code-server
 
 EXPOSE 8080
+ENV NODE_ENV=production
 WORKDIR /home/coder/project
 ENTRYPOINT [ "dumb-init", "code-server", "--host", "0.0.0.0" ]
