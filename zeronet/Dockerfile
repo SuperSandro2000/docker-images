@@ -38,6 +38,7 @@ RUN export user=zeronet \
   && addgroup -S $user && adduser -D -S -G $user $user
 
 RUN apk add --no-cache --no-progress \
+    openssl \
     python3 \
     tor
 
