@@ -12,6 +12,8 @@
 
 ZeroNet Docker Image with multi-arch support.
 
+If you want to customize the ``torrc`` file you can do that by mounting one into the docker container: ``-v $PWD/tor/torrc:/etc/tor/torrc``
+
 ## Docker compose
 
 ````yaml
