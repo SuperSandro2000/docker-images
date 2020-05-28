@@ -1,11 +1,11 @@
 #!/bin/sh
 set -eou pipefail
 
-if [ -n "$UI_HOST" ]; then
+if [ -n "${UI_HOST:-}" ]; then
   ARGS="${ARGS:-} --ui_host ${UI_HOST:-}"
 fi
 
-if [ -n "$UI_PASSWORD" ]; then
+if [ -n "${UI_PASSWORD:-}" ]; then
   ARGS="${ARGS:-} --ui_password ${UI_PASSWORD:-}"
 fi
 
