@@ -12,6 +12,8 @@
 
 ZeroNet Docker Image with multi-arch support.
 
+``UI_PASSWORD`` only works when you put ZeroNet behind a reverse proxy which servers it over https.
+
 If you want to customize the ``torrc`` file you can do that by mounting one into the docker container: ``-v $PWD/tor/torrc:/etc/tor/torrc``
 
 ## Docker compose
@@ -28,7 +30,7 @@ services:
     environment:
       - ENABLE_TOR=true
       - UI_HOST=zeronet.example.com
-      - UI_PASSWORD=secret
+      - UI_PASSWORD=secret           # requires https
     volumes:
       - $PWD/zeronet:/app/data
     restart: unless-stopped
