@@ -75,7 +75,7 @@ RUN export dev_apt=( \
     pdo_pgsql \
     pgsql \
   && composer global require hirak/prestissimo \
-  && rm -rf $COMPOSER_HOME/cache \
+  && composer clear-cache \
   && printf "\
 de_DE.UTF-8 UTF-8 \n\
 en_US.UTF-8 UTF-8 \n\
@@ -98,7 +98,7 @@ ENV DB_CONNECTION=sqlite \
 
 WORKDIR /var/www/html/
 RUN composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist \
-  && rm -rf $COMPOSER_HOME/cache \
+  && composer clear-cache \
   && chown -R www-data:www-data /var/www/html/storage \
   && chmod -R 775 /var/www/html/storage
 
