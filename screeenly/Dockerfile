@@ -84,6 +84,7 @@ RUN export dev_apt=( \
     pdo_pgsql \
     pgsql \
   && composer global require hirak/prestissimo \
+  && composer clear-cache \
   && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
@@ -94,7 +95,8 @@ COPY --chown=www-data [ "files/web.php", "/var/www/html/routes/web.php" ]
 
 WORKDIR /var/www/html/
 RUN npm i puppeteer@2.0.0 --only=production \
-  && composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist
+  && composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist \
+  && composer clear-cache
 
 ENV DB_CONNECTION=sqlite DB_DATABASE=/var/www/html/database/database.sqlite
 EXPOSE 80
