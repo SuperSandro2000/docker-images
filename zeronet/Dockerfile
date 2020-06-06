@@ -1,4 +1,4 @@
-FROM alpine:3.11 as source
+FROM alpine:3.12 as source
 
 RUN apk add --no-cache --no-progress \
     git
@@ -10,7 +10,7 @@ WORKDIR /app
 
 #------------------#
 
-FROM supersandro2000/base-alpine:3.11
+FROM supersandro2000/base-alpine:3.12
 
 ARG BUILD_DATE
 ARG VERSION
@@ -34,7 +34,7 @@ RUN export user=zeronet \
 
 RUN apk add --no-cache --no-progress \
     openssl \
-    python3 \
+    py3-pip \
     tor
 
 COPY [ "files/pip.conf", "/etc/" ]
