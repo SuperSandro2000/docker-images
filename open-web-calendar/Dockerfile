@@ -36,7 +36,14 @@ RUN apk add --no-cache --no-progress \
     py3-pip
 
 COPY --from=source [ "/app/requirements.txt", "/app/requirements.txt" ]
-RUN pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt
+RUN pip3 install --no-cache-dir --progress-bar off \
+    flask-caching \
+    flask \
+    gunicorn \
+    icalendar \
+    pyyaml \
+    recurring-ical-events \
+    requests
 
 COPY --from=source [ "/app/", "/app/" ]
 RUN printf "\
