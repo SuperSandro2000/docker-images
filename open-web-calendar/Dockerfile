@@ -1,4 +1,4 @@
-FROM alpine:3.11 as source
+FROM alpine:3.12 as source
 
 RUN apk add --no-cache --no-progress \
     git
@@ -8,7 +8,7 @@ RUN git clone https://github.com/niccokunzmann/open-web-calendar.git /app/
 
 #------------------#
 
-FROM supersandro2000/base-alpine:3.11
+FROM supersandro2000/base-alpine:3.12
 
 ARG BUILD_DATE
 ARG VERSION
@@ -33,7 +33,7 @@ RUN export user=owc \
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 
 RUN apk add --no-cache --no-progress \
-    python3
+    py3-pip
 
 COPY --from=source [ "/app/requirements.txt", "/app/requirements.txt" ]
 RUN pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt
