@@ -29,7 +29,7 @@ $(MDL):
 	GEM_HOME=${HOME}/.gem gem install mdl
 
 $(SHELLCHECK):
-	curl -s https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar Jx shellcheck-stable/shellcheck --strip=1
+	curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar Jx shellcheck-stable/shellcheck --strip=1
 	mv shellcheck $(SHELLCHECK)
 
 $(SHFMT):
