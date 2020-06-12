@@ -28,7 +28,7 @@ RUN apk add --no-cache --no-progress \
     ca-certificates \
     git \
     jq \
-    python3
+    py3-pip
 
 ARG VERSION=6.0.0
 RUN pip3 install --no-cache-dir --progress-bar off kibitzr==$VERSION
