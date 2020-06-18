@@ -26,7 +26,7 @@ version: "3"
 services:
   screeenly:
     image: supersandro2000/screeenly
-    enviroment:
+    environment:
      - ...
     restart: unless-stopped
 ````

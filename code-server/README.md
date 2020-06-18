@@ -29,7 +29,7 @@ services:
       - $HOME/code-server:/home/coder/.local/share/code-server
       - $HOME/go/bin:/home/coder/go/bin
       - $HOME/project:/home/coder/project
-    enviroments:
+    environment:
       - PASSWORD=super_secret_password
     command:
       - --auth

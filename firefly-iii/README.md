@@ -23,7 +23,7 @@ version: "3"
 services:
   firefly-iii:
     image: supersandro2000/firefly-iii
-    enviroment:
+    environment:
      - ...
     restart: unless-stopped
 ````
