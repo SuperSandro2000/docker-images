@@ -22,7 +22,7 @@ services:
     image: supersandro2000/iodine
     cap_add:
       - NET_ADMIN
-    enviroment:
+    environment:
       - DOMAIN: example.com
       - PASSWORD: CHANGEME!
     restart: unless-stopped
