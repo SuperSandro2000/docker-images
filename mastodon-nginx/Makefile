@@ -8,7 +8,3 @@ PLATFORMS ?= amd64
 VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/tootsuite/mastodon/releases | jq -rS '.[0].tag_name')
 
 include ../buildx/Makefile
-
-.PHONY: test
-test:
-	$(SUDO) docker build . -t supersandro2000/mastodon-nginx --build-arg VERSION=$(VERSION)
