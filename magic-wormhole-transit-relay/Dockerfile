@@ -26,7 +26,7 @@ RUN apt-get update \
     python3-twisted \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install magic-wormhole-transit-relay==0.2.1
+RUN pip3 install --no-cache-dir --progress-bar off magic-wormhole-transit-relay==0.2.1
 
 EXPOSE 4001
 CMD [ "twist3", "transitrelay", "--port=tcp:4001", "--blur-usage=100" ]
