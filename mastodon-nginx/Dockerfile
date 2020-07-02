@@ -1,5 +1,5 @@
 ARG BUILD_DATE
-ARG VERSION=v3.1.2
+ARG VERSION=v3.1.4
 ARG REVISION
 
 FROM quay.io/mastodon/mastodon:$VERSION as mastodon
