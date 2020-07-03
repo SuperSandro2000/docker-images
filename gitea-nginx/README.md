@@ -12,6 +12,8 @@
 
 Gitea Nginx Server
 
+For Gitea config see [their docs](https://docs.gitea.io/en-us/reverse-proxies/#using-a-single-node-and-a-single-domain).
+
 ## Docker compose
 
 ````yaml
