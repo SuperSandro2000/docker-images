@@ -37,4 +37,4 @@ COPY --from=gitea [ "/gitea/public", "/gitea/public" ]
 COPY [ "files/default.template", "/etc/nginx/conf.d/default.template" ]
 
 WORKDIR /etc/nginx/
-CMD [ "ash", "-c", "envsubst '${MASTODON_SERVER},${MASTODON_STREAMING},${NGINX_DOMAIN}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && exec nginx-debug -g 'daemon off;'" ]
+CMD [ "ash", "-c", "envsubst '${GITEA_SERVER},${NGINX_DOMAIN}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && exec nginx-debug -g 'daemon off;'" ]
