@@ -24,4 +24,7 @@ services:
 
   gitea-nginx:
     image: gitea-nginx
+    environment:
+      - GITEA_SERVER=gitea
+      - NGINX_DOMAIN=gitea.example.com
 ````
