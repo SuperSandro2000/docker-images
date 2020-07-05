@@ -6,7 +6,7 @@ RUN apt-get update -q \
     wget \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=0.2.7
+ARG VERSION=0.2.10
 RUN wget -q -O JMusicBot-Linux.jar -- https://github.com/jagrosh/MusicBot/releases/download/$VERSION/JMusicBot-$VERSION-Linux.jar
 
 #--------------#
