@@ -35,7 +35,10 @@ RUN wget -q https://github.com/cdr/code-server/releases/download/v${VERSION}/cod
 
 USER coder
 RUN mkdir -p /home/coder/project \
-  && mkdir -p /home/coder/.local/share/code-server
+  && mkdir -p /home/coder/.local/share/code-server \
+  # Fix loading of a wasm file which is assumed to live in node_modules.asar
+  # https://github.com/CoenraadS/Bracket-Pair-Colorizer-2/blob/f4f5bf2795a2d4c81d4d423deca6af3533a30ff7/src/textMateLoader.ts#L117
+  && ln -s /usr/lib/code-server/lib/vscode/node_modules /usr/lib/code-server/lib/vscode/node_modules.asar
 
 EXPOSE 8080
 ENV NODE_ENV=production

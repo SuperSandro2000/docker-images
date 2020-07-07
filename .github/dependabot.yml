@@ -1,0 +1,282 @@
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /aports
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /archisteamfarm
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /base-alpine
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /base-travis
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /c3d2-bullshit-bingo
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /code-server
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+    ignore:
+      - dependency-name: node
+        versions:
+          - '>= 14.pre.slim.a'
+          - < 15
+  - package-ecosystem: docker
+    directory: /code-server-extra
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /firefly-iii
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /gitea-nginx
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /halcyon
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /healthchecks
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /i-hate-regex
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /images-weserv
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /iodine
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /kibitzr
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /magic-wormhole-mailbox-server
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /magic-wormhole-transit-relay
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /mastodon-nginx
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /musicbot
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /musicbrainz
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /musicbrainz-postgres
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /open-web-calendar
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /prerenderer
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /privatebin
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /reddiscord
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /screeenly
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /thelounge
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+    ignore:
+      - dependency-name: node
+        versions:
+          - '>= 14.pre.alpine.0.a'
+          - < 14.pre.alpine.1
+  - package-ecosystem: docker
+    directory: /unbound
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /yourls
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
+  - package-ecosystem: docker
+    directory: /zeronet
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 10
+    reviewers:
+      - supersandro2000
