@@ -33,7 +33,7 @@ LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
 RUN export user=regex \
   && groupadd -r $user && useradd -r -g $user $user
 
-COPY --from=git [ "/src/package.json", "/src/yarn.lock", "/app/" ]
+COPY --from=git [ "/src/package.json", "/app/" ]
 WORKDIR /app/
 RUN yarn install --frozen-lockfile \
   && yarn cache clean
