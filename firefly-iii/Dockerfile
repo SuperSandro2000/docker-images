@@ -97,7 +97,7 @@ ENV DB_CONNECTION=sqlite \
     TZ=Europe/Berlin
 
 WORKDIR /var/www/html/
-RUN composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist \
+RUN composer install --classmap-authoritative --no-dev --no-scripts --no-suggest --optimize-autoloader --prefer-dist \
   && composer clear-cache \
   && chown -R www-data:www-data /var/www/html/storage \
   && chmod -R 775 /var/www/html/storage
