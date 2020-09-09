@@ -18,7 +18,7 @@ RUN npm ci \
 
 #-------------------#
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-dotnet
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.401-alpine AS build-dotnet
 
 ARG STEAM_TOKEN_DUMPER_TOKEN
 
