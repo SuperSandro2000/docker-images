@@ -48,7 +48,7 @@ RUN dotnet --info \
 
 #-------------------#
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.7-alpine AS runtime
 
 ARG BUILD_DATE
 ARG VERSION
