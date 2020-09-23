@@ -32,7 +32,7 @@ fi
 
 su -s /bin/bash $USER -c php artisan firefly-iii:upgrade-database
 su -s /bin/bash $USER -c php artisan firefly-iii:restore-oauth-keys
-su -s /bin/bash $USER -c php artisan firefly-iii:set-latest-version --james-is-cool
+su -s /bin/bash $USER -c 'php artisan firefly-iii:set-latest-version --james-is-cool'
 su -s /bin/bash $USER -c php artisan cache:clear
 su -s /bin/bash $USER -c php php artisan config:cache
 
