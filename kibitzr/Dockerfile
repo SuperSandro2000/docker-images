@@ -28,6 +28,7 @@ RUN apk add --no-cache --no-progress \
     ca-certificates \
     git \
     jq \
+    py3-cffi \
     py3-pip
 
 ARG VERSION=6.0.0
