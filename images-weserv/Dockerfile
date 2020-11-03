@@ -1,67 +1,60 @@
-FROM centos:8
+FROM debian:testing as git
+
+RUN apt-get update -q \
+  && apt-get install -qy --no-install-recommends \
+    ca-certificates \
+    git \
+  && rm -rf /var/lib/apt/lists/*
 
 ARG NGINX_VERSION=1.19.2
+RUN git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/weserv/images.git /src
 
-LABEL maintainer="Kleis Auke Wolthuizen <info@kleisauke.nl>"
+#--------------#
 
-# Set default timezone
-# An alternative way to set timezone is to run container with: -e "TZ=Continent/City"
-ENV TZ Europe/Amsterdam
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
-    && echo $TZ > /etc/timezone
+FROM debian:bullseye
 
-# Import archive signing keys and update packages
-RUN rpm --import https://sourceforge.net/projects/libjpeg-turbo/files/LJT-GPG-KEY \
-    && rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+ARG BUILD_DATE
+ARG VERSION
+ARG REVISION
 
-# Install the latest version of libjpeg-turbo,
-# since the version on CentOS is too old (v1.5.3)
-RUN dnf install -y dnf-utils \
-    && dnf config-manager --add-repo https://libjpeg-turbo.org/pmwiki/uploads/Downloads/libjpeg-turbo.repo \
-    && dnf install -y libjpeg-turbo-official \
-    && echo '/opt/libjpeg-turbo/lib64' >> /etc/ld.so.conf.d/libjpeg-turbo-official-x86_64.conf \
-    && ldconfig \
-    && dnf clean all
+LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+  org.opencontainers.image.created=$BUILD_DATE \
+  org.opencontainers.image.authors="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
+  org.opencontainers.image.url="https://github.com/SuperSandro2000/docker-images/tree/master/images-weserv" \
+  org.opencontainers.image.documentation="https://images.weserv.nl/" \
+  org.opencontainers.image.source="https://github.com/SuperSandro2000/docker-images" \
+  org.opencontainers.image.version=$VERSION \
+  org.opencontainers.image.revision=$REVISION \
+  org.opencontainers.image.vendor="SuperSandro2000" \
+  org.opencontainers.image.licenses="BSD-3" \
+  org.opencontainers.image.title="Images Weserv" \
+  org.opencontainers.image.description="Source code of images.weserv.nl, to be used on your own server(s)."
 
-# Update the PKG_CONFIG_PATH environment variable,
-# since libjpeg-turbo is installed in a non-standard prefix
-ENV PKG_CONFIG_PATH=/opt/libjpeg-turbo/lib64/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}
-
-# Install libvips and needed dependencies
-RUN dnf install -y epel-release \
-    && rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8 \
-    && dnf config-manager --set-enabled PowerTools \
-    && dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm \
-    && rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi.el8 \
-    && dnf config-manager --set-enabled remi \
-    && dnf install -y --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm \
-    && rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-8  \
-    && dnf install -y --setopt=tsflags=nodocs \
-        git \
-        cmake3 \
-        vips-full-devel \
-        make \
-        gcc \
-        gcc-c++ \
-        openssl-devel \
-        pcre-devel \
-        zlib-devel \
-    && dnf clean all
-
-# Create nginx user and group
 RUN groupadd nginx \
-    && useradd -r -g nginx -s /sbin/nologin -c "Nginx web server" nginx
+  && useradd -r -g nginx -s /sbin/nologin -c "Nginx web server" nginx
 
-# Clone the repository
-RUN git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/weserv/images.git /var/www/imagesweserv
+COPY --from=git [ "/src", "/var/www/imagesweserv" ]
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /var/www/imagesweserv/build
-
-# Build CMake-based project
-RUN cmake3 .. \
-       -DCMAKE_BUILD_TYPE=Release \
-       -DNGX_VERSION=$NGINX_VERSION \
-       -DCUSTOM_NGX_FLAGS="--prefix=/usr/share/nginx;\
+RUN export dev_apt=( \
+    "ca-certificates" \
+    "cmake" \
+    "g++" \
+    "git" \
+    "libjpeg-dev" \
+    "libssl-dev" \
+    "libvips-dev" \
+    "make" \
+    "pkg-config" \
+  ) \
+  && apt-get update -q \
+  && apt-get install --no-install-recommends -qy "${dev_apt[@]}" \
+    libvips42 \
+  && cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DNGX_VERSION=$NGINX_VERSION \
+  -DCUSTOM_NGX_FLAGS="--prefix=/usr/share/nginx;\
 --sbin-path=/usr/sbin/nginx;\
 --modules-path=/usr/lib64/nginx/modules;\
 --conf-path=/etc/nginx/nginx.conf;\
@@ -76,12 +69,11 @@ RUN cmake3 .. \
 --lock-path=/run/lock/subsys/nginx;\
 --user=nginx;\
 --group=nginx" \
-    && make -j$(nproc) \
-    && ldconfig
+  && make -j$(nproc) \
+  && ldconfig \
+  && apt-get autoremove --purge -qy "${dev_apt[@]}" \
+  && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/imagesweserv
-
-# Ensure nginx directories exist
 RUN mkdir -p -m 700 /var/lib/nginx \
     && mkdir -p -m 700 /var/lib/nginx/tmp \
     && mkdir -p -m 700 /var/log/nginx \
@@ -94,7 +86,5 @@ RUN mkdir -p -m 700 /var/lib/nginx \
     && cp /var/www/imagesweserv/ngx_conf/*.conf /etc/nginx
 
 EXPOSE 80
-
 STOPSIGNAL SIGTERM
-
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
