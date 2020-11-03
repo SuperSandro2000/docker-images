@@ -74,8 +74,6 @@ RUN export dev_apt=( \
     ldap \
     pdo_pgsql \
     pgsql \
-  && composer global require hirak/prestissimo \
-  && composer clear-cache \
   && printf "\
 de_DE.UTF-8 UTF-8 \n\
 en_US.UTF-8 UTF-8 \n\

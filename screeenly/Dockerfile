@@ -70,7 +70,6 @@ RUN apt-get update \
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp
-# php exts, composer prestissimo
 RUN export dev_apt=( \
     "libpq-dev" \
   ) \
@@ -83,8 +82,6 @@ RUN export dev_apt=( \
     exif \
     pdo_pgsql \
     pgsql \
-  && composer global require hirak/prestissimo \
-  && composer clear-cache \
   && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
