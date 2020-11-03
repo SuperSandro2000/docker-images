@@ -12,8 +12,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
 
 # Import archive signing keys and update packages
 RUN rpm --import https://sourceforge.net/projects/libjpeg-turbo/files/LJT-GPG-KEY \
-    && rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial \
-    && dnf update -y
+    && rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
 
 # Install the latest version of libjpeg-turbo,
 # since the version on CentOS is too old (v1.5.3)
@@ -21,7 +20,8 @@ RUN dnf install -y dnf-utils \
     && dnf config-manager --add-repo https://libjpeg-turbo.org/pmwiki/uploads/Downloads/libjpeg-turbo.repo \
     && dnf install -y libjpeg-turbo-official \
     && echo '/opt/libjpeg-turbo/lib64' >> /etc/ld.so.conf.d/libjpeg-turbo-official-x86_64.conf \
-    && ldconfig
+    && ldconfig \
+    && dnf clean all
 
 # Update the PKG_CONFIG_PATH environment variable,
 # since libjpeg-turbo is installed in a non-standard prefix
@@ -45,7 +45,8 @@ RUN dnf install -y epel-release \
         gcc-c++ \
         openssl-devel \
         pcre-devel \
-        zlib-devel
+        zlib-devel \
+    && dnf clean all
 
 # Create nginx user and group
 RUN groupadd nginx \
