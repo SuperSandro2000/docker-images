@@ -33,8 +33,8 @@ RUN apk add --no-cache --no-progress \
     su-exec
 
 COPY --from=git [ "/app", "/app" ]
-
-RUN npm install /app
+WORKDIR /app
+RUN npm install
 
 COPY [ "files/server.js", "/app/" ]
 
