@@ -3,7 +3,7 @@ FROM alpine:3.12 as git
 RUN apk add --no-cache --no-progress \
     git
 
-ARG VERSION=4.2.2.3
+ARG VERSION=5.0.0.5
 RUN git clone --branch $VERSION --depth=1 --recurse-submodules -j2 --shallow-submodules -- https://github.com/JustArchiNET/ArchiSteamFarm.git /src
 
 #-------------------#
@@ -18,14 +18,14 @@ RUN npm ci \
 
 #-------------------#
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build-dotnet
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build-dotnet
 
 ARG STEAM_TOKEN_DUMPER_TOKEN
 
 ENV CONFIGURATION=Release \
   DOTNET_CLI_TELEMETRY_OPTOUT=1 \
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 \
-  NET_CORE_VERSION=netcoreapp3.1 \
+  DOTNET_NOLOGO=1 \
+  NET_CORE_VERSION=net5.0 \
   STEAM_TOKEN_DUMPER_NAME=ArchiSteamFarm.OfficialPlugins.SteamTokenDumper
 
 COPY --from=build-node [ "/app/dist", "/app/ASF-ui/dist" ]
@@ -48,7 +48,7 @@ RUN dotnet --info \
 
 #-------------------#
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS runtime
 
 ARG BUILD_DATE
 ARG VERSION
