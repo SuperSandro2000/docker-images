@@ -15,7 +15,7 @@ RUN git clone --depth=1 --branch=$VERSION -- https://github.com/firefly-iii/fire
 
 #--------------#
 
-FROM php:7-apache-buster
+FROM php:8-apache-buster
 
 ARG BUILD_DATE
 ARG VERSION
