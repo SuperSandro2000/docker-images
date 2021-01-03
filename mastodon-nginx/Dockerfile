@@ -1,5 +1,5 @@
 ARG BUILD_DATE
-ARG VERSION=v3.1.4
+ARG VERSION=v3.3.0
 ARG REVISION
 
 FROM tootsuite/mastodon:$VERSION as mastodon
