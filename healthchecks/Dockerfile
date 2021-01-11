@@ -1,4 +1,4 @@
-FROM python:3.8 as builder
+FROM python:3.9.1 as builder
 
 RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy \
@@ -33,7 +33,7 @@ RUN git clone --depth=1 https://github.com/healthchecks/healthchecks.git /hc
 
 #------------------#
 
-FROM python:3.8
+FROM python:3.9.1
 
 ARG BUILD_DATE
 ARG VERSION
