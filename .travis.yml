@@ -74,13 +74,6 @@ jobs:
       env: IMAGE=aports
     - <<: *build
       env: IMAGE=archisteamfarm
-      script:
-        - cd "$IMAGE"
-        - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
-        - ./manifest.sh
-        - docker images
-    - <<: *build
-      env: IMAGE=archisteamfarm
     - <<: *build
       env: IMAGE=base-travis TARGETS="xenial bionic"
     - <<: *build
