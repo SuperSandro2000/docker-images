@@ -46,11 +46,10 @@ RUN usermod -aG tty www-data \
 RUN apt-get update \
   && apt-get install --no-install-recommends -qy \
     libasound2 \
+    libgbm1 \
     libgtk-3-0 \
     libnss3 \
     libx11-xcb1 \
-    libxss1 \
-    libxtst6 \
   && rm -rf /var/lib/apt/lists/*
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -91,7 +90,7 @@ COPY --from=git --chown=www-data [ "/var/www/html/", "/var/www/html/" ]
 COPY --chown=www-data [ "files/web.php", "/var/www/html/routes/web.php" ]
 
 WORKDIR /var/www/html/
-RUN npm i puppeteer@2.0.0 --only=production \
+RUN npm i puppeteer@^5 --only=production \
   && composer install --classmap-authoritative --no-dev --no-suggest --optimize-autoloader --prefer-dist \
   && composer clear-cache
 
