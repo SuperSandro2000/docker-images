@@ -5,6 +5,6 @@ SHELL := /bin/bash
 HOOK := https://hooks.microbadger.com/images/supersandro2000/magic-wormhole-mailbox-server/F8A95ojjjaSbSbyjmi72jP6-OHc=
 IMAGE := magic-wormhole-mailbox-server
 PLATFORMS ?= amd64
-VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/warner/magic-wormhole-mailbox-server/tags | jq -r '.[0].name')
+VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -L -- https://api.github.com/repos/warner/magic-wormhole-mailbox-server/tags | jq -r '.[0].name')
 
 include ../buildx/Makefile

@@ -5,6 +5,6 @@ SHELL := /bin/bash
 HOOK := https://hooks.microbadger.com/images/supersandro2000/magic-wormhole-transit-relay/41u_OD82upKBmspnV9egigNLMmA=
 IMAGE := magic-wormhole-transit-relay
 PLATFORMS ?= amd64
-VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/warner/magic-wormhole-transit-relay/tags | jq -r '.[0].name')
+VERSION := $(shell curl -s -u ":$(GITHUB_TOKEN)" -L -- https://api.github.com/repos/warner/magic-wormhole-transit-relay/tags | jq -r '.[0].name')
 
 include ../buildx/Makefile
