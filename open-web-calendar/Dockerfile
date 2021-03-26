@@ -1,4 +1,4 @@
-FROM alpine:3.13.2 as source
+FROM alpine:3.13.3 as source
 
 RUN apk add --no-cache --no-progress \
     git
