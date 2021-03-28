@@ -36,7 +36,7 @@ sizelimit = 10485760
 template = "bootstrap"
 
 ; (optional) notice to display
-notice = "Note: This is a test service: Data may be deleted anytime. Kittens will die if you abuse this service."
+notice = "Note: This is a test service: Data may be deleted anytime. Kittens will die if you abuse it."
 
 ; by default PrivateBin will guess the visitors language based on the browsers
 ; settings. Optionally you can enable the language selection menu, which uses
@@ -129,7 +129,7 @@ limit = 10
 
 ; (optional) if your website runs behind a reverse proxy or load balancer,
 ; set the HTTP header containing the visitors IP address, i.e. X_FORWARDED_FOR
-; header = "X-Forwarded-For"
+header = "X-Forwarded-For"
 
 ; directory to store the traffic limits in
 dir = PATH "data"
