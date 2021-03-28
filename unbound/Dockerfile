@@ -26,7 +26,7 @@ COPY [ "files/unbound.conf", "/etc/unbound/unbound.conf" ]
 RUN apk add --no-cache --no-progress \
     openssl \
     unbound \
-  && wget https://www.internic.net/domain/named.cache -O /etc/unbound/root.hints
+  && wget -q -O /etc/unbound/root.hints -- https://www.internic.net/domain/named.cache
 
 EXPOSE 53/udp
 WORKDIR /etc/unbound/

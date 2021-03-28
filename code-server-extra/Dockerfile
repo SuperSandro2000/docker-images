@@ -12,7 +12,7 @@ RUN apt-get update \
     # misc
     make \
     wget \
-  && wget https://github.com/SuperSandro2000/install-scripts/raw/master/programs/shellcheck.sh -O- | bash \
+  && wget -q -O - -- https://github.com/SuperSandro2000/install-scripts/raw/master/programs/shellcheck.sh | bash \
   && rm -rf /var/lib/apt/lists/*
 
 USER coder
