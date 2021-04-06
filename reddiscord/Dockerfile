@@ -11,7 +11,7 @@ RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red
 
 #-------------------#
 
-FROM python:3.8-slim
+FROM python:3.9.4-slim
 
 ARG BUILD_DATE
 ARG VERSION
