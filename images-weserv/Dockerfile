@@ -6,7 +6,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG NGINX_VERSION=1.19.2
+ARG NGINX_VERSION=1.19.10
 RUN git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/weserv/images.git /src
 
 #--------------#
@@ -53,7 +53,8 @@ RUN export dev_apt=( \
     libvips42 \
   && cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
-  -DNGX_VERSION=$NGINX_VERSION \
+  -DBUILD_TOOLS=ON \
+  -DNGX_VERSION="$NGINX_VERSION" \
   -DCUSTOM_NGX_FLAGS="--prefix=/usr/share/nginx;\
 --sbin-path=/usr/sbin/nginx;\
 --modules-path=/usr/lib64/nginx/modules;\
