@@ -7,3 +7,5 @@ ignored:
   - DL3016
   # ignore apk version pinning
   - DL3018
+  # ignore RUN consider consolidation
+  - DL3059
