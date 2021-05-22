@@ -3,11 +3,23 @@ name: build & push docker images
 on:
   pull_request:
   push:
+  schedule:
+  - cron: "0 0 * * *"
 
 jobs:
-  buildx:
+  lint:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
+      - name: Eval platforms
+        run: |
+          make hadolint shellcheck
+
+  buildx:
+    continue-on-error: true
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
@@ -36,11 +48,6 @@ jobs:
             tags: latest
             version: 3.13
 
-          - image: archisteamfarm
-            platforms: amd64
-            tags: latest alpine alpine-released alpine-5.1.0.3
-            version: 5.1.0.3
-
           - image: base-travis
             platforms: amd64
             version: bionic
@@ -51,7 +58,6 @@ jobs:
           - image: c3d2-bullshit-bingo
             platforms: amd64
             tags: latest
-            # version: latest
 
           - image: code-server
             platforms: amd64
@@ -73,10 +79,10 @@ jobs:
             tags: latest
             version: 1.14.2
 
-          # - image: halcyon
-          #   platforms: amd64
-          #   tags: latest
-          #   version: 2.4.9
+          - image: halcyon
+            platforms: amd64
+            tags: latest
+            version: 2.4.9
 
           - image: healthchecks
             platforms: amd64
@@ -88,9 +94,9 @@ jobs:
             tags: latest
             version: 1.17.10
 
-          # - image: iodine
-          #   platforms: amd64
-          #   tags: latest
+          - image: iodine
+            platforms: amd64
+            tags: latest
 
           - image: kibitzr
             platforms: amd64
@@ -100,7 +106,7 @@ jobs:
           - image: mastodon-nginx
             platforms: amd64
             tags: latest
-            version: 3.3.0
+            version: 3.4.0
 
           - image: musicbot
             platforms: amd64
@@ -157,11 +163,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Set up QEMU for cross compile
-      #   uses: docker/setup-qemu-action@v1
+      - name: Set up QEMU for cross compile
+        uses: docker/setup-qemu-action@v1
 
       - name: Set up Docker Buildx
         id: buildx
@@ -180,14 +184,16 @@ jobs:
 
       - name: Eval platforms
         run: |
+          tags="${{ matrix.tags }}"
+          version="${{ matrix.version }}"
+
           echo "platforms=$(echo ${{ matrix.platforms }} | awk 'BEGIN{RS=","} {printf a"linux/"$i} {a=","}')" >> $GITHUB_ENV
-          tags=${{ matrix.tags }}
-          echo "tags=$(echo ${{ matrix.version }}$([[ -n $tags ]] && echo ",$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
+          echo "tags=$(echo $([[ -n $version ]] && echo "$version")$([[ -n $version && -n $tags ]] && echo ",")$([[ -n $tags ]] && echo "$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          build-args: version=${{ matrix.version }}
+          build-args: VERSION=${{ matrix.version }}
           context: ${{ matrix.image }}
           platforms: ${{ env.platforms }}
           pull: true

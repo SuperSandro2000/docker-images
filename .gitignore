@@ -1,3 +1,4 @@
 .vscode/
 Lavalink.jar
 libconnector.so
+.secrets
