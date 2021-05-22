@@ -7,7 +7,6 @@ BIN_DIR := $(HOME)/.local/bin
 HADOLINT := $(BIN_DIR)/hadolint
 MDL := $(GEM_HOME)/bin/mdl
 SHELLCHECK := $(BIN_DIR)/shellcheck
-TRAVIS := $(GEM_HOME)/bin/travis
 TRIVY := $(BIN_DIR)/trivy
 
 ARCHS ?= amd64 arm64 armhf
@@ -35,9 +34,6 @@ $(SHELLCHECK):
 $(SHFMT):
 	curl -sLo "$(SHFMT)" $$(curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/mvdan/sh/releases/latest | jq -r '.assets | .[] | select(.name | contains("linux_amd64")) | .browser_download_url')
 
-$(TRAVIS):
-	gem install --user travis
-
 $(TRIVY):
 	curl -sL $$(curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/aquasecurity/trivy/releases/latest | jq -r '.assets | .[] | select(.name | contains("Linux-64bit.tar.gz")) | .browser_download_url') | tar zx trivy -C $(TRIVY)
 
@@ -53,15 +49,11 @@ mdl: $(MDL)
 shellcheck: $(SHELLCHECK)
 	bash -c 'shopt -s globstar; shellcheck -x **/*.sh'
 
-.PHONY: travis
-travis: $(TRAVIS)
-	travis lint
-
 .PHONY: trivy
 trivy: $(TRIVY)
 
 .PHONY: lint
-lint: hadolint mdl shellcheck $(if ${CI},,travis)
+lint: hadolint mdl shellcheck
 
 .PHONY: shfmt
 shfmt: $(SHFMT)
