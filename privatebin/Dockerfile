@@ -11,8 +11,8 @@ WORKDIR /var/www/html
 ARG VERSION=1.3.5
 
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/PrivateBin/PrivateBin.git /var/www/html/ \
-  && mv /var/www/html/.htaccess.disabled /var/www/html/.htaccess \
-  && rm /var/www/html/.git
+  && rm -r /var/www/html/.git \
+  && mv /var/www/html/.htaccess.disabled /var/www/html/.htaccess
 
 COPY [ "files/conf.sample.php", "/var/www/html/cfg/conf.sample.php" ]
 

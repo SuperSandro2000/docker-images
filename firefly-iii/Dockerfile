@@ -11,7 +11,8 @@ RUN apt-get update -q \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=5.5.11
-RUN git clone --depth=1 --branch=$VERSION -- https://github.com/firefly-iii/firefly-iii.git /var/www/html/
+RUN git clone --depth=1 --branch=$VERSION -- https://github.com/firefly-iii/firefly-iii.git /var/www/html/ \
+  && rm -r /var/www/html/.git
 
 #--------------#
 

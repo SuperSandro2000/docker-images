@@ -7,7 +7,8 @@ RUN apt-get update -q \
   && rm -rf /var/lib/apt/lists/*
 
 ARG NGINX_VERSION=1.19.10
-RUN git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/weserv/images.git /src
+RUN git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/weserv/images.git /src \
+  && rm -r /src/.git
 
 #--------------#
 

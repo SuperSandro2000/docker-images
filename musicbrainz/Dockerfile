@@ -7,7 +7,8 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=v-2021-05-19-hotfixes
-RUN git clone --depth=1 --branch $VERSION -- https://github.com/metabrainz/musicbrainz-server.git /app
+RUN git clone --depth=1 --branch $VERSION -- https://github.com/metabrainz/musicbrainz-server.git /app \
+  && rm -r /app/.git
 
 COPY [ "files/DBDefs.pm", "/app/lib/DBDefs.pm" ]
 

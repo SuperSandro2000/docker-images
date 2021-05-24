@@ -11,7 +11,8 @@ RUN apt-get update -q \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=master
-RUN git clone --depth=1 -- https://github.com/stefanzweifel/screeenly.git /var/www/html/
+RUN git clone --depth=1 -- https://github.com/stefanzweifel/screeenly.git /var/www/html/ \
+  && rm -r /var/www/html/.git
 
 #--------------#
 

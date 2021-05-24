@@ -11,7 +11,8 @@ RUN apk add --no-cache \
 
 ARG VERSION
 ENV VERSION $VERSION
-RUN git clone --depth=1 --branch="v$VERSION" https://github.com/go-gitea/gitea.git /gitea
+RUN git clone --depth=1 --branch="v$VERSION" https://github.com/go-gitea/gitea.git /gitea \
+  && rm -r /gitea/.git
 
 WORKDIR /gitea/
 RUN make webpack

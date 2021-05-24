@@ -7,7 +7,8 @@ RUN apt-get update -q \
   && rm -rf /var/lib/apt/lists/*
 
 ARG VERSION=3.4.9
-RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red-DiscordBot.git /app
+RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red-DiscordBot.git /app \
+  && rm -r /app/.git
 
 #-------------------#
 

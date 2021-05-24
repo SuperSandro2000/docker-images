@@ -46,7 +46,8 @@ yourls_add_filter( 'html_footer_text', 'hide_version_string' );\n\
 function hide_version_string( \$value ) {\n\
     return preg_filter( '/ v .* \&ndash; /', ' &ndash; ', \$value );\n\
 }\n\
-" >hideversion/plugin.php
+" >hideversion/plugin.php \
+  && rm -r /var/www/html/user/plugins/*/.git
 
 #--------------#
 

@@ -8,7 +8,7 @@ RUN apt-get update -q \
 
 ARG SHA
 RUN git clone --depth=1 -- https://github.com/c3d2/c3d2-bullshit-bingo.git /src \
-  && rm /src/.git
+  && rm -r /src/.git
 
 #---------------#
 

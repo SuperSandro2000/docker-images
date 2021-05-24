@@ -8,6 +8,7 @@ RUN apt-get update -q \
 
 ARG VERSION=2.4.9
 RUN git clone --depth=1 --branch $VERSION -- https://notabug.org/halcyon-suite/halcyon.git /var/www/html/ \
+  && rm -r /var/www/html/.git \
   && chmod 755 /var/www/html/ -R
 
 #--------------#

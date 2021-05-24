@@ -15,7 +15,8 @@ RUN apk add --no-cache \
 
 FROM builder as collate
 
-RUN git clone --depth=1 https://github.com/metabrainz/postgresql-musicbrainz-collate.git /postgresql-musicbrainz-collate
+RUN git clone --depth=1 https://github.com/metabrainz/postgresql-musicbrainz-collate.git /postgresql-musicbrainz-collate \
+  && rm -r /postgresql-musicbrainz-collate/.git
 
 WORKDIR /postgresql-musicbrainz-collate
 RUN make \
@@ -25,7 +26,8 @@ RUN make \
 
 FROM builder as unaccent
 
-RUN git clone --depth=1 https://github.com/metabrainz/postgresql-musicbrainz-unaccent.git /postgresql-musicbrainz-unaccent
+RUN git clone --depth=1 https://github.com/metabrainz/postgresql-musicbrainz-unaccent.git /postgresql-musicbrainz-unaccent \
+  && rm -r /postgresql-musicbrainz-unaccent/.git
 
 WORKDIR /postgresql-musicbrainz-unaccent
 RUN make \
