@@ -119,22 +119,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/kibitzr.svg)](https://microbadger.com/images/supersandro2000/kibitzr)
 
-### magic-wormhole-mailbox-server
-
-[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/magic-wormhole-mailbox-server/README.md)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/magic-wormhole-mailbox-server.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/magic-wormhole-mailbox-server.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-mailbox-server/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/magic-wormhole-mailbox-server.svg)](https://microbadger.com/images/supersandro2000/magic-wormhole-mailbox-server)
-
-### magic-wormhole-transit-relay
-
-[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/magic-wormhole-transit-relay/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/magic-wormhole-transit-relay/README.md)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/magic-wormhole-transit-relay.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-transit-relay/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/magic-wormhole-transit-relay.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/magic-wormhole-transit-relay/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/magic-wormhole-transit-relay.svg)](https://microbadger.com/images/supersandro2000/magic-wormhole-transit-relay)
-
 ### Mastodon Nginx
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/mastodon-nginx/)

@@ -1,0 +1,195 @@
+name: build & push docker images
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - image: base-alpine
+            platforms: amd64
+            version: 3.11
+          - image: base-alpine
+            platforms: amd64
+            version: 3.12
+          - image: base-alpine
+            platforms: amd64
+            version: 3.13
+          - image: base-alpine
+            platforms: amd64
+            tags: latest
+            version: edge
+
+          - image: aports
+            platforms: amd64
+            version: 3.11
+          - image: aports
+            platforms: amd64
+            version: 3.12
+          - image: aports
+            platforms: amd64
+            tags: latest
+            version: 3.13
+
+          - image: archisteamfarm
+            platforms: amd64
+            tags: latest alpine alpine-released alpine-5.1.0.3
+            version: 5.1.0.3
+
+          - image: base-travis
+            platforms: amd64
+            version: bionic
+          - image: base-travis
+            platforms: amd64
+            version: xenial
+
+          - image: c3d2-bullshit-bingo
+            platforms: amd64
+            tags: latest
+            # version: latest
+
+          - image: code-server
+            platforms: amd64
+            tags: latest
+            version: 3.10.2
+
+          - image: code-server-extra
+            platforms: amd64
+            tags: latest
+            version: 3
+
+          - image: firefly-iii
+            platforms: amd64
+            tags: latest
+            version: 5.5.11
+
+          - image: gitea-nginx
+            platforms: amd64
+            tags: latest
+            version: 1.14.2
+
+          # - image: halcyon
+          #   platforms: amd64
+          #   tags: latest
+          #   version: 2.4.9
+
+          - image: healthchecks
+            platforms: amd64
+            tags: latest
+            version: 1.20.0
+
+          - image: images-weserv
+            platforms: amd64
+            tags: latest
+            version: 1.17.10
+
+          # - image: iodine
+          #   platforms: amd64
+          #   tags: latest
+
+          - image: kibitzr
+            platforms: amd64
+            tags: latest
+            version: 6.0.0
+
+          - image: mastodon-nginx
+            platforms: amd64
+            tags: latest
+            version: 3.3.0
+
+          - image: musicbot
+            platforms: amd64
+            tags: latest
+            version: 0.3.4
+
+          - image: musicbrainz
+            platforms: amd64
+            tags: latest
+            version: v-2021-05-19-hotfixes
+
+          - image: musicbrainz-postgres
+            platforms: amd64
+            version: 12
+
+          - image: prerenderer
+            platforms: amd64
+            tags: latest
+
+          - image: privatebin
+            platforms: amd64
+            tags: latest
+            version: 1.3.5
+
+          - image: reddiscord
+            platforms: amd64
+            tags: latest
+            version: 3.4.9
+
+          - image: screeenly
+            platforms: amd64
+            tags: latest
+
+          - image: thelounge
+            platforms: amd64
+            tags: latest
+
+          - image: unbound
+            platforms: amd64
+            tags: latest
+
+          - image: yourls
+            platforms: amd64
+            tags: latest
+            version: 1.8.1
+
+          - image: zeronet
+            platforms: amd64
+            tags: latest
+
+    env:
+      DOCKERHUB_USERNAME: supersandro2000
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Set up QEMU for cross compile
+      #   uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: |
+            network=host
+          install: true
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        if: github.event_name != 'pull_request'
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Eval platforms
+        run: |
+          echo "platforms=$(echo ${{ matrix.platforms }} | awk 'BEGIN{RS=","} {printf a"linux/"$i} {a=","}')" >> $GITHUB_ENV
+          tags=${{ matrix.tags }}
+          echo "tags=$(echo ${{ matrix.version }}$([[ -n $tags ]] && echo ",$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          build-args: version=${{ matrix.version }}
+          context: ${{ matrix.image }}
+          platforms: ${{ env.platforms }}
+          pull: true
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.tags }}
