@@ -1,4 +1,4 @@
-FROM supersandro2000/base-alpine:3.12
+FROM supersandro2000/base-alpine:3.13
 
 RUN apk add --no-cache --no-progress \
     abuild \
