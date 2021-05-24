@@ -28,7 +28,7 @@ RUN apt-get update -q \
     wget \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=3.3.1
+ARG VERSION=3.10.2
 RUN wget -q https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_amd64.deb -O /code-server_${VERSION}_amd64.deb \
   && apt-get install -qy --no-install-recommends /code-server_${VERSION}_amd64.deb \
   && rm /code-server_${VERSION}_amd64.deb
