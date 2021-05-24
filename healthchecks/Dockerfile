@@ -1,3 +1,17 @@
+FROM debian:testing-slim as git
+
+RUN apt-get update -q \
+  && apt-get install -qy --no-install-recommends \
+    ca-certificates \
+    git \
+  && rm -rf /var/lib/apt/lists/*
+
+ARG VERSION=1.20.0
+RUN git clone --depth=1 --branch="v$VERSION" -- https://github.com/healthchecks/healthchecks.git /hc \
+  && rm -r /hc/.git
+
+#------------------#
+
 FROM python:3.9.5 as builder
 
 RUN apt-get update -q \
@@ -15,7 +29,8 @@ RUN apt-get update -q \
     python3-distutils \
     zlib1g-dev
 
-RUN git clone --depth=1 https://github.com/unbit/uwsgi.git /uwsgi \
+RUN git clone --depth=1 --branch=2.0.19.1 https://github.com/unbit/uwsgi.git /uwsgi \
+  && rm -r /uwsgi/.git \
   && printf "\
 [uwsgi]\n\
 inherit=base\n\
@@ -27,9 +42,6 @@ yaml=libyaml\n\
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 WORKDIR /uwsgi
 RUN python3 uwsgiconfig.py --build -v
-
-ARG SHA
-RUN git clone --depth=1 https://github.com/healthchecks/healthchecks.git /hc
 
 #------------------#
 
@@ -57,7 +69,7 @@ RUN export user=healthchecks \
 
 COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
-COPY --from=builder [ "/hc/requirements.txt", "/app/" ]
+COPY --from=git [ "/hc/requirements.txt", "/app/" ]
 
 RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy \
@@ -76,7 +88,7 @@ RUN apt-get update -q \
 
 COPY --from=builder [ "/uwsgi/uwsgi", "/usr/bin/" ]
 COPY [ "files/uwsgi.ini", "/app/" ]
-COPY --from=builder [ "/hc/", "/app/" ]
+COPY --from=git [ "/hc/", "/app/" ]
 
 RUN cp /app/hc/local_settings.py.example /app/hc/local_settings.py \
   && sed -i 's/python/python3/g' /app/manage.py \
