@@ -151,14 +151,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/musicbot.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/musicbot/)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/musicbot.svg)](https://microbadger.com/images/supersandro2000/musicbot)
 
-### Open Web Calendar
-
-[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/open-web-calendar/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/open-web-calendar/README.md)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/open-web-calendar.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/open-web-calendar/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/open-web-calendar.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/open-web-calendar/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/open-web-calendar.svg)](https://microbadger.com/images/supersandro2000/open-web-calendar)
-
 ### PrivateBin
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/privatebin/)

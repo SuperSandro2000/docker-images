@@ -77,10 +77,6 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /open-web-calendar
-    schedule:
-      interval: daily
-  - package-ecosystem: docker
     directory: /prerenderer
     schedule:
       interval: daily
