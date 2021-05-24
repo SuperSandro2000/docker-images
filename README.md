@@ -23,14 +23,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/aports.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/aports/)
 [![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/aports.svg)](https://microbadger.com/images/supersandro2000/aports)
 
-### ArchiSteamFarm
-
-[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/archisteamfarm/README.md)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/archisteamfarm.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/archisteamfarm.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/archisteamfarm/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/archisteamfarm.svg)](https://microbadger.com/images/supersandro2000/archisteamfarm)
-
 ### Base Alpine
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/base-alpine/)
