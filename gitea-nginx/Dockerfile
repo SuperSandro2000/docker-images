@@ -1,5 +1,5 @@
 ARG BUILD_DATE
-ARG VERSION=v1.12.1
+ARG VERSION=1.14.2
 ARG REVISION
 
 #FROM gitea/gitea:$VERSION as gitea
@@ -11,7 +11,7 @@ RUN apk add --no-cache \
 
 ARG VERSION
 ENV VERSION $VERSION
-RUN git clone --depth=1 --branch="$VERSION" https://github.com/go-gitea/gitea.git /gitea
+RUN git clone --depth=1 --branch="v$VERSION" https://github.com/go-gitea/gitea.git /gitea
 
 WORKDIR /gitea/
 RUN make webpack
