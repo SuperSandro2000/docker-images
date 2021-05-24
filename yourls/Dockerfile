@@ -7,10 +7,10 @@ RUN apt-get update -q \
     wget \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=1.7.6
+ARG VERSION=1.8.1
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/YOURLS/YOURLS.git /var/www/html/ \
-  && mv /var/www/html/sample-robots.txt /var/www/html/robots.txt \
-  && rm -rf /var/www/html/.git
+  && rm -r /var/www/html/.git \
+  && mv /var/www/html/sample-robots.txt /var/www/html/robots.txt
 
 COPY [ "files/config-sample.php", "/var/www/html/user/config-sample.php" ]
 COPY [ "files/htaccess", "/var/www/html/.htaccess" ]
