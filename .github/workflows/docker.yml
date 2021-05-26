@@ -197,5 +197,5 @@ jobs:
           context: ${{ matrix.image }}
           platforms: ${{ env.platforms }}
           pull: true
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' }}
           tags: ${{ env.tags }}
