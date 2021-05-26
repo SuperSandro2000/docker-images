@@ -10,7 +10,7 @@ WORKDIR /app
 
 #------------------#
 
-FROM supersandro2000/base-alpine:3.12
+FROM supersandro2000/base-alpine:3.13
 
 ARG BUILD_DATE
 ARG VERSION
