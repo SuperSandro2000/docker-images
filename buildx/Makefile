@@ -47,5 +47,10 @@ ifneq ($(and $(HOOK),$(CI)),)
 	curl -X POST "$(HOOK)"
 endif
 
+.PHONY: update
+update:
+	perl -0777pi -e 's|(- image: $(IMAGE)[\n\s\w:]+version: )([\d.]+)|$${1}$(VERSION)|' ../.github/workflows/docker.yml
+	perl -0777pi -e 's|(ARG VERSION=)([\d.]+)|$${1}$(VERSION)|' Dockerfile
+
 .PHONY: all
-all: build
+all: update build
