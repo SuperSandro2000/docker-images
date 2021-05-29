@@ -183,7 +183,7 @@ jobs:
           tags="${{ matrix.tags }}"
           version="${{ matrix.version }}"
 
-          versions="$(echo $version | cut -f1 -d"."),$(echo $version | awk -F '[.-]' '{print $1"."$2}'),$(echo $version | awk -F '[.-]' '{print $1"."$2"."$3}'),$version"
+          versions="$(echo $version | cut -f1 -d".")$([[ ${version//[^.]} == . ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2}')$([[ ${version//[^.]} == .. ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2"."$3}'),$version"
 
           echo "platforms=$(echo ${{ matrix.platforms }} | awk 'BEGIN{RS=","} {printf a"linux/"$i} {a=","}')" >> $GITHUB_ENV
           echo "tags=$(echo $([[ -n $version ]] && echo "$versions")$([[ -n $version && -n $tags ]] && echo ",")$([[ -n $tags ]] && echo "$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
