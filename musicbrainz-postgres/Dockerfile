@@ -1,6 +1,6 @@
 ARG VERSION=12
 
-FROM alpine:3.12 as builder
+FROM alpine:3.13.5 as builder
 
 RUN apk add --no-cache \
     ca-certificates \
