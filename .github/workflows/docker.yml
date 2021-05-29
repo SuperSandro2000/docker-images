@@ -60,12 +60,14 @@ jobs:
             tags: latest
 
           - image: code-server
-            platforms: amd64,arm/v7,arm64
+            # deb file is amd64 only
+            platforms: amd64
             tags: latest
             version: 3.10.2
 
           - image: code-server-extra
-            platforms: amd64,arm/v7,arm64
+            # deb file is amd64 only
+            platforms: amd64
             tags: latest
             version: 3
 
@@ -119,7 +121,8 @@ jobs:
             version: 12
 
           - image: prerenderer
-            platforms: amd64,arm/v7,arm64
+            # chromium is not available on arm/v7
+            platforms: amd64,arm64
             tags: latest
 
           - image: privatebin
@@ -133,7 +136,8 @@ jobs:
             version: 3.4.10
 
           - image: screeenly
-            platforms: amd64,arm/v7,arm64
+            # chromium is not available on arm/v7
+            platforms: amd64,arm64
             tags: latest
 
           - image: thelounge
