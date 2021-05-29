@@ -14,9 +14,7 @@ RUN git clone --depth=1 -- https://github.com/c3d2/c3d2-bullshit-bingo.git /src 
 
 FROM nginx:mainline
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \

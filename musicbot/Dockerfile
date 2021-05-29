@@ -13,9 +13,7 @@ RUN wget -q -O JMusicBot.jar -- https://github.com/jagrosh/MusicBot/releases/dow
 
 FROM openjdk:11-jre-slim
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \

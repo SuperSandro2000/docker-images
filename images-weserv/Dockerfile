@@ -14,9 +14,7 @@ RUN git clone --depth=1 --recurse-submodules --shallow-submodules https://github
 
 FROM debian:bullseye
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \

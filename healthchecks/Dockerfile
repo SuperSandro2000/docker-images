@@ -47,9 +47,7 @@ RUN python3 uwsgiconfig.py --build -v
 
 FROM python:3.9.5
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \

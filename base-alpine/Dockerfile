@@ -1,9 +1,7 @@
 ARG VERSION=3.13
 FROM alpine:$VERSION
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \

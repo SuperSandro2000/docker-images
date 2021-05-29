@@ -14,9 +14,7 @@ RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red
 
 FROM python:3.8-slim
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \

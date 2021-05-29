@@ -20,9 +20,7 @@ COPY [ "files/conf.sample.php", "/var/www/html/cfg/conf.sample.php" ]
 
 FROM php:apache-buster
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \

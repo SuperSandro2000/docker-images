@@ -18,9 +18,7 @@ RUN git clone --depth=1 -- https://github.com/stefanzweifel/screeenly.git /var/w
 
 FROM php:7-apache-buster
 
-ARG BUILD_DATE
 ARG VERSION
-ARG REVISION
 
 LABEL maintainer="Sandro Jäckel <sandro.jaeckel@gmail.com>" \
   org.opencontainers.image.created=$BUILD_DATE \
