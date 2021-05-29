@@ -130,7 +130,7 @@ jobs:
           - image: reddiscord
             platforms: amd64
             tags: latest
-            version: 3.4.9
+            version: 3.4.10
 
           - image: screeenly
             platforms: amd64
