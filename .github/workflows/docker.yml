@@ -188,6 +188,7 @@ jobs:
 
       - name: Eval platforms
         run: |
+          dont_split_version="${{ matrix.dont_split_version }}"
           tags="${{ matrix.tags }}"
           version="${{ matrix.version }}"
 
