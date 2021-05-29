@@ -26,9 +26,11 @@ jobs:
           - image: base-alpine
             platforms: amd64,arm/v7,arm64
             versions: 3.11
+            dont_split_version: true
           - image: base-alpine
             platforms: amd64,arm/v7,arm64
             versions: 3.12
+            dont_split_version: true
           - image: base-alpine
             platforms: amd64,arm/v7,arm64
             version: 3.13
@@ -40,9 +42,11 @@ jobs:
           - image: aports
             platforms: amd64,arm/v7,arm64
             versions: 3.11
+            dont_split_version: true
           - image: aports
             platforms: amd64,arm/v7,arm64
             versions: 3.12
+            dont_split_version: true
           - image: aports
             platforms: amd64,arm/v7,arm64
             tags: latest
@@ -186,12 +190,11 @@ jobs:
         run: |
           tags="${{ matrix.tags }}"
           version="${{ matrix.version }}"
-          versions="${{ matrix.versions }}"
 
-          [[ -z $versions ]] && versions="$(echo $version | cut -f1 -d".")$([[ ${version//[^.]} == . ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2}')$([[ ${version//[^.]} == .. ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2"."$3}'),$version"
+          [[ -z $dont_split_version ]] && versions="$(echo $version | cut -f1 -d".")$([[ ${version//[^.]} == . ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2}')$([[ ${version//[^.]} == .. ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2"."$3}'),$version"
 
           echo "platforms=$(echo ${{ matrix.platforms }} | awk 'BEGIN{RS=","} {printf a"linux/"$i} {a=","}')" >> $GITHUB_ENV
-          echo "tags=$(echo "$versions"$([[ -n $version && -n $tags ]] && echo ",")$([[ -n $tags ]] && echo "$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
+          echo "tags=$(echo $([[ -n $version ]] && echo "$version")$([[ -n $version && -n $tags ]] && echo ",")$([[ -n $tags ]] && echo "$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v2
