@@ -94,10 +94,6 @@ jobs:
             tags: latest
             version: 1.17.10
 
-          - image: iodine
-            platforms: amd64
-            tags: latest
-
           - image: kibitzr
             platforms: amd64
             tags: latest
