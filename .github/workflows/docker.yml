@@ -111,7 +111,8 @@ jobs:
             version: 3.4.0
 
           - image: musicbot
-            platforms: amd64,arm/v7,arm64
+            # openjdk jre is not available on arm/v7
+            platforms: amd64,arm64
             tags: latest
             version: 0.3.4
 
