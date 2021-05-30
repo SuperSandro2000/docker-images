@@ -142,8 +142,8 @@ jobs:
             version: 3.4.10
 
           - image: screeenly
-            # chromium is not available on arm/v7
-            platforms: amd64,arm64
+            # chromium cannot be on arm/v7,arm64
+            platforms: amd64
             tags: latest
 
           - image: thelounge
