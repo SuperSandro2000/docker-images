@@ -36,6 +36,9 @@ jobs:
             version: 3.13
           - image: base-alpine
             platforms: amd64,arm/v7,arm64
+            version: 3.14
+          - image: base-alpine
+            platforms: amd64,arm/v7,arm64
             tags: latest
             version: edge
 
