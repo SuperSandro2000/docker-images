@@ -9,7 +9,7 @@ RUN apt-get update -q \
 
 ARG VERSION=1.8.1
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/YOURLS/YOURLS.git /var/www/html/ \
-  && rm -r /var/www/html/.git \
+  && rm -r /var/www/html/.git /var/www/html/composer.json /var/www/html/composer.lock \
   && mv /var/www/html/sample-robots.txt /var/www/html/robots.txt
 
 COPY [ "files/config-sample.php", "/var/www/html/user/config-sample.php" ]
