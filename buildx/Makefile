@@ -33,8 +33,8 @@ endif
 .PHONY: setup
 setup:
 	$(SUDO) docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-	$(SUDO) docker --config ~/.docker buildx create --use --name build --node build --driver-opt network=host
-	$(SUDO) docker --config ~/.docker-local buildx create --use --name build --node build --driver-opt network=host
+	$(SUDO) docker --config ~/.docker buildx create --use --name build --node build --driver-opt network=host $(DOCKER_HOST)
+	$(SUDO) docker --config ~/.docker-local buildx create --use --name build --node build --driver-opt network=host $(DOCKER_HOST)
 
 .PHONY: login
 login:
