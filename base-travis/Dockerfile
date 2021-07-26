@@ -4,12 +4,13 @@ FROM ubuntu:$VERSION
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
   && apt-get install --no-install-recommends -qy \
-    apt-transport-https \
     gnupg \
     lsb-release \
     software-properties-common \
     wget \
   # backport cmake
+  && apt-get install --no-install-recommends -qy \
+    "$([[ $(lsb_release -cs) == xenial ]] && echo apt-transport-https)" \
   && wget -q -O - -- https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - \
   && apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main" \
   && rm -rf /var/lib/apt/lists/*
