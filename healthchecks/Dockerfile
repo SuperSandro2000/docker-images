@@ -79,7 +79,6 @@ RUN apt-get update -q \
     libxml2 \
     libyaml-0-2 \
     mime-support \
-  && sed -Ei 's/psycopg2==([0-9]+\.){2}[0-9]+/psycopg2-binary==2.8.4/g' /app/requirements.txt \
   && pip3 install --no-cache-dir --progress-bar off \
     -r /app/requirements.txt \
   && rm -rf /var/lib/apt/lists/*
