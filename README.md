@@ -21,7 +21,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/aports/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/aports.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/aports/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/aports.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/aports/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/aports.svg)](https://microbadger.com/images/supersandro2000/aports)
 
 ### Base Alpine
 
@@ -29,7 +28,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/base-alpine/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/base-alpine.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-alpine/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/base-alpine.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-alpine/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/base-alpine.svg)](https://microbadger.com/images/supersandro2000/base-alpine)
 
 ### Base Travis
 
@@ -37,7 +35,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/base-travis/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/base-travis.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-travis/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/base-travis.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-travis/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/base-travis.svg)](https://microbadger.com/images/supersandro2000/base-travis)
 
 ### C3D2 Bullshit Bingo
 
@@ -45,7 +42,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/c3d2-bullshit-bingo/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/c3d2-bullshit-bingo.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/c3d2-bullshit-bingo/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/c3d2-bullshit-bingo.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/c3d2-bullshit-bingo/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/c3d2-bullshit-bingo.svg)](https://microbadger.com/images/supersandro2000/c3d2-bullshit-bingo)
 
 ### Code-Server
 
@@ -53,7 +49,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/code-server/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/code-server.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/code-server/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/code-server.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/code-server/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/code-server.svg)](https://microbadger.com/images/supersandro2000/code-server)
 
 ### Code-Server-Extra
 
@@ -61,7 +56,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/code-server-extra/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/code-server-extra.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/code-server-extra/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/code-server-extra.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/code-server-extra/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/code-server-extra.svg)](https://microbadger.com/images/supersandro2000/code-server-extra)
 
 ### Firefly III
 
@@ -69,7 +63,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/firefly-iii/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/firefly-iii.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/firefly-iii/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/firefly-iii.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/firefly-iii/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/firefly-iii.svg)](https://microbadger.com/images/supersandro2000/firefly-iii)
 
 ### Gitea Nginx
 
@@ -77,7 +70,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/gitea-nginx/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/gitea-nginx.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/gitea-nginx/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/gitea-nginx.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/gitea-nginx/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/gitea-nginx.svg)](https://microbadger.com/images/supersandro2000/gitea-nginx)
 
 ### Halcyon
 
@@ -85,7 +77,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/halcyon/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/halcyon.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/halcyon/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/halcyon.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/halcyon/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/halcyon.svg)](https://microbadger.com/images/supersandro2000/halcyon)
 
 ### Healthchecks
 
@@ -93,7 +84,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/healthchecks/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/healthchecks.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/healthchecks/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/healthchecks.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/healthchecks/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/healthchecks.svg)](https://microbadger.com/images/supersandro2000/healthchecks)
 
 ### Images Weserv
 
@@ -101,7 +91,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/images-weserv/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/images-weserv.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/images-weserv/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/images-weserv.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/images-weserv/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/images-weserv.svg)](https://microbadger.com/images/supersandro2000/images-weserv)
 
 ### Kibitzr
 
@@ -109,7 +98,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/kibitzr/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/kibitzr.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/kibitzr/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/kibitzr.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/kibitzr/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/kibitzr.svg)](https://microbadger.com/images/supersandro2000/kibitzr)
 
 ### Mastodon Nginx
 
@@ -117,7 +105,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/mastodon-nginx/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/mastodon-nginx.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/mastodon-nginx/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/mastodon-nginx.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/mastodon-nginx/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/mastodon-nginx.svg)](https://microbadger.com/images/supersandro2000/mastodon-nginx)
 
 ### MusicBot
 
@@ -125,7 +112,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/musicbot/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/musicbot.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/musicbot/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/musicbot.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/musicbot/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/musicbot.svg)](https://microbadger.com/images/supersandro2000/musicbot)
 
 ### PrivateBin
 
@@ -133,7 +119,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/privatebin/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/privatebin.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/privatebin/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/privatebin.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/privatebin/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/privatebin.svg)](https://microbadger.com/images/supersandro2000/privatebin)
 
 ### Prerenderer
 
@@ -141,7 +126,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/prerenderer/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/prerenderer.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/prerenderer/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/prerenderer.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/prerenderer/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/prerenderer.svg)](https://microbadger.com/images/supersandro2000/prerenderer)
 
 ### Red-Discord
 
@@ -149,7 +133,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/reddiscord/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/reddiscord.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/reddiscord/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/reddiscord.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/reddiscord/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/reddiscord.svg)](https://microbadger.com/images/supersandro2000/reddiscord)
 
 ### Screeenly
 
@@ -157,7 +140,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/screeenly/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/screeenly.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/screeenly/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/screeenly.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/screeenly/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/screeenly.svg)](https://microbadger.com/images/supersandro2000/screeenly)
 
 ### TheLounge
 
@@ -165,7 +147,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/thelounge/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/thelounge.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/thelounge/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/thelounge.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/thelounge/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/thelounge.svg)](https://microbadger.com/images/supersandro2000/thelounge)
 
 ### Unbound
 
@@ -173,7 +154,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/unbound/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/unbound.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/unbound/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/unbound.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/unbound/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/unbound.svg)](https://microbadger.com/images/supersandro2000/unbound)
 
 ### YOURLS
 
@@ -181,7 +161,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/yourls/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/yourls.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/yourls/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/yourls.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/yourls/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/yourls.svg)](https://microbadger.com/images/supersandro2000/yourls)
 
 ### ZeroNet
 
@@ -189,7 +168,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/zeronet/README.md)
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/zeronet.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/zeronet/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/zeronet.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/zeronet/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/zeronet.svg)](https://microbadger.com/images/supersandro2000/zeronet)
 
 ## Old lib
 

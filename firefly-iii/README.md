@@ -8,7 +8,6 @@
 [![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=43200)](https://travis-ci.org/SuperSandro2000/docker-images)
 [![Version](https://img.shields.io/docker/v/supersandro2000/firefly-iii.svg?label=Version&sort=date&maxAge=43200)](https://hub.docker.com/r/supersandro2000/firefly-iii/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/firefly-iii.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/firefly-iii/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/firefly-iii.svg)](https://microbadger.com/images/supersandro2000/firefly-iii)
 Firefly III Docker Image
 
 For configuration see [github.com/firefly-iii/firefly-iii/blob/master/.env.example](https://github.com/firefly-iii/firefly-iii/blob/master/.env.example)

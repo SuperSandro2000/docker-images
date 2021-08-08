@@ -2,7 +2,6 @@
 MAKEFLAGS += --warn-undefined-variables --no-print-directory
 SHELL := /bin/bash
 
-HOOK := https://hooks.microbadger.com/images/supersandro2000/halcyon/SZHNRfRT-225bEYcHQCve7POsRs=
 IMAGE := halcyon
 PLATFORMS ?= amd64
 VERSION := $(shell curl -s -- https://notabug.org/halcyon-suite/halcyon/raw/master/version.txt | grep -Eo '([0-9]+\.){2}[0-9]+')

@@ -2,7 +2,6 @@
 MAKEFLAGS += --warn-undefined-variables --no-print-directory
 SHELL := /bin/bash
 
-HOOK := https://hooks.microbadger.com/images/supersandro2000/zeronet/B9vzdMxCP5RYwUuPtaP61aOsM8E=
 IMAGE := zeronet
 BUILD_ARGS := SHA=$(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/HelloZeroNet/ZeroNet/commits/py3 | jq -r '.sha')
 # apk add tor crashes on arm platforms

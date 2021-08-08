@@ -8,7 +8,6 @@
 [![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=43200)](https://travis-ci.org/SuperSandro2000/docker-images)
 [![Version](https://img.shields.io/docker/v/supersandro2000/base-travis.svg?label=Version&sort=date&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-travis/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/base-travis.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/base-travis/)
-[![Microbadger](https://images.microbadger.com/badges/image/supersandro2000/base-travis.svg)](https://microbadger.com/images/supersandro2000/base-travis)
 
 Travis Image to reproduce builds locally.
 
