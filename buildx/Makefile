@@ -22,9 +22,9 @@ BUILD_ARG := $(foreach BUILD,$(subst $(COMMA), ,$(BUILD_ARGS) $(DEFAULT_BUILD_AR
 PLATFORMS_ARG := $(foreach PLATFORM,$(subst $(COMMA), ,$(PLATFORMS)),--platform linux/$(PLATFORM))
 TAGS_ARG := $(foreach TAG,$(subst $(COMMA), ,$(TAGS)),-t $(REGISTRY)/$(USER)/$(IMAGE):$(TAG))
 
-ifndef HOOK
-$(error HOOK is not set)
-endif
+# ifndef HOOK
+# $(error HOOK is not set)
+# endif
 
 ifndef VERSION
 $(error VERSION is not set)
