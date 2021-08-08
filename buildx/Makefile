@@ -49,8 +49,8 @@ endif
 
 .PHONY: update
 update:
-	perl -0777pi -e 's|(- image: $(IMAGE)[\n\s\w:]+version: )([\d.]+)|$${1}$(VERSION)|' ../.github/workflows/docker.yml
-	perl -0777pi -e 's|(ARG VERSION=)([\d.]+)|$${1}$(VERSION)|' Dockerfile
+	perl -0777pi -e 's|(- image: $(IMAGE)[\n\s\w:]+version: )([\d\w.-]+)|$${1}$(VERSION)|' ../.github/workflows/docker.yml
+	perl -0777pi -e 's|(ARG VERSION=)([\d\w.-]+)|$${1}$(VERSION)|' Dockerfile
 
 .PHONY: all
 all: update build
