@@ -25,8 +25,6 @@ RUN apt-get update -q \
     libpcre3-dev \
     libxml2-dev \
     libyaml-dev \
-    python3-dev \
-    python3-distutils \
     zlib1g-dev
 
 RUN git clone --depth=1 --branch=2.0.19.1 https://github.com/unbit/uwsgi.git /uwsgi \
