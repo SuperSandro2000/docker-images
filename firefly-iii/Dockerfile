@@ -10,7 +10,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=5.6.0-alpha.1
+ARG VERSION=5.6.0-alpha.2
 RUN git clone --depth=1 --branch=$VERSION -- https://github.com/firefly-iii/firefly-iii.git /var/www/html/ \
   && rm -r /var/www/html/.git
 
