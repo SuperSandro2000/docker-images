@@ -7,7 +7,7 @@ RUN apt-get update -q \
     wget \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=1.8.1
+ARG VERSION=1.8.2
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/YOURLS/YOURLS.git /var/www/html/ \
   && rm -r /var/www/html/.git /var/www/html/composer.json /var/www/html/composer.lock \
   && mv /var/www/html/sample-robots.txt /var/www/html/robots.txt
