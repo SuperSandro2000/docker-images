@@ -12,7 +12,7 @@ RUN git clone --depth=1 --branch="v$VERSION" -- https://github.com/healthchecks/
 
 #------------------#
 
-FROM python:3.9.7 as builder
+FROM python:3.10.0 as builder
 
 RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy \
@@ -43,7 +43,7 @@ RUN python3 uwsgiconfig.py --build -v
 
 #------------------#
 
-FROM python:3.9.7
+FROM python:3.10.0
 
 ARG VERSION
 
