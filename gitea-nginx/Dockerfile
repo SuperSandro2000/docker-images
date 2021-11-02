@@ -3,7 +3,7 @@ ARG VERSION=1.15.6
 ARG REVISION
 
 #FROM gitea/gitea:$VERSION as gitea
-FROM node:alpine as gitea
+FROM node:16-alpine as gitea
 
 RUN apk add --no-cache \
     git \
