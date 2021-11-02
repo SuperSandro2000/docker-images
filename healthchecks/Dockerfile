@@ -6,7 +6,7 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=1.22.0
+ARG VERSION=1.23.1
 RUN git clone --depth=1 --branch="v$VERSION" -- https://github.com/healthchecks/healthchecks.git /hc \
   && rm -r /hc/.git
 
