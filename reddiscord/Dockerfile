@@ -12,7 +12,7 @@ RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red
 
 #-------------------#
 
-FROM python:3.9-slim
+FROM python:3.10.1-slim
 
 ARG VERSION
 
