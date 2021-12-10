@@ -29,7 +29,7 @@ RUN apk add --no-cache --no-progress \
     py3-cffi \
     py3-pip
 
-ARG VERSION=6.0.1
+ARG VERSION=6.0.2
 RUN pip3 install --no-cache-dir --progress-bar off kibitzr==$VERSION
 
 WORKDIR /usr/src/app
