@@ -6,7 +6,7 @@ RUN apt-get update \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=v-2021-11-29
+ARG VERSION=v-2021-12-13
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/metabrainz/musicbrainz-server.git /app \
   && rm -r /app/.git
 
