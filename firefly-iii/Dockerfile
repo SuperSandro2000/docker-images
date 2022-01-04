@@ -1,4 +1,4 @@
-FROM composer:2.2.2 as composer
+FROM composer:2.2.3 as composer
 
 #--------------#
 
