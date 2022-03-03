@@ -29,7 +29,8 @@ RUN apt-get update -q \
     libyaml-dev \
     zlib1g-dev
 
-RUN git clone --depth=1 --branch=2.0.19.1 https://github.com/unbit/uwsgi.git /uwsgi \
+ARG UWSGI_VERSION=2.0.20
+RUN git clone --depth=1 --branch="$UWSGI_VERSION" https://github.com/unbit/uwsgi.git /uwsgi \
   && rm -r /uwsgi/.git \
   && printf "\
 [uwsgi]\n\
