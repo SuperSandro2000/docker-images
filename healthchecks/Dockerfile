@@ -91,8 +91,8 @@ COPY --from=git [ "/hc/", "/app/" ]
 RUN echo "static-safe = $(realpath /usr/local/lib/python3.*/site-packages/django/contrib/admin/static/admin)/" >> /app/uwsgi.ini \
   && cp /app/hc/local_settings.py.example /app/hc/local_settings.py \
   && sed -i 's/python/python3/g' /app/manage.py \
-  && /app/manage.py compress --force \
-  && /app/manage.py collectstatic --link --no-color --no-input
+  && /app/manage.py collectstatic --no-color --no-input \
+  && /app/manage.py compress --force
 
 EXPOSE 3000
 WORKDIR /app
