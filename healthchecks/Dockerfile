@@ -80,14 +80,14 @@ RUN apt-get update -q \
     libxml2 \
     libyaml-0-2 \
     mime-support \
-  && pip3 install --no-cache-dir --progress-bar off \
-    -r /app/requirements.txt \
+  && pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder [ "/uwsgi/uwsgi", "/usr/bin/" ]
 COPY [ "files/uwsgi.ini", "/app/" ]
 COPY --from=git [ "/hc/", "/app/" ]
 
+ENV PYTHONUNBUFFERED=1
 RUN echo "static-safe = $(realpath /usr/local/lib/python3.*/site-packages/django/contrib/admin/static/admin)/" >> /app/uwsgi.ini \
   && cp /app/hc/local_settings.py.example /app/hc/local_settings.py \
   && sed -i 's/python/python3/g' /app/manage.py \
