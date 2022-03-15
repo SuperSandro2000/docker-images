@@ -6,11 +6,15 @@ ARG REVISION
 FROM node:16-alpine as gitea
 
 RUN apk add --no-cache \
+    bash \
     git \
     make
 
 ARG VERSION
 ENV VERSION $VERSION
+# buildx bug:
+# container_linux.go:380: starting container process caused: exec: "/bin/sh": stat /bin/sh: no such file or directory
+CMD ["/bin/bash"]
 RUN git clone --depth=1 --branch="v$VERSION" https://github.com/go-gitea/gitea.git /gitea \
   && rm -r /gitea/.git
 
