@@ -25,18 +25,13 @@ jobs:
         include:
           - image: base-alpine
             platforms: amd64,arm/v7,arm64
-            version: 3.11
-            dont_split_version: true
-          - image: base-alpine
-            platforms: amd64,arm/v7,arm64
-            version: 3.12
-            dont_split_version: true
-          - image: base-alpine
-            platforms: amd64,arm/v7,arm64
             version: 3.13
           - image: base-alpine
             platforms: amd64,arm/v7,arm64
             version: 3.14
+          - image: base-alpine
+            platforms: amd64,arm/v7,arm64
+            version: 3.15
           - image: base-alpine
             platforms: amd64,arm/v7,arm64
             tags: latest
