@@ -10,7 +10,7 @@ WORKDIR /app
 
 #------------------#
 
-FROM supersandro2000/base-alpine:3.14
+FROM supersandro2000/base-alpine:3.15
 
 ARG VERSION
 
