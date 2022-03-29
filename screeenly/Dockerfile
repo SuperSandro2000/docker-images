@@ -16,7 +16,7 @@ RUN git clone --depth=1 -- https://github.com/stefanzweifel/screeenly.git /var/w
 
 #--------------#
 
-FROM php:7-apache-buster
+FROM php:8-apache-buster
 
 ARG VERSION
 
