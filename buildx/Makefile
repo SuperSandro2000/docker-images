@@ -42,7 +42,7 @@ login:
 
 .PHONY: build
 build:
-	$(SUDO) DOCKER_CLI_EXPERIMENTAL=enabled docker --config $(CONFIG) buildx build $(PLATFORMS_ARG) $(TAGS_ARG) $(BUILD_ARG) --pull --push  .
+	$(SUDO) DOCKER_CLI_EXPERIMENTAL=enabled docker --config $(CONFIG) buildx build $(PLATFORMS_ARG) $(TAGS_ARG) $(BUILD_ARG) --pull --push .
 ifneq ($(and $(HOOK),$(CI)),)
 	curl -X POST "$(HOOK)"
 endif
