@@ -23,7 +23,7 @@ RUN apk add --no-cache --no-progress \
     su-exec \
   && apk add --no-cache --no-progress --virtual .build \
     make \
-    python \
+    python2 \
   && if [ "$(uname -m)" = "x86_64" ]; then \
     apk add --no-cache --no-progress --virtual .build2 \
       g++ \
