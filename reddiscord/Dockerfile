@@ -12,7 +12,7 @@ RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red
 
 #-------------------#
 
-FROM python:3.9-slim
+FROM debian:testing-slim
 
 ARG VERSION
 
@@ -39,6 +39,7 @@ RUN apt-get update -q \
   && apt-get install --no-install-recommends -qy \
     default-jre-headless \
     gosu \
+    python3 \
   && rm -rf /var/lib/apt/lists/*
 
 COPY [ "files/pip.conf", "/etc/" ]
@@ -46,9 +47,13 @@ COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/config.json", "/usr/local/share/Red-DiscordBot/config.json" ]
 COPY --from=git [ "/app/", "/app/" ]
 
-RUN pip3 install --no-cache-dir --progress-bar off /app/ \
+RUN apt-get update -q \
+  && apt-get install --no-install-recommends -qy \
+    python3-pip \
+  && pip3 install --no-cache-dir --progress-bar off /app/ \
   && mkdir /data \
-  && chown -R reddiscord:reddiscord /app
+  && chown -R reddiscord:reddiscord /app \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /data
 ENTRYPOINT [ "entrypoint.sh" ]
