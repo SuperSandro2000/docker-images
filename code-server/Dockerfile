@@ -26,17 +26,10 @@ RUN apt-get update -q \
     wget \
   && rm -rf /var/lib/apt/lists/*
 
-ARG VERSION=4.1.0
+ARG VERSION=4.2.0
 RUN wget -q https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_amd64.deb -O /code-server_${VERSION}_amd64.deb \
   && apt-get install -qy --no-install-recommends /code-server_${VERSION}_amd64.deb \
   && rm /code-server_${VERSION}_amd64.deb
-
-RUN \
-  # Fix loading of a wasm file which is assumed to live in node_modules.asar
-  # https://github.com/CoenraadS/Bracket-Pair-Colorizer-2/blob/f4f5bf2795a2d4c81d4d423deca6af3533a30ff7/src/textMateLoader.ts#L117
-  for dir in /usr/lib/code-server/lib/vscode /usr/lib/code-server/vendor/modules/code-oss-dev; do \
-   [ -d $dir ] && ln -s $dir/node_modules $dir/node_modules.asar; \
- done
 
 USER coder
 RUN mkdir -p /home/coder/project \
