@@ -32,7 +32,7 @@ RUN export user=zeronet \
 
 RUN apk add --no-cache --no-progress \
     openssl \
-    py3-pip \
+    python3 \
     tor
 
 COPY [ "files/pip.conf", "/etc/" ]
@@ -41,10 +41,15 @@ COPY [ "files/run.sh", "/usr/local/bin/" ]
 COPY --from=source [ "/app", "/app" ]
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-RUN pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt \
+# upgrade pip to support musllinux
+RUN apk add --no-cache --no-progress py3-pip \
+  && pip3 install --no-cache-dir --progress-bar off --upgrade pip \
+  && pip3 install --no-cache-dir --progress-bar off -r /app/requirements.txt \
   && mv /app/plugins/disabled-UiPassword /app/plugins/UiPassword \
   && echo "ControlPort 9051" >>/etc/tor/torrc \
-  && echo "CookieAuthentication 1" >>/etc/tor/torrc
+  && echo "CookieAuthentication 1" >>/etc/tor/torrc \
+  && pip3 uninstall --no-cache-dir -y pip \
+  && apk del py3-pip
 
 VOLUME /app/data
 WORKDIR /app
