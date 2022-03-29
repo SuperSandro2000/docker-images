@@ -22,15 +22,17 @@ COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 
+ARG VERSION=6.1.1
 RUN apk add --no-cache --no-progress \
     ca-certificates \
     git \
     jq \
     py3-cffi \
-    py3-pip
-
-ARG VERSION=6.1.1
-RUN pip3 install --no-cache-dir --progress-bar off kibitzr==$VERSION
+    py3-pip \
+  && pip3 install --no-cache-dir --progress-bar off --upgrade pip \
+  && pip3 install --no-cache-dir --progress-bar off kibitzr==$VERSION \
+  && pip3 uninstall --no-cache-dir -y pip \
+  && apk del py3-pip
 
 WORKDIR /usr/src/app
 ENTRYPOINT [ "entrypoint.sh" ]
