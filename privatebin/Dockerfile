@@ -8,7 +8,7 @@ RUN apt-get update -q \
 
 WORKDIR /var/www/html
 
-ARG VERSION=1.3.5
+ARG VERSION=1.4.0
 
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/PrivateBin/PrivateBin.git /var/www/html/ \
   && rm -r /var/www/html/.git \
