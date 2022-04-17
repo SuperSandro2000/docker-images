@@ -37,13 +37,6 @@ jobs:
             tags: latest
             version: edge
 
-          - image: base-travis
-            platforms: amd64,arm64
-            version: bionic
-          - image: base-travis
-            platforms: amd64,arm64
-            version: xenial
-
           - image: c3d2-bullshit-bingo
             platforms: amd64,arm/v7,arm64
             tags: latest
