@@ -115,15 +115,6 @@ jobs:
             tags: latest
             version: 0.3.6
 
-          - image: musicbrainz
-            platforms: amd64,arm/v7,arm64
-            tags: latest
-            version: v-2022-03-28
-
-          - image: musicbrainz-postgres
-            platforms: amd64,arm/v7,arm64
-            version: 12
-
           - image: prerenderer
             # chromium is not available on arm/v7
             platforms: amd64,arm64
@@ -145,10 +136,6 @@ jobs:
             tags: latest
 
           - image: thelounge
-            platforms: amd64,arm/v7,arm64
-            tags: latest
-
-          - image: unbound
             platforms: amd64,arm/v7,arm64
             tags: latest
 

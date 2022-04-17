@@ -148,13 +148,6 @@ Just download it according to their [Readme](https://github.com/GoogleContainerT
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/thelounge.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/thelounge/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/thelounge.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/thelounge/)
 
-### Unbound
-
-[![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/unbound/)
-[![GitHub readme](https://img.shields.io/badge/GitHub-readme-blue.svg)](https://github.com/SuperSandro2000/docker-images/blob/master/unbound/README.md)
-[![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/unbound.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/unbound/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/unbound.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/unbound/)
-
 ### YOURLS
 
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/yourls/)
