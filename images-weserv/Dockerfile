@@ -6,13 +6,13 @@ RUN apt-get update -q \
     git \
   && rm -rf /var/lib/apt/lists/*
 
-ARG NGINX_VERSION=1.19.10
+ARG NGINX_VERSION=1.21.6
 RUN git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/weserv/images.git /src \
   && rm -r /src/.git
 
 #--------------#
 
-FROM debian:bullseye
+FROM debian:testing
 
 ARG VERSION
 
@@ -35,22 +35,23 @@ RUN groupadd nginx \
 COPY --from=git [ "/src", "/var/www/imagesweserv" ]
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-WORKDIR /var/www/imagesweserv/build
+WORKDIR /var/www/imagesweserv
 RUN export dev_apt=( \
-    "ca-certificates" \
-    "cmake" \
-    "g++" \
-    "git" \
-    "libjpeg-dev" \
-    "libssl-dev" \
-    "libvips-dev" \
-    "make" \
-    "pkg-config" \
+    ca-certificates \
+    cmake \
+    g++ \
+    # used by cmake to clone additional things
+    git \
+    libjpeg-dev \
+    libssl-dev \
+    libvips-dev \
+    make \
+    pkg-config \
   ) \
   && apt-get update -q \
   && apt-get install --no-install-recommends -qy "${dev_apt[@]}" \
     libvips42 \
-  && cmake .. \
+  && cmake -S . -B _build \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_TOOLS=ON \
   -DNGX_VERSION="$NGINX_VERSION" \
@@ -69,8 +70,9 @@ RUN export dev_apt=( \
 --lock-path=/run/lock/subsys/nginx;\
 --user=nginx;\
 --group=nginx" \
-  && make -j"$(nproc)" \
+  && cmake --build _build -- -j"$(nproc)" \
   && ldconfig \
+  && rm -rf _build \
   && apt-get autoremove --purge -qy "${dev_apt[@]}" \
   && rm -rf /var/lib/apt/lists/*
 
@@ -86,5 +88,5 @@ RUN mkdir -m 700 /var/lib/nginx \
     && cp /var/www/imagesweserv/ngx_conf/*.conf /etc/nginx
 
 EXPOSE 80
-STOPSIGNAL SIGTERM
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+STOPSIGNAL SIGQUIT
+CMD ["nginx", "-g", "daemon off;"]

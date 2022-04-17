@@ -3,7 +3,7 @@ MAKEFLAGS += --warn-undefined-variables --no-print-directory
 SHELL := /bin/bash
 
 API_VERSION=5
-NGINX_VERSION=1.17.10
+NGINX_VERSION=1.21.6
 
 IMAGE := images-weserv
 PLATFORMS ?= amd64

@@ -77,7 +77,7 @@ jobs:
           - image: images-weserv
             platforms: amd64,arm/v7,arm64
             tags: latest
-            version: 1.17.10
+            version: api-5-nginx-1.21.6
 
           - image: kibitzr
             platforms: amd64,arm/v7,arm64
