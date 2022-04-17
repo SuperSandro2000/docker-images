@@ -37,19 +37,6 @@ jobs:
             tags: latest
             version: edge
 
-          - image: aports
-            platforms: amd64,arm/v7,arm64
-            version: 3.11
-            dont_split_version: true
-          - image: aports
-            platforms: amd64,arm/v7,arm64
-            version: 3.12
-            dont_split_version: true
-          - image: aports
-            platforms: amd64,arm/v7,arm64
-            tags: latest
-            version: 3.13
-
           - image: base-travis
             platforms: amd64,arm64
             version: bionic
