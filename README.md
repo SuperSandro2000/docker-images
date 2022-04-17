@@ -155,7 +155,3 @@ The old ``lib`` directory is succeeded by buildx. It mostly replicated buildx fu
 
 Thanks to tianon for doing such an awesome job with the offical library and providing very good examples with them.
 Thanks to napnap75 for inspiring me to do this with his [rpi-docker-images](https://github.com/napnap75/rpi-docker-images/) repo.
-
-## License
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images.svg)](https://app.fossa.io/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images)
