@@ -6,19 +6,11 @@ updates:
       interval: daily
 
   - package-ecosystem: docker
-    directory: /aports
-    schedule:
-      interval: daily
-  - package-ecosystem: docker
     directory: /archisteamfarm
     schedule:
       interval: daily
   - package-ecosystem: docker
     directory: /base-alpine
-    schedule:
-      interval: daily
-  - package-ecosystem: docker
-    directory: /base-travis
     schedule:
       interval: daily
   - package-ecosystem: docker
@@ -54,9 +46,6 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: docker
-    directory: /iodine
-    schedule:
-  - package-ecosystem: docker
     directory: /kibitzr
     schedule:
       interval: daily
@@ -66,14 +55,6 @@ updates:
       interval: daily
   - package-ecosystem: docker
     directory: /musicbot
-    schedule:
-      interval: daily
-  - package-ecosystem: docker
-    directory: /musicbrainz
-    schedule:
-      interval: daily
-  - package-ecosystem: docker
-    directory: /musicbrainz-postgres
     schedule:
       interval: daily
   - package-ecosystem: docker
@@ -94,14 +75,6 @@ updates:
       interval: daily
   - package-ecosystem: docker
     directory: /thelounge
-    schedule:
-      interval: daily
-  - package-ecosystem: docker
-    directory: /unbound
-    schedule:
-      interval: daily
-  - package-ecosystem: docker
-    directory: /yourls
     schedule:
       interval: daily
   - package-ecosystem: docker
