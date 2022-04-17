@@ -6,6 +6,14 @@ on:
   schedule:
   - cron: "0 0 * * *"
 
+env:
+  DOCKERHUB_USERNAME: supersandro2000
+  GHCR_USERNAME: SuperSandro2000
+
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -128,9 +136,6 @@ jobs:
             platforms: amd64,arm/v7,arm64
             tags: latest
 
-    env:
-      DOCKERHUB_USERNAME: supersandro2000
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -153,6 +158,13 @@ jobs:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Login to Github Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Eval platforms
         run: |
           set +e
@@ -163,7 +175,7 @@ jobs:
           [[ -z $dont_split_version ]] && versions="$(echo $version | cut -f1 -d".")$([[ ${version//[^.]} == . ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2}')$([[ ${version//[^.]} == .. ]] && echo ,$version | awk -F '[.-]' '{print $1"."$2"."$3}'),$version"
 
           echo "platforms=$(echo ${{ matrix.platforms }} | awk 'BEGIN{RS=","} {printf a"linux/"$i} {a=","}')" >> $GITHUB_ENV
-          echo "tags=$(echo $([[ -n $dont_split_version ]] && echo "$version" || ([[ -n $version ]] && echo "$versions"))$([[ -n $version && -n $tags ]] && echo ",")$([[ -n $tags ]] && echo "$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
+          echo "tags=$(echo $([[ -n $dont_split_version ]] && echo "$version" || ([[ -n $version ]] && echo "$versions"))$([[ -n $version && -n $tags ]] && echo ",")$([[ -n $tags ]] && echo "$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i",ghcr.io/{{ env.GHCR_USERNAME/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v2
