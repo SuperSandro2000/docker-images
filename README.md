@@ -1,8 +1,7 @@
 # Docker Images
 
-[![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=43200)](https://travis-ci.org/SuperSandro2000/docker-images)
+[![build & push docker images](https://github.com/SuperSandro2000/docker-images/actions/workflows/docker.yml/badge.svg)](https://github.com/SuperSandro2000/docker-images/actions/workflows/docker.yml)
 [![Github Stars](https://img.shields.io/github/stars/supersandro2000/docker-images.svg?maxAge=43200&label=Github%20Stars)](https://github.com/SuperSandro2000/docker-images)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSuperSandro2000%2Fdocker-images)
 
 All my docker images in one mono-repository with multi-arch support.
 If you have any questions feel free to contact me. You can find all the options to contact me on my website [supersandro.de](https://supersandro.de/).

@@ -5,7 +5,6 @@
 [![Docker Stars](https://img.shields.io/docker/stars/supersandro2000/c3d2-bullshit-bingo.svg?label=Docker%20Stars&maxAge=43200)](https://hub.docker.com/r/supersandro2000/c3d2-bullshit-bingo/)
 [![Docker Hub](https://img.shields.io/badge/Docker-hub-blue.svg)](https://hub.docker.com/r/supersandro2000/c3d2-bullshit-bingo/)
 
-[![Build Status](https://img.shields.io/travis/SuperSandro2000/docker-images.svg?maxAge=43200)](https://travis-ci.org/SuperSandro2000/docker-images)
 [![Version](https://img.shields.io/docker/v/supersandro2000/c3d2-bullshit-bingo.svg?label=Version&sort=date&maxAge=43200)](https://hub.docker.com/r/supersandro2000/c3d2-bullshit-bingo/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/supersandro2000/c3d2-bullshit-bingo.svg?label=Docker%20Pulls&maxAge=43200)](https://hub.docker.com/r/supersandro2000/c3d2-bullshit-bingo/)
 
