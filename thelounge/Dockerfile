@@ -22,6 +22,7 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk add --no-cache --no-progress \
     su-exec \
   && apk add --no-cache --no-progress --virtual .build \
+    git \
     make \
     python2 \
   && if [ "$(uname -m)" = "x86_64" ]; then \
