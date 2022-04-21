@@ -2,7 +2,7 @@ ARG BUILD_DATE
 ARG VERSION=1.16.5
 ARG REVISION
 
-FROM node:16-alpine as gitea
+FROM node:18-alpine as gitea
 
 RUN apk add --no-cache \
     bash \
