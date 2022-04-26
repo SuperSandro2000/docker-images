@@ -12,7 +12,8 @@ RUN git clone --depth=1 --branch=$VERSION -- https://github.com/Cog-Creators/Red
 
 #-------------------#
 
-FROM debian:testing-slim
+# make sure that the python version matches the version constraints
+FROM debian:bullseye-slim
 
 ARG VERSION
 
