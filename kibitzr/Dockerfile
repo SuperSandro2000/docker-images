@@ -22,7 +22,7 @@ COPY [ "files/pip.conf", "/etc/" ]
 COPY [ "files/entrypoint.sh", "/usr/local/bin/" ]
 COPY [ "files/kibitzr-creds.yml", "files/kibitzr.yml", "/usr/src/app/" ]
 
-ARG VERSION=6.1.1
+ARG VERSION=6.2.1
 RUN apk add --no-cache --no-progress \
     ca-certificates \
     git \
