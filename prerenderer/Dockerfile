@@ -1,4 +1,4 @@
-FROM alpine:3.16.0 as git
+FROM alpine:3.16.1 as git
 
 RUN apk add --no-cache \
     git
