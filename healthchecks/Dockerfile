@@ -12,7 +12,7 @@ RUN git clone --depth=1 --branch="v$VERSION" -- https://github.com/healthchecks/
 
 #------------------#
 
-FROM python:3.10.4 as py
+FROM python:3.11.1 as py
 
 FROM py as builder
 
