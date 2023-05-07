@@ -8,7 +8,7 @@ RUN apt-get update -q \
 
 WORKDIR /var/www/html
 
-ARG VERSION=1.4.0
+ARG VERSION=1.5.1
 
 RUN git clone --depth=1 --branch $VERSION -- https://github.com/PrivateBin/PrivateBin.git /var/www/html/ \
   && rm -r /var/www/html/.git \
@@ -18,7 +18,7 @@ COPY [ "files/conf.sample.php", "/var/www/html/cfg/conf.sample.php" ]
 
 #--------------#
 
-FROM php:apache-buster
+FROM php:apache-bullseye
 
 ARG VERSION
 

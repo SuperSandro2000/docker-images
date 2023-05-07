@@ -111,7 +111,7 @@ jobs:
           - image: privatebin
             platforms: amd64,arm/v7,arm64
             tags: latest
-            version: 1.4.0
+            version: 1.5.1
 
           - image: reddiscord
             platforms: amd64,arm/v7,arm64
