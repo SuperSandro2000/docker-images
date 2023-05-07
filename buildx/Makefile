@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 MAKEFLAGS += --warn-undefined-variables
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 
 BUILD_ARGS ?=
 CI ?=

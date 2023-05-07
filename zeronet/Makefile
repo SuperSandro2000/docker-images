@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 MAKEFLAGS += --warn-undefined-variables --no-print-directory
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 
 IMAGE := zeronet
 BUILD_ARGS := SHA=$(shell curl -s -u ":$(GITHUB_TOKEN)" -- https://api.github.com/repos/HelloZeroNet/ZeroNet/commits/py3 | jq -r '.sha')

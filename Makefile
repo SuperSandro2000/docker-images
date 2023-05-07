@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := lint
 MAKEFLAGS=--warn-undefined-variables
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 
 CI ?=
 BIN_DIR := $(HOME)/.local/bin

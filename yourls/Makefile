@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 MAKEFLAGS += --warn-undefined-variables --no-print-directory
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 
 IMAGE := yourls
 PLATFORMS ?= amd64

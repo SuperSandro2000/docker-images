@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 MAKEFLAGS += --warn-undefined-variables --no-print-directory
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 
 API_VERSION=5
 NGINX_VERSION=1.21.6
