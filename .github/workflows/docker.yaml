@@ -178,7 +178,7 @@ jobs:
           echo "tags=$(echo -n $([[ -n $dont_split_version ]] && echo -n "$version" || ([[ -n $version ]] && echo -n "$versions"))$([[ -n $version && -n $tags ]] && echo -n ",")$([[ -n $tags ]] && echo -n "$tags") | awk 'BEGIN{RS=","} {printf a"${{ env.DOCKERHUB_USERNAME }}/${{ matrix.image }}:"$i",ghcr.io/${{ env.GHCR_USERNAME }}/${{ matrix.image }}:"$i} {a=","}')" >> $GITHUB_ENV
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           build-args: VERSION=${{ matrix.version }}
           context: ${{ matrix.image }}
